@@ -11,7 +11,7 @@ libdrm
 libepoxy
 libfontenc
 libpciaccess
-libressl
+openssl
 libxcb
 libxkbfile
 libxshmfence
