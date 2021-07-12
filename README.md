@@ -1,11 +1,17 @@
 # kiss-xorg
 
-A repository for running Xorg on KISS Linux.
+A collection of repositories for running Xorg on KISS Linux.
 
-Due to the upstream repository's switch to wayland, and
+Due to upstream KISS making the switch to wayland, and
 my reliance on X, I forked the main repo.
 
 Feel free to create Issues and Pull Requests for outdated software!
+
+## Structure
+
+* `xorg/`  - contains the X11 distribution, and other misc software for X
+* `extra/` - contains the browser (firefox) and media player (mpv)
+	* NOTE: You will still need the upsteam extra repo!
 
 ## Usage
 
