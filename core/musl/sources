@@ -1,6 +1,0 @@
-https://www.musl-libc.org/releases/musl-1.2.2.tar.gz
-files/cdefs.h
-files/queue.h
-files/tree.h
-files/getconf.c
-files/getent.c
