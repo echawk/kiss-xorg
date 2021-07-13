@@ -1,0 +1,2 @@
+git+https://gitlab.freedesktop.org/xorg/lib/libxft.git
+patches/1.patch
