@@ -1,0 +1,5 @@
+cmake make
+libjpeg-turbo
+libpng
+libXcomposite
+slop
