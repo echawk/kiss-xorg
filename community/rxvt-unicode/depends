@@ -1,0 +1,6 @@
+fontconfig
+libX11
+libXft
+libXrender
+ncurses
+perl
