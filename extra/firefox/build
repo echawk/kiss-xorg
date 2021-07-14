@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -p1 < no-gtk2.patch
-
 # Remove fribidi dependency.
 sed '/fribidi/d' config/system-headers.mozbuild > _
 mv -f _ config/system-headers.mozbuild
