@@ -1,0 +1,10 @@
+#!/bin/sh -e
+LIBS='-lXpm' ./configure \
+	--prefix=/usr \
+	--mandir=/usr/share/man \
+	--localstatedir=/var/games \
+	--disable-motif \
+	--enable-athena \
+	--disable-gtk
+make
+make DESTDIR=$1 install
