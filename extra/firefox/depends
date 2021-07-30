@@ -45,5 +45,4 @@ pixman
 pkgconf       make
 python        make
 rust          make
-zip           make
 zlib
