@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+# Without this folder, Qt can't find its own header files.
+mkdir .git
+
+qmake
+
+make
+make INSTALL_ROOT="$1" install
