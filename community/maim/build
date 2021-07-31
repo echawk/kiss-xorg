@@ -7,7 +7,8 @@ sed -i 's|<glm/glm\.hpp>|"../glm/glm/glm.hpp"|' src/*.?pp
 
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -DGLM_INCLUDE_DIR=./glm
 
 cmake --build   build
 cmake --install build
