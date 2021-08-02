@@ -3,4 +3,5 @@ libX11
 libXft
 libXpm
 libXrender
+uthash
 xrandr
