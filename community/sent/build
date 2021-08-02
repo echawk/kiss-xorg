@@ -1,4 +1,4 @@
 #!/bin/sh -e
 tar xvf sent*
 make
-make PREFIX=/usr DESTDIR=$1 install
+make PREFIX=/usr DESTDIR="$1" install
