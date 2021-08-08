@@ -1,6 +1,4 @@
-bzip2
 expat
-glib
 libX11
 libXau
 libXdamage
@@ -16,4 +14,3 @@ mesa
 meson   make
 pixman
 pkgconf make
-zlib

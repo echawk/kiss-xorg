@@ -7,7 +7,9 @@ build_freetype() (
     ./configure \
         --prefix=/usr \
         --enable-freetype-config \
-        --with-harfbuzz="$2"
+        --with-harfbuzz="$2" \
+        --with-bzip2=no \
+        --with-zlib=no
 
     make
     make DESTDIR="$1" install
@@ -26,8 +28,9 @@ build_harfbuzz() (
         --prefix=/usr \
         -Dpkg_config_path="$1/usr/lib/pkgconfig" \
         -Ddefault_library=both \
-        -Dglib=enabled \
+        -Dglib=disabled\
         -Dfreetype=enabled \
+        -Dgobject=disabled \
         -Dcairo=disabled \
         -Dicu=disabled \
         -Dbenchmark=disabled \
