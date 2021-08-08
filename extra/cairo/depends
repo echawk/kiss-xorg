@@ -1,6 +1,6 @@
 fontconfig
+freetype-harfbuzz
 glib
-libffi
 libpng
 libXext
 libXrender
