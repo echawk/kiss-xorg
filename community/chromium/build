@@ -188,14 +188,14 @@ mkdir -p "$1/usr/bin" \
 
 cp chromium.sh "$1/usr/bin/chromium"
 
-cd out/Release
-
-cp chrome "$1/usr/lib/chromium/chromium"
-cp locales/*.pak "$1/usr/lib/chromium/locales/"
-cp -- icudtl.dat *.bin *.pak "$1/usr/lib/chromium/"
-
 # Fix for Xorg hardware acceleration.
 # https://github.com/ehawkvu/kiss-xorg/issues/2
 for lib in libEGL.so libGLESv2.so; do
     install -Dm755 "out/Release/$lib" "$1/usr/lib/chromium"
 done
+
+cd out/Release
+
+cp chrome "$1/usr/lib/chromium/chromium"
+cp locales/*.pak "$1/usr/lib/chromium/locales/"
+cp -- icudtl.dat *.bin *.pak "$1/usr/lib/chromium/"
