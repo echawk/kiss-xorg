@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+mkdir gcr-build
+cd gcr-build
+
+meson \
+    --prefix=/usr \
+    -Dintrospection=false \
+    -Dgtk_doc=false ..
+
+ninja
+ninja install
