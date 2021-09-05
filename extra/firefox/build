@@ -47,11 +47,9 @@ done
     make DESTDIR="$PWD/../junk" install
 )
 
-# Build zip for Firefox's sole use.
-# Zip is an awful format that we should use
-# as little as possible.
-(
-    cd zip
+# Build zip/unzip for Firefox's sole use.
+for f in zip unzip; do (
+    cd $f
 
     make \
         CC="$CC $CFLAGS $CXXFLAGS" \
@@ -60,7 +58,7 @@ done
     make \
         prefix="$PWD/../junk" \
         -f unix/Makefile install
-)
+) done
 
 export PATH="$PWD/junk/bin:$PATH"
 
@@ -73,6 +71,10 @@ export CXX="${CXX:-/usr/bin/c++}"
 case $("$CC" -print-file-name=libc++.so) in */*)
     export CXXSTDLIB=c++
 esac
+
+# Instruct the compiler to trim absolute paths in resulting binaries and instead
+# change them to relative paths ($PWD/... ./...).
+export RUSTFLAGS="$RUSTFLAGS --remap-path-prefix=$PWD=."
 
 export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/firefox,--enable-new-dtags"
 export RUSTFLAGS="$RUSTFLAGS -Cdebuginfo=0"
