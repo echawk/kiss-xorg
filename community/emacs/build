@@ -10,6 +10,7 @@
     --without-gconf \
     --without-gsettings \
     --with-xpm=no \
+    --with-tiff=no \
     --with-gnutls=yes \
     --with-json=yes
 
