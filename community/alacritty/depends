@@ -1,0 +1,8 @@
+fontconfig
+libxkbcommon
+libXcursor
+libXi
+libXrandr
+libxcb
+ncurses    make
+rust       make
