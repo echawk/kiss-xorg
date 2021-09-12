@@ -28,6 +28,5 @@ opus
 perl               make
 pkgconf            make
 python             make
-python2            make
 samurai            make
 xcb-proto
