@@ -1,3 +1,2 @@
-https://fossies.org/linux/privat/x11vnc-0.9.16.tar.gz
-patches/bugfixes.patch
+git+https://github.com/LibVNC/x11vnc
 patches/libressl.patch
