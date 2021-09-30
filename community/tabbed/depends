@@ -1,4 +1,4 @@
-freetype-harfbuzz
 fontconfig
+freetype-harfbuzz
 libX11
 libXft

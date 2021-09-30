@@ -2,7 +2,7 @@
 
 sh autogen.sh
 # Fix strncpy() error.
-sed -i 's/MAXFNAME)/MAXFNAME-1)/' xsel.c
+sed 's/MAXFNAME)/MAXFNAME-1)/' xsel.c > _ ; mv -f _ xsel.c
 
 ./configure \
     --prefix=/usr

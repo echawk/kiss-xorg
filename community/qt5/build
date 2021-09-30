@@ -5,11 +5,12 @@ for patch in *.patch; do
 done
 
 # Without this folder, Qt can't find its header files.
-mkdir .git
+mkdir -p .git
 
 # Don't link against execinfo.h.
-sed -i 's/define QLOG/define N/g' \
-    ./src/corelib/global/qlogging.cpp
+sed 's/define QLOG/define N/g' \
+    ./src/corelib/global/qlogging.cpp > _
+mv -f _ ./src/corelib/global/qlogging.cpp
 
 ./configure \
     -confirm-license \
@@ -38,7 +39,7 @@ sed -i 's/define QLOG/define N/g' \
     -system-zlib \
     -system-freetype \
     -system-harfbuzz \
-    -silent 
+    -silent
 
 make
 make INSTALL_ROOT="$1" install

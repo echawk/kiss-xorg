@@ -5,7 +5,7 @@ patch -p1 < libressl.patch
 ./autogen.sh
 
 ./configure \
-	--prefix=/usr
+    --prefix=/usr
 
 make
 make DESTDIR="$1" install

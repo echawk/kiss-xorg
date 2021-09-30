@@ -1,7 +1,6 @@
 giflib
-libjpeg
 libXcomposite
 libXft
 libXinerama
+libjpeg
 xorg-server
-git make

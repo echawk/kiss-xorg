@@ -1,4 +1,3 @@
 #!/bin/sh -e
 make PREFIX=/usr
-make PREFIX=/usr DESTDIR="$1" install;
-#install -Dm644 LICENSE "$1/usr/share/licenses/$pkgname/LICENSE"
+make PREFIX=/usr DESTDIR="$1" install

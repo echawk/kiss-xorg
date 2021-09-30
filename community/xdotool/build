@@ -1,9 +1,10 @@
 #!/bin/sh -e
 
 # Remove compiler debug stuff and post-install message.
-sed -i Makefile \
+sed Makefile \
     -e '/CFLAGS.*-g/d' \
-    -e '/^install:/s/ post-install$//'
+    -e '/^install:/s/ post-install$//' > _
+mv -f _ Makefile
 
 make
 make DESTDIR="$1" PREFIX=/usr install

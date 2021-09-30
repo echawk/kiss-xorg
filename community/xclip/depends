@@ -1,5 +1,5 @@
 autoconf make
 automake make
 libX11
-libXt
 libXmu
+libXt

@@ -1,7 +1,9 @@
 #!/bin/sh -e
 
-sed -i '/INTLTOOL_APPLIED_VERSION=/d' configure
-sed -i "/version|grep '(GNU/d"        configure
+sed '/INTLTOOL_APPLIED_VERSION=/d' configure > _
+mv -f _ configure
+sed "/version|grep '(GNU/d"        configure > _
+mv -f _ configure
 
 export MSGFMT=/usr/bin/true
 export MSGMERGE=/usr/bin/true

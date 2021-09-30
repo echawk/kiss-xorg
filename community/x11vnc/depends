@@ -1,5 +1,5 @@
-libvncserver
-libXtst
-xrandr
-automake make
 autoconf make
+automake make
+libXtst
+libvncserver
+xrandr

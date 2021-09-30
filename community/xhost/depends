@@ -1,4 +1,4 @@
-libXmu
 libX11
 libXau
+libXmu
 libxcb

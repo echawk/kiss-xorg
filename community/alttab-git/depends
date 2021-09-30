@@ -1,7 +1,7 @@
-libpng
 libX11
 libXft
 libXpm
 libXrender
+libpng
 uthash
 xrandr
