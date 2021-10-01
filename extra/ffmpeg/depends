@@ -3,12 +3,12 @@ lame
 libass
 libdrm
 libogg
-openssl
 libvorbis
 libvpx
 libwebp
 linux-headers make
 nasm          make
+openssl
 opus
 pkgconf make
 x264
