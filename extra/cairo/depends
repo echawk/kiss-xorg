@@ -1,9 +1,9 @@
 fontconfig
 freetype-harfbuzz
 glib
-libpng
 libXext
 libXrender
+libpng
 mesa
 pixman
 pkgconf make
