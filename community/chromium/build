@@ -68,16 +68,11 @@ mv -f _ ui/ozone/public/platform_gl_egl_utility.h
 # libvpx: Broken ?
 # zlib: KISS build without 'minizip'.
 system="
-    ffmpeg
     flac
     fontconfig
-    freetype
-    harfbuzz-ng
     libdrm
     libjpeg
     libwebp
-    libxml
-    libxslt
     opus
 "
 
@@ -114,7 +109,7 @@ kiss list pipewire && pipewire=true
 
 conf="
     angle_enable_null=true
-    angle_enable_swiftshader=false
+    angle_enable_swiftshader=true
     blink_enable_generated_code_formatting=false
     blink_symbol_level=0
     clang_use_chrome_plugins=false
