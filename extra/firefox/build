@@ -1,24 +1,7 @@
 #!/bin/sh -e
 
-# Remove fribidi dependency.
-sed '/fribidi/d' config/system-headers.mozbuild > _
-mv -f _ config/system-headers.mozbuild
-
-# Fix issue with Firefox mixing userspace and kernel headers.
-# See: https://github.com/kisslinux/repo/issues/207
-_f=dom/media/webrtc/transport/third_party/nICEr/src/stun/addrs-netlink.c
-sed '/if defined(LINUX)/a#include <net\/if.h>' "$_f" > _
-mv -f _ "$_f"
-
-# The most recent version of Clang is able to build NSS with its integrated
-# assembler.
-for f in \
-    security/nss/lib/freebl/Makefile \
-    security/nss/lib/freebl/freebl.gyp \
-    security/nss/lib/freebl/freebl_base.gypi
-do
-    sed '/-no-integrated-as/d' "$f" > _
-    mv -f _ "$f"
+for p in *.patch; do
+    patch -p1 < "$p"
 done
 
 # Build autoconf 2.13 for Firefox's sole use.
@@ -34,8 +17,7 @@ done
     make install
 )
 
-# Build yasm for Firefox's sole use.
-# Firefox is the only package which needs it
+# Build yasm for Firefox's sole use. Firefox is the only package which needs it
 # and upstream is kinda dead.
 (
     cd yasm
@@ -49,7 +31,7 @@ done
 
 # Build zip/unzip for Firefox's sole use.
 for f in zip unzip; do (
-    cd $f
+    cd "$f"
 
     make \
         CC="$CC $CFLAGS $CXXFLAGS" \
@@ -61,11 +43,6 @@ for f in zip unzip; do (
 ) done
 
 export PATH="$PWD/junk/bin:$PATH"
-
-# Bypass 'ccache' as it's totally useless when building
-# Firefox and only slows things down.
-export CC="${CC:-/usr/bin/cc}"
-export CXX="${CXX:-/usr/bin/c++}"
 
 # If using libc++, CXXSTDLIB needs to be set manually.
 case $("$CC" -print-file-name=libc++.so) in */*)
@@ -80,6 +57,7 @@ export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/firefox,--enable-new-dtags"
 export RUSTFLAGS="$RUSTFLAGS -Cdebuginfo=0"
 export MACH_USE_SYSTEM_PYTHON=1
 export MOZ_DEBUG_FLAGS=-g0
+export MOZBUILD_STATE_PATH=$PWD/state
 export MOZ_NOSPAM=1
 
 cat > .mozconfig << EOF
