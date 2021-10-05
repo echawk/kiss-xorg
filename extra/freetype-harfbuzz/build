@@ -10,6 +10,7 @@ build_freetype() (
         -Dzlib=disabled \
         "$@" \
         . output
+
     ninja -C output
     ninja -C output install
 )
@@ -21,7 +22,7 @@ build_harfbuzz() (
         --prefix=/usr \
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
         -Ddefault_library=both \
-        -Dglib=disabled\
+        -Dglib=disabled \
         -Dfreetype=enabled \
         -Dgobject=disabled \
         -Dcairo=disabled \
@@ -34,10 +35,9 @@ build_harfbuzz() (
     ninja -C output install
 )
 
-
 # Point Freetype to the Harfbuzz files.
 export CFLAGS="$CFLAGS -I$DESTDIR/usr/include/harfbuzz"
-export CFLAGS="$CFLAGS -I$DESTDIR/usr/lib "
+export CFLAGS="$CFLAGS -L$DESTDIR/usr/lib "
 export PKG_CONFIG_PATH=$DESTDIR/usr/lib/pkgconfig
 
 # Point Harfbuzz to the Freetype files.
