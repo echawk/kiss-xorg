@@ -10,15 +10,21 @@ kiss list openjpeg2 && jpeg=ON
 kiss list libtasn1 && tasn=ON
 
 # Remove gettext requirement.
-sed -i 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c
-sed -i '/po_files \*\.po/d'  Source/WebCore/platform/gtk/po/CMakeLists.txt
-sed -i '/^GETTEXT_C/d'       Source/WebCore/platform/gtk/po/CMakeLists.txt
+sed -e 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c > _
+mv -f _ Tools/MiniBrowser/gtk/BrowserDownloadsBar.c
+
+sed -e '/po_files \*\.po/d' -e '/^GETTEXT_C/d' \
+    Source/WebCore/platform/gtk/po/CMakeLists.txt > _
+mv -f _ Source/WebCore/platform/gtk/po/CMakeLists.txt
 
 # Fix clang build.
-sed -i '/LC_ALL/d'       Source/JavaScriptCore/jsc.cpp
-sed -i '/WTFLogAlways/d' Source/JavaScriptCore/jsc.cpp
+sed -e '/LC_ALL/d' -e '/WTFLogAlways/d' Source/JavaScriptCore/jsc.cpp > _
+mv -f _ Source/JavaScriptCore/jsc.cpp
 
-export DESTDIR="$1"
+# Webkit's CMake configuration forces color output using clang-specific flags
+# when using Ninja as the CMAKE_GENERATOR. We should disable them.
+sed "s/-fcolor-diagnostics//" Source/cmake/WebKitCompilerFlags.cmake > _
+mv -f _ Source/cmake/WebKitCompilerFlags.cmake
 
 # Reduce memory usage.
 export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
@@ -32,7 +38,6 @@ cmake -B build \
     -DCMAKE_SKIP_RPATH=ON \
     -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
     -DENABLE_SAMPLING_PROFILER=OFF \
-    -DENABLE_GAMEPAD=OFF \
     -DENABLE_GEOLOCATION=OFF \
     -DENABLE_GLES2=ON \
     -DENABLE_INTROSPECTION=OFF \
@@ -50,6 +55,7 @@ cmake -B build \
     -DENABLE_WEB_CRYPTO=${tasn:-OFF} \
     -DENABLE_VIDEO=${streaming:-OFF} \
     -DENABLE_WEB_AUDIO=${streaming:-OFF} \
+    -DENABLE_GAMEPAD=OFF \
     -Wno-dev
 
 cmake --build   build
