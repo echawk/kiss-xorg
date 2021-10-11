@@ -3,7 +3,11 @@
 export DESTDIR="$1"
 
 # Use local glm headers.
-sed -i 's|<glm/glm\.hpp>|"../glm/glm/glm.hpp"|' src/*.?pp
+for f in src/*.?pp
+do
+    sed 's|<glm/glm\.hpp>|"../glm/glm/glm.hpp"|' "$f" > _
+    mv -f _ "$f"
+done
 
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
