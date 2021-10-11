@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cmake -B build \
+    -DGLM_INCLUDE_DIR="$PWD/glm" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DSLOP_OPENGL=False
+
+cmake --build   build
+cmake --install build
