@@ -1,0 +1,5 @@
+libXi
+pkgconf          make
+spice-protocol
+xorg-util-macros make
+xorgproto        make
