@@ -1,0 +1,14 @@
+#!/bin/sh -e
+cmd="shell pkg-config --libs webkit2gtk-webextension-4.0"
+# Fix LDFLAGS, courtesy of Arch Linux
+sed -E \
+    "s~^EXTLDFLAGS.*~EXTLDFLAGS  = \$($cmd) -shared~" \
+    config.mk > _ ; mv -f _ config.mk
+
+# Change the follow hints from numbers to letters on the home row
+sed -E \
+    "s~(SETTING_HINT_KEYS).*~\1 \"asdfghjkl\"~" \
+    src/config.def.h > _ ; mv -f _ src/config.def.h
+
+make PREFIX=/usr
+make DESTDIR="$1" PREFIX=/usr install
