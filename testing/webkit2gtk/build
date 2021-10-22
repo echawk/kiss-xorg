@@ -1,0 +1,69 @@
+#!/bin/sh -e
+
+if [ "$(kiss owns /usr/bin/ld)" = mold ]
+then
+    kiss a | grep '/usr/bin/ld' | kiss a -
+    sl=1
+fi
+
+# Enable streaming related options if gstreamer is installed.
+kiss list gst-plugins-base && streaming=ON
+
+# Enable the use of openjpeg if the package is installed.
+kiss list openjpeg2 && jpeg=ON
+
+# Enable WEB_CRYPTO if libtasn1 is installed.
+kiss list libtasn1 && tasn=ON
+
+# Remove gettext requirement.
+sed -e 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c > _
+mv -f _ Tools/MiniBrowser/gtk/BrowserDownloadsBar.c
+
+sed -e '/po_files \*\.po/d' -e '/^GETTEXT_C/d' \
+    Source/WebCore/platform/gtk/po/CMakeLists.txt > _
+mv -f _ Source/WebCore/platform/gtk/po/CMakeLists.txt
+
+# Fix clang build.
+sed -e '/LC_ALL/d' -e '/WTFLogAlways/d' Source/JavaScriptCore/jsc.cpp > _
+mv -f _ Source/JavaScriptCore/jsc.cpp
+
+# Webkit's CMake configuration forces color output using clang-specific flags
+# when using Ninja as the CMAKE_GENERATOR. We should disable them.
+sed "s/-fcolor-diagnostics//" Source/cmake/WebKitCompilerFlags.cmake > _
+mv -f _ Source/cmake/WebKitCompilerFlags.cmake
+
+# Reduce memory usage.
+export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
+
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=/usr/lib \
+    -DPORT=GTK \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
+    -DENABLE_SAMPLING_PROFILER=OFF \
+    -DENABLE_GEOLOCATION=OFF \
+    -DENABLE_GLES2=ON \
+    -DENABLE_INTROSPECTION=OFF \
+    -DENABLE_MINIBROWSER=OFF \
+    -DENABLE_SPELLCHECK=OFF \
+    -DUSE_GSTREAMER_GL=OFF \
+    -DUSE_SOUP2=ON \
+    -DUSE_LIBHYPHEN=OFF \
+    -DUSE_LIBNOTIFY=OFF \
+    -DUSE_LIBSECRET=OFF \
+    -DUSE_OPENJPEG=${jpeg:-OFF} \
+    -DUSE_SYSTEMD=OFF \
+    -DUSE_WOFF2=OFF \
+    -DUSE_WPE_RENDERER=OFF \
+    -DENABLE_WEB_CRYPTO=${tasn:-OFF} \
+    -DENABLE_VIDEO=${streaming:-OFF} \
+    -DENABLE_WEB_AUDIO=${streaming:-OFF} \
+    -DENABLE_GAMEPAD=OFF \
+    -Wno-dev
+
+cmake --build   build
+cmake --install build
+
+[ -n "$sl" ] && kiss a | grep "/usr/bin/ld" | kiss a -
