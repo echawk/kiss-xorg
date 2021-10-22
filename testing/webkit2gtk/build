@@ -32,6 +32,16 @@ mv -f _ Source/JavaScriptCore/jsc.cpp
 sed "s/-fcolor-diagnostics//" Source/cmake/WebKitCompilerFlags.cmake > _
 mv -f _ Source/cmake/WebKitCompilerFlags.cmake
 
+# Have webkit play nice with ccache (taken from Void).
+for f in Source/WebCore/bindings/scripts/CodeGenerator.pm \
+    Source/WebCore/bindings/scripts/CodeGeneratorJS.pm \
+    Source/WebCore/css/makeprop.pl \
+    Source/cmake/tools/scripts/version-stamp.pl
+do
+    sed -e '/foreach my.*(keys/s/(keys/(sort keys/' "$f" > _
+    mv -f _ "$f"
+done
+
 # Reduce memory usage.
 export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
 
