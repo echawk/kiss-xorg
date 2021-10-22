@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export CCACHE_SLOPPINESS=time_macros,include_file_mtime
+
 if [ "$(kiss owns /usr/bin/ld)" = mold ]
 then
     kiss a | grep '/usr/bin/ld' | kiss a -
