@@ -1,16 +1,16 @@
 #!/bin/sh -e
 
-for patch in *.patch; do
-    patch -p1 < "$patch"
-done
-
 # Without this folder, Qt can't find its header files.
 mkdir -p .git
 
 # Don't link against execinfo.h.
 sed 's/define QLOG/define N/g' \
-    ./src/corelib/global/qlogging.cpp > _
-mv -f _ ./src/corelib/global/qlogging.cpp
+    src/corelib/global/qlogging.cpp > _
+mv -f _ src/corelib/global/qlogging.cpp
+
+sed 's/FREEBSD)/FREEBSD) || defined(Q_OS_LINUX) \&\& !defined(__GLIBC__)/' \
+    src/corelib/codecs/qiconvcodec.cpp > _
+mv -f _ src/corelib/codecs/qiconvcodec.cpp
 
 ./configure \
     -confirm-license \
