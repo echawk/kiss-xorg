@@ -1,0 +1,8 @@
+cmake make
+freetype-harfbuzz
+libX11
+libXext
+libXft
+libXinerama
+libXrandr
+libXrender
