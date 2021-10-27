@@ -3,6 +3,7 @@ https://github.com/stha09/chromium-patches/releases/download/chromium-95-patchse
 git+https://github.com/Eloston/ungoogled-chromium#df6f9cf2a32767af5ee12407c41b57dbf181b456 ungoogled-chromium
 files/chromium.sh
 patches/chromium-95-harfbuzz-3.patch
+patches/chromium-95-ozone-x11-fix-VA-API.patch
 patches/chromium-InkDropHost-crash.patch
 patches/chromium-fix-build-without-avx2.patch
 patches/chromium-fix-narrowing-cast.patch
