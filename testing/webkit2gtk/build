@@ -2,12 +2,6 @@
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
-if [ "$(kiss owns /usr/bin/ld)" = mold ]
-then
-    kiss a | grep '/usr/bin/ld' | kiss a -
-    sl=1
-fi
-
 # Enable streaming related options if gstreamer is installed.
 kiss list gst-plugins-base && streaming=ON
 
@@ -45,7 +39,10 @@ do
 done
 
 # Reduce memory usage.
-export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
+if ! [ "$(kiss owns /usr/bin/ld)" = mold ]
+then
+    export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
+fi
 
 cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
@@ -77,5 +74,3 @@ cmake -B build \
 
 cmake --build   build
 cmake --install build
-
-[ -n "$sl" ] && kiss a | grep "/usr/bin/ld" | kiss a -
