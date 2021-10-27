@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export CCACHE_SLOPPINESS=time_macros,include_file_mtime
+
 # Enable streaming related options if gstreamer is installed.
 kiss list gst-plugins-base && streaming=ON
 
@@ -8,6 +10,9 @@ kiss list openjpeg2 && jpeg=ON
 
 # Enable WEB_CRYPTO if libtasn1 is installed.
 kiss list libtasn1 && tasn=ON
+
+# Use clang if installed, decreases compilation time by 25%.
+kiss list clang && CC=clang CXX=clang++
 
 # Remove gettext requirement.
 sed -e 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c > _
@@ -29,6 +34,17 @@ mv -f _ Source/cmake/WebKitCompilerFlags.cmake
 # Reduce memory usage.
 export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
 
+# Have webkit play nicer with ccache (taken from Void).
+for f in Source/WebCore/bindings/scripts/CodeGenerator.pm \
+    Source/WebCore/bindings/scripts/CodeGeneratorJS.pm \
+    Source/WebCore/css/makeprop.pl \
+    Source/cmake/tools/scripts/version-stamp.pl
+do
+    sed -e '/foreach my.*(keys/s/(keys/(sort keys/' "$f" > _
+    mv -f _ "$f"
+done
+
+mk() {
 cmake -B build \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -60,3 +76,14 @@ cmake -B build \
 
 cmake --build   build
 cmake --install build
+}
+
+# If using mold as system linker, switch since mold cannot link all of webkit (yet).
+if [ "$(kiss owns /usr/bin/ld)" = mold ]
+then
+    kiss a | grep "/usr/bin/ld" | kiss a -
+    mk
+    kiss a mold "/usr/bin/ld"
+else
+    mk
+fi
