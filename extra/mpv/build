@@ -21,7 +21,13 @@ python waf/waf configure \
     --prefix=/usr \
     --mandir=/usr/share/man \
     --confdir=/etc/mpv \
-    --enable-alsa
+    --enable-alsa \
+    --disable-wayland \
+    --enable-x11
 
 python waf/waf build
 python waf/waf install --destdir="$1"
+
+rm -rf \
+    "$1/usr/share/zsh" \
+    "$1/usr/share/bash-completion"

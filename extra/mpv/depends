@@ -5,6 +5,8 @@ libXScrnSaver
 libXinerama
 libXrandr
 libass
+libxkbcommon
+linux-headers make
 mesa
 pkgconf make
 python  make
