@@ -1,0 +1,4 @@
+libxcb
+xcb-util-keysyms
+xcb-util-wm
+xcb-util-xrm
