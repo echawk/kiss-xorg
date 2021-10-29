@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+meson \
+    --prefix=/usr \
+    -Ddefault_font_path=/usr/share/fonts \
+    -Dsha1=libcrypto \
+    -Dinput_thread=true \
+    -Ddri3=true \
+    -Dxdmcp=false \
+    -Dsecure-rpc=false \
+    . output
+
+ninja -C output
+ninja -C output install
