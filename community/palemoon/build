@@ -1,0 +1,54 @@
+#!/bin/sh -e
+
+# Build autoconf 2.13 for browser's sole use.
+(
+    cd autoconf2.13
+
+    ./configure \
+        --prefix="$PWD/../junk" \
+        --program-suffix=-2.13
+
+    make
+    make install
+)
+
+(
+    cd yasm
+
+    ./configure \
+        --prefix=/
+
+    make
+    make DESTDIR="$PWD/../junk" install
+)
+
+for f in zip unzip; do (
+    cd "$f"
+
+    make \
+        CC="$CC $CFLAGS $CXXFLAGS" \
+        -f unix/Makefile generic
+
+    make \
+        prefix="$PWD/../junk" \
+        -f unix/Makefile install
+) done
+
+export PATH="$PWD/junk/bin:$PATH"
+
+sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in > .mozconfig
+
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
+export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/browser"
+
+./mach build
+./mach stage
+
+mkdir -p "$1/usr/bin"
+mkdir -p "$1/usr/lib"
+
+cp -r objdir/dist/palemoon "$1/usr/lib/browser"
+ln -s ../lib/browser/palemoon "$1/usr/bin/browser"

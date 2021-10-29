@@ -1,0 +1,5 @@
+alsa-lib
+gtk+3
+libXt
+perl          make
+python2       make
