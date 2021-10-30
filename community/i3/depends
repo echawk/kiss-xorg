@@ -1,0 +1,13 @@
+bash make
+cairo
+libev
+libxkbcommon
+meson make
+pango
+pcre
+xcb-util
+xcb-util-cursor
+xcb-util-keysyms
+xcb-util-wm
+xcb-util-xrm
+yajl
