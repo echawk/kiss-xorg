@@ -28,4 +28,3 @@ patches/musl-stacktrace.patch
 patches/musl-stat.patch
 patches/musl-sync.patch
 patches/musl-v8-monotonic-pthread-cont_timedwait.patch
-patches/ungoogled-safebrowsing.patch
