@@ -1,0 +1,97 @@
+diff --git a/net/dns/BUILD.gn b/net/dns/BUILD.gn
+index 1895dfb..903230d 100644
+--- a/net/dns/BUILD.gn
++++ b/net/dns/BUILD.gn
+@@ -110,11 +110,6 @@ source_set("dns") {
+       "dns_config_service_android.cc",
+       "dns_config_service_android.h",
+     ]
+-  } else if (is_linux) {
+-    sources += [
+-      "dns_config_service_linux.cc",
+-      "dns_config_service_linux.h",
+-    ]
+   } else if (is_posix) {
+     sources += [
+       "dns_config_service_posix.cc",
+@@ -412,8 +407,6 @@ source_set("tests") {
+ 
+   if (is_android) {
+     sources += [ "dns_config_service_android_unittest.cc" ]
+-  } else if (is_linux) {
+-    sources += [ "dns_config_service_linux_unittest.cc" ]
+   } else if (is_posix) {
+     sources += [ "dns_config_service_posix_unittest.cc" ]
+   }
+diff --git a/net/dns/dns_reloader.cc b/net/dns/dns_reloader.cc
+index 0672e71..ff1f795 100644
+--- a/net/dns/dns_reloader.cc
++++ b/net/dns/dns_reloader.cc
+@@ -4,9 +4,8 @@
+ 
+ #include "net/dns/dns_reloader.h"
+ 
+-#if defined(OS_POSIX) && !defined(OS_APPLE) && !defined(OS_OPENBSD) && \
+-    !defined(OS_ANDROID) && !defined(OS_FUCHSIA)
+-
++#if defined(__GLIBC__)
++ 
+ #include <resolv.h>
+ 
+ #include "base/lazy_instance.h"
+diff --git a/net/dns/host_resolver_manager.cc b/net/dns/host_resolver_manager.cc
+index dbfcc71..f979e6b 100644
+--- a/net/dns/host_resolver_manager.cc
++++ b/net/dns/host_resolver_manager.cc
+@@ -2902,8 +2902,7 @@ HostResolverManager::HostResolverManager(
+   NetworkChangeNotifier::AddConnectionTypeObserver(this);
+   if (system_dns_config_notifier_)
+     system_dns_config_notifier_->AddObserver(this);
+-#if defined(OS_POSIX) && !defined(OS_APPLE) && !defined(OS_OPENBSD) && \
+-    !defined(OS_ANDROID)
++#if defined(__GLIBC__)
+   EnsureDnsReloaderInit();
+ #endif
+ 
+diff --git a/net/dns/host_resolver_proc.cc b/net/dns/host_resolver_proc.cc
+index eca5fce..b13ed2f 100644
+--- a/net/dns/host_resolver_proc.cc
++++ b/net/dns/host_resolver_proc.cc
+@@ -176,8 +176,7 @@ int SystemHostResolverCall(const std::string& host,
+   base::ScopedBlockingCall scoped_blocking_call(FROM_HERE,
+                                                 base::BlockingType::WILL_BLOCK);
+ 
+-#if defined(OS_POSIX) && !defined(OS_APPLE) && !defined(OS_OPENBSD) && \
+-    !defined(OS_ANDROID) && !defined(OS_FUCHSIA)
++#if defined(__GLIBC__)
+   DnsReloaderMaybeReload();
+ #endif
+   absl::optional<AddressInfo> ai;
+diff --git a/net/dns/public/resolv_reader.cc b/net/dns/public/resolv_reader.cc
+index 5686762..3cbb1a0 100644
+--- a/net/dns/public/resolv_reader.cc
++++ b/net/dns/public/resolv_reader.cc
+@@ -20,6 +20,7 @@
+ namespace net {
+ 
+ std::unique_ptr<struct __res_state> ResolvReader::GetResState() {
++#ifdef __GLIBC__
+   auto res = std::make_unique<struct __res_state>();
+   memset(res.get(), 0, sizeof(struct __res_state));
+ 
+@@ -29,10 +30,15 @@ std::unique_ptr<struct __res_state> ResolvReader::GetResState() {
+   }
+ 
+   return res;
++#else
++  return nullptr;
++#endif
+ }
+ 
+ void ResolvReader::CloseResState(struct __res_state* res) {
++#ifdef __GLIBC__ // Won't leak since we always return a nullptr above.
+   res_nclose(res);
++#endif
+ }
+ 
+ absl::optional<std::vector<IPEndPoint>> GetNameservers(
