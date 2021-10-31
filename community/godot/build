@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+(
+    cd yasm
+
+    ./configure \
+        --prefix=/
+
+    make
+    make DESTDIR="$PWD/../junk" install
+)
+
+export PATH="$PWD/junk/bin:$PATH"
+
+python scons/scripts/scons.py ${MAKEFLAGS:--j$(nproc)} \
+    platform=x11 \
+    target=release_debug \
+    execinfo=yes \
+    pulseaudio=no \
+    use_lto=yes \
+    production=yes \
+    deprecated=no \
+    bits=64
+
+install -Dm755 bin/godot.x11.opt.tools.64 "$1/usr/bin/godot"
