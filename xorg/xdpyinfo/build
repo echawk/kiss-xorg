@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr
+
+make
+make DESTDIR="$1" install
+install -m755 -d "$1/usr/share/licenses/xdpyinfo"
+install -m644 COPYING "$1/usr/share/licenses/xdpyinfo/"
