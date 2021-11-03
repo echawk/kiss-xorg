@@ -1,0 +1,5 @@
+#!/bin/sh -e
+cp twilio_example.h twilio.h
+cp imgur_example.h  imgur.h
+make PREFIX=/usr
+make PREFIX=/usr install
