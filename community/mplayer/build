@@ -1,5 +1,16 @@
 #!/bin/sh -e
 
+for f in yasm fribidi ; do (
+    cd "$f"
+    ./configure \
+        --prefix=/
+
+    make
+    make DESTDIR="$PWD/../junk" install
+) done
+
+export PATH="$PWD/junk/bin:$PATH"
+
 ./configure \
     --prefix=/usr \
     --disable-vidix \
