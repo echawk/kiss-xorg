@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+patch -Rp1 < revert_dpi_calculation.patch
 patch -p1 < rootless_modesetting.patch
 
 ./configure \
