@@ -12,6 +12,7 @@ libepoxy
 libfontenc
 libpciaccess
 libxcb
+libxcvt
 libxkbfile
 libxshmfence
 linux-headers make
