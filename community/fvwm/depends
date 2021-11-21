@@ -1,0 +1,8 @@
+autoconf make
+automake make
+libX11
+libXcursor
+libXft
+libXrandr
+libXrender
+libpng
