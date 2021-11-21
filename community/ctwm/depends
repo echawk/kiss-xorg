@@ -1,0 +1,9 @@
+cmake make
+libICE
+libSM
+libX11
+libXau
+libXext
+libXmu
+libXt
+libjpeg-turbo
