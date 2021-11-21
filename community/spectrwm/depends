@@ -1,0 +1,9 @@
+libX11
+libXcursor
+libXft
+libXrender
+libXt make
+libxcb
+xcb-util
+xcb-util-keysyms
+xcb-util-wm

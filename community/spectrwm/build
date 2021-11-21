@@ -1,0 +1,4 @@
+#!/bin/sh -e
+cd linux
+make
+make PREFIX=/usr install
