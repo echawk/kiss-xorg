@@ -1,0 +1,4 @@
+fuse
+libXau
+libxcb
+xcb-util-wm
