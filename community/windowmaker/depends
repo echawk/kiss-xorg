@@ -1,0 +1,10 @@
+libX11
+libXau
+libXext
+libXft
+libXinerama
+libXmu
+libXrender
+libXt
+libjpeg-turbo
+libpng
