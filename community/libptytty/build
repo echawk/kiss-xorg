@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_SHARED_LIBS=ON \
+    -DTTY_GID_SUPPORT_EXITCODE=1 \
+    -DTTY_GID_SUPPORT_EXITCODE_TRYRUN_OUTPUT= \
+    -DPT_WTMPX_FILE="\"/dev/null/wtmp\""
+
+cmake --build   build
+
+install -Dm755 build/libptytty.so.0 "$1/usr/lib/libptytty.so.0"
+cp -d build/libptytty.so            "$1/usr/lib/libptytty.so"
+install -Dm644 src/libptytty.h      "$1/usr/include/libptytty.h"
+install -Dm644 doc/libptytty.3      "$1/usr/share/man/man3/libptytty.3"
+install -Dm644 build/libptytty.pc   "$1/usr/lib/pkgconfig/libptytty.pc"
