@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+TMPDIR=$1/tmp
+
 ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -20,11 +22,12 @@ make DESTDIR="$1" install
 
 # We need to keep this around.
 ! [ -d "$1/usr/share/aclocal" ] || {
-    mkdir -p "$1/usr/share2"
-    mv -f "$1/usr/share/aclocal" "$1/usr/share2"
+    mkdir -p "$TMPDIR"
+    mv -f "$1/usr/share/aclocal" "$TMPDIR"
 }
 
 # Restore kept directories.
-! [ -d "$1/usr/share2" ] || {
-    mv -f "$1/usr/share2" "$1/usr/share"
+! [ -d "$TMPDIR" ] || {
+    mv -f "$TMPDIR/"* "$1/usr/share"
+    rm -rf "$TMPDIR"
 }
