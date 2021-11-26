@@ -1,0 +1,6 @@
+#!/bin/sh -e
+patch -p1 < fix-xorg-21.1.diff
+./configure \
+    --prefix=/usr
+make
+make install
