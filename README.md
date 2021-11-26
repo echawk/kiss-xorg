@@ -28,3 +28,12 @@ KISS_PATH="${KISS_PATH}:/path/to/kiss-xorg/xorg"
 KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
 ...
 ```
+
+## Support
+
+distro/fork | tested?
+-----------:|--------:
+[kisslinux](https://kisslinux.org) | Y
+[gkisslinux](https://github.com/gkisslinux) | Y
+[glasnost](https://glasnost.org) | N
+[wyverkiss](https://github.com/wyvertux) | N
