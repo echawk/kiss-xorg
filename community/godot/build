@@ -12,7 +12,7 @@
 
 export PATH="$PWD/junk/bin:$PATH"
 
-python scons/scripts/scons.py ${MAKEFLAGS:--j$(nproc)} \
+python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
     platform=x11 \
     target=release_debug \
     execinfo=yes \
