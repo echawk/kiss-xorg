@@ -1,2 +1,2 @@
-https://x.org/releases/individual/driver/xf86-video-ati-VERSION.tar.gz
+git+https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati
 patches/rootless_modesetting.patch

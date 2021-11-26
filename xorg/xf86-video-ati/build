@@ -1,12 +1,30 @@
 #!/bin/sh -e
 
 patch -p1 < rootless_modesetting.patch
+ed src/radeon_kms.c <<EOF
+934a
+static void
+radeonSourceValidate(DrawablePtr draw, int x, int y, int w, int h,
+		     unsigned int subWindowMode)
+{
+}
+
+
+.
+w
+q
+EOF
+
+sed -E "s/(pScreen->SourceValidate =) NULL;/\1 radeonSourceValidate;/" \
+    src/radeon_kms.c > _
+mv -f _ src/radeon_kms.c
 
 export LDFLAGS="$LDFLAGS -Wl,-z,lazy"
 export CFLAGS="$CFLAGS -fcommon"
 
+NOCONFIGURE=1 ./autogen.sh
 ./configure \
     --prefix=/usr
 
 make
-make DESTDIR="$1" install
+make install
