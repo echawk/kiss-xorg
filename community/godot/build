@@ -12,6 +12,31 @@
 
 export PATH="$PWD/junk/bin:$PATH"
 
+syslibs="
+freetype-harfbuzz
+libogg
+libvorbis
+libpng
+libtheora
+libvpx
+libwebp
+pcre2
+zlib
+zstd
+"
+
+conf=""
+for lib in $syslibs
+do
+    # If we have the lib already installed, theres no need to build it again.
+    if kiss list "$lib" ; then
+        if [ "$lib" = "freetype-harfbuzz" ] ; then
+            lib=freetype
+        fi
+        conf="$conf builtin_$lib=no"
+    fi
+done
+
 python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
     platform=x11 \
     target=release_debug \
@@ -20,6 +45,7 @@ python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
     use_lto=yes \
     production=yes \
     deprecated=no \
-    bits=64
+    bits=64 \
+    $conf
 
 install -Dm755 bin/godot.x11.opt.tools.64 "$1/usr/bin/godot"
