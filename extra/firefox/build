@@ -97,6 +97,7 @@ ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-parental-controls
 ac_add_options --disable-system-extension-dirs
+ac_add_options --without-wasm-sandboxed-libraries
 EOF
 
 ./mach build
