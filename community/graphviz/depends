@@ -1,0 +1,15 @@
+cairo
+expat
+fontconfig
+freetype-harfbuzz
+gd
+ghostscript
+glib
+libX11
+libXaw
+libXmu
+libXt
+libtool
+libwebp
+pango
+poppler
