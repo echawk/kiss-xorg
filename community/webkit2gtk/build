@@ -81,9 +81,9 @@ cmake --install build
 # If using mold as system linker, switch since mold cannot link all of webkit (yet).
 if [ "$(kiss owns /usr/bin/ld)" = mold ]
 then
-    kiss a | grep "/usr/bin/ld" | kiss a -
+    kiss alternatives | grep "/usr/bin/ld" | kiss a -
     mk
-    kiss a mold "/usr/bin/ld"
+    kiss alternatives mold "/usr/bin/ld"
 else
     mk
 fi
