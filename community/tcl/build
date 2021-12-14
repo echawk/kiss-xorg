@@ -1,0 +1,43 @@
+#!/bin/sh -e
+
+rm -rf pkgs/sqlite3*
+
+(
+    cd unix
+    ./configure \
+        --prefix=/usr \
+        --mandir=/usr/share/man \
+        --enable-64bit
+
+    make
+    make INSTALL_ROOT="$1" install install-private-headers
+    ln -sf tclsh"${2%.*}"     "$1/usr/bin/tclsh"
+    ln -sf libtcl"${2%.*}".so "$1/usr/lib/libtcl.so"
+
+    install -Dm644 tcl.m4 -t "$1/usr/share/aclocal"
+)
+
+# remove buildroot traces
+sed -e "s#$PWD/unix#/usr/lib#" \
+    -e "s#$PWD#/usr/include#" \
+    "$1/usr/lib/tclConfig.sh" > _
+mv -f _ "$1/usr/lib/tclConfig.sh"
+
+cd pkgs/tdbc*
+tdbc="${PWD##*/}"
+cd -
+sed -e "s#$PWD/unix/pkgs/$tdbc#/usr/lib/$tdbc#" \
+    -e "s#$PWD/pkgs/$tdbc/generic#/usr/include#" \
+    -e "s#$PWD/pkgs/$tdbc/library#/usr/lib/tcl${2%.*}#" \
+    -e "s#$PWD/pkgs/$tdbc#/usr/include#" \
+    "$1/usr/lib/$tdbc/tdbcConfig.sh" > _
+mv -f _ "$1/usr/lib/$tdbc/tdbcConfig.sh"
+
+cd pkgs/itcl*
+itcl="${PWD##*/}"
+cd -
+sed -e "s#$PWD/unix/pkgs/$itcl#/usr/lib/$itcl#" \
+    -e "s#$PWD/pkgs/$itcl/generic#/usr/include#" \
+    -e "s#$PWD/pkgs/$itcl#/usr/include#" \
+    "$1/usr/lib/$itcl/itclConfig.sh" > _
+mv -f _ "$1/usr/lib/$itcl/itclConfig.sh"
