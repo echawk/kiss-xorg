@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    ac_cv_path_mkdir="mkdir -p"
+
+# ^ the shipped install-sh is ancient and doesnt support the
+# mkdir -p functionality which autoconf wants to use:
+# install-sh -c -d "$DESTDIR/$bindir" - it causes cp to be
+# called instead with wrong args
+
+make
+make install
