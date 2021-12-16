@@ -1,0 +1,40 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --disable-maintainer-mode \
+    --disable-static \
+    --disable-default-plugins \
+    --disable-builtin-plugins \
+    --disable-collab-backend-telepathy \
+    --enable-clipart \
+    --enable-statusbar \
+    --disable-templates \
+    --with-gio \
+    --without-gnomevfs \
+    --without-gtk2 \
+    --disable-debug \
+    --with-goffice \
+    --without-libical \
+    --enable-print \
+    --disable-collab-backend-xmpp \
+    --disable-collab-backend-tcp \
+    --disable-collab-backend-service \
+    --without-evolution-data-server \
+    --disable-introspection \
+    --without-champlain \
+    --without-redland \
+    --disable-spell \
+    --disable-plugins
+
+make
+make DESTDIR="$1" install
+
+# No static files.
+find "$1" -name '*.la' -exec rm -rf {} +
+
+# Remove unused stuff.
+rm -rf "$1/usr/share/abiword-3.0/templates"
+rm -rf "$1/usr/share/abiword-3.0/strings"
+find "$1" -name 'system.profile-*' -exec rm -rf {} +
+find "$1" -name 'readme*' -exec rm -rf {} +
