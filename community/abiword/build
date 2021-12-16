@@ -25,10 +25,10 @@
     --without-champlain \
     --without-redland \
     --disable-spell \
-    --disable-plugins
+    --enable-plugins
 
 make
-make DESTDIR="$1" install
+make install
 
 # No static files.
 find "$1" -name '*.la' -exec rm -rf {} +
