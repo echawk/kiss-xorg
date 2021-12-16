@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+for f in Makefile.*; do
+    sed -e 's/gsf-gnome//' -e 's/thumbnailer//' "$f" >_
+    mv -f _ "$f"
+done
+
+kiss list gobject-introspection && gi=en
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --mandir=/usr/share/man \
+    --disable-static \
+    --without-gnome-vfs \
+    --without-bonobo \
+    --with-gdk-pixbuf \
+    --"${gi:-dis}"able-introspection
+
+make
+make install
+
+rm -f "$1/usr/share/man/man1/gsf-office-thumbnailer.1"
