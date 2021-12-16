@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+export RUSTFLAGS="$RUSTFLAGS -C debuginfo=2"
+
+kiss list gobject-introspection && gi=en
+
+./configure \
+    --prefix=/usr \
+    --libexecdir=/usr/lib/librsvg \
+    --disable-static \
+    --enable-pixbuf-loader \
+    --disable-vala \
+    --"${gi:-dis}"able-introspection
+
+make
+make install
