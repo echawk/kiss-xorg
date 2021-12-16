@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+# 'Vendor' libtool.
+for t in merge update extract perl; do
+    ln -sf intltool "intltool-$t"
+done
+export PATH="$PWD:$PATH"
+
+# Fix the configure script because it double checks for intltool.
+sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure >_
+mv -f _ configure
+chmod +x configure
+
+kiss list gobject-introspection && gi=en
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-gtk-doc \
+    --without-lasem \
+    --with-gtk \
+    --with-config-backend=gsettings \
+    --disable-static \
+    --"${gi:-dis}able-introspection"
+
+make
+make install
+
+# No static files.
+find "$1" -name '*.la' -exec rm -rf {} +
+
+# No gtk-doc.
+rm -rf "$1/usr/share/gtk-doc"

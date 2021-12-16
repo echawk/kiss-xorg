@@ -1,0 +1,10 @@
+autoconf make
+automake make
+cairo
+glib
+gtk+3
+libgsf
+librsvg
+libtool  make
+libxml2
+libxslt
