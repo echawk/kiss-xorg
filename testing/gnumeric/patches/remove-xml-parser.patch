@@ -1,0 +1,21 @@
+--- old/test/GnumericTest.pm
++++ new/test/GnumericTest.pm
+@@ -3,7 +3,6 @@
+ use Exporter;
+ use File::Basename qw(fileparse);
+ use Config;
+-use XML::Parser;
+ 
+ $| = 1;
+ 
+@@ -813,10 +812,6 @@
+ 	&dump_indented ($output);
+ 	die "Failed command: $cmd\n" if $err;
+     }
+-
+-    my $parser = new XML::Parser ('Style' => 'Tree');
+-    my $tree = $parser->parsefile ($xmlfile);
+-    &removejunk ($xmlfile);
+ 
+     my @items;
+ 

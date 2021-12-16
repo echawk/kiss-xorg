@@ -1,0 +1,72 @@
+#!/bin/sh -e
+
+# 'Vendor' libtool.
+for t in merge update extract perl; do
+    ln -sf intltool "intltool-$t"
+done
+export PATH="$PWD:$PATH"
+
+for patch in *.patch; do
+    patch -Np1 -i "$patch"
+done
+
+# Fix the configure script because it likes to double check for intltool.
+sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure >_
+mv -f _ configure
+
+sed "s/as_fn_error \$? \"itstool.*/echo fixed/" configure >_
+mv -f _ configure
+
+chmod +x configure
+
+#rm -rf po
+#rm -rf po-functions
+
+for f in plugins/fn-*/Makefile.*; do
+    sed 's@LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po@cp@g' >_
+    mv -f _ "$f"
+done
+for f in schemas/Makefile.*; do
+    sed 's/@INTLTOOL_XML_NOMERGE_RULE@/%xml : %xml.in ; cp $< $@/g' "$f" >_
+    mv -f _ "$f"
+done
+for f in plugins/*/Makefile.* component/Makefile.*; do
+    sed 's/@INTLTOOL_XML_RULE@/%xml : %xml.in ; cp $< $@/g' "$f" >_
+    mv -f _ "$f"
+done
+for f in doc/Makefile.*; do
+    sed '/@YELP_HELP_RULES@/d' "$f" >_
+    mv -f _ "$f"
+done
+for f in schemas/*.xml*; do
+    sed 's/_//g' "$f" >_
+    mv -f _ "$f"
+done
+
+kiss list gobject-introspection && gi=en
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-gtk-doc \
+    --disable-maintainer-mode \
+    --disable-static \
+    --without-psiconv \
+    --without-python \
+    --with-zlib \
+    --without-gda \
+    --"${gi:-dis}"able-introspection \
+    --without-perl \
+    --disable-nls
+
+make
+make install
+
+rm -rf "$1/etc/gconf"
+
+# no static files
+find "$1" -name '*.la' -exec rm -rf {} +
+
+# no help files
+rm -rf "$1/usr/share/help"

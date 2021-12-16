@@ -1,0 +1,19 @@
+--- old/Makefile.am
++++ new/Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS = . po po-functions src plugins icons @COMPONENT_DIR@ templates doc tools schemas test introspection
++SUBDIRS = . src plugins icons @COMPONENT_DIR@ templates doc tools schemas introspection
+ 
+ XML_I18N_XML_KIND = --pass-through
+ 
+--- old/Makefile.in
++++ new/Makefile.in
+@@ -478,7 +478,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = . po po-functions src plugins icons @COMPONENT_DIR@ templates doc tools schemas test introspection
++SUBDIRS = . src plugins icons @COMPONENT_DIR@ templates doc tools schemas introspection
+ XML_I18N_XML_KIND = --pass-through
+ 
+ # We used to distribute old ChangeLog files too.

@@ -1,0 +1,8 @@
+bison   make
+goffice
+gtk+3
+libxml2
+libxslt
+perl    make
+pkgconf make
+python  make
