@@ -1,17 +1,22 @@
---- base/debug/stack_trace.cc.orig	2018-12-08 14:11:25.303475116 +0100
-+++ base/debug/stack_trace.cc	2018-12-08 18:00:43.874946999 +0100
-@@ -229,7 +229,7 @@
- }
- std::string StackTrace::ToStringWithPrefix(const char* prefix_string) const {
-   std::stringstream stream;
--#if !defined(__UCLIBC__) && !defined(_AIX)
-+#if defined(__GLIBC__) && !defined(_AIX)
-   OutputToStreamWithPrefix(&stream, prefix_string);
- #endif
-   return stream.str();
---- net/socket/udp_socket_posix.cc.orig	2019-07-03 13:13:46.034342649 -0400
-+++ net/socket/udp_socket_posix.cc	2019-07-03 13:23:53.117081909 -0400
-@@ -1194,7 +1194,7 @@
+diff --git a/mojo/public/c/system/thunks.cc b/mojo/public/c/system/thunks.cc
+index d7dc6e3..5cb40a2 100644
+--- a/mojo/public/c/system/thunks.cc
++++ b/mojo/public/c/system/thunks.cc
+@@ -100,7 +100,8 @@ class CoreLibraryInitializer {
+     base::ScopedAllowBlocking allow_blocking;
+     base::NativeLibraryOptions library_options;
+ #if !defined(ADDRESS_SANITIZER) && !defined(THREAD_SANITIZER) && \
+-    !defined(MEMORY_SANITIZER) && !defined(LEAK_SANITIZER)
++    !defined(MEMORY_SANITIZER) && !defined(LEAK_SANITIZER) && \
++    defined(RTLD_DEEPBIND)
+     // Sanitizer builds cannnot support RTLD_DEEPBIND, but they also disable
+     // allocator shims, so it's unnecessary there.
+     library_options.prefer_own_symbols = true;
+diff --git a/net/socket/udp_socket_posix.cc b/net/socket/udp_socket_posix.cc
+index 1a90794..4a5ebd7 100644
+--- a/net/socket/udp_socket_posix.cc
++++ b/net/socket/udp_socket_posix.cc
+@@ -1161,7 +1161,7 @@ SendResult UDPSocketPosixSender::InternalSendmmsgBuffers(
      msg_iov->push_back({const_cast<char*>(buffer->data()), buffer->length()});
    msgvec->reserve(buffers.size());
    for (size_t j = 0; j < buffers.size(); j++)
@@ -20,15 +25,3 @@
    int result = HANDLE_EINTR(Sendmmsg(fd, &msgvec[0], buffers.size(), 0));
    SendResult send_result(0, 0, std::move(buffers));
    if (result < 0) {
---- base/debug/stack_trace.cc	2021-05-25 00:05:31.000000000 +0200
-+++ -	2021-05-27 13:46:43.740380140 +0200
-@@ -217,7 +217,9 @@
- }
- 
- void StackTrace::OutputToStream(std::ostream* os) const {
-+#if defined(__GLIBC__)
-   OutputToStreamWithPrefix(os, nullptr);
-+#endif
- }
- 
- std::string StackTrace::ToString() const {
