@@ -44,6 +44,10 @@ for f in zip unzip; do (
 
 export PATH="$PWD/junk/bin:$PATH"
 
+sed "s/ccache_stats = None/return None/" \
+    python/mozbuild/mozbuild/configure/check_debug_ranges.py >_
+mv -f _ python/mozbuild/mozbuild/configure/check_debug_ranges.py
+
 # If using libc++, CXXSTDLIB needs to be set manually.
 case $("$CC" -print-file-name=libc++.so) in */*)
     export CXXSTDLIB=c++
@@ -79,7 +83,6 @@ ac_add_options --with-system-zlib
 ac_add_options --with-system-pixman
 ac_add_options --without-system-nss
 ac_add_options --without-system-nspr
-ac_add_options --without-wasm-sandboxed-libraries
 ac_add_options --disable-eme
 ac_add_options --disable-dbus
 ac_add_options --disable-gold
@@ -98,6 +101,7 @@ ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-parental-controls
 ac_add_options --disable-system-extension-dirs
+ac_add_options --without-wasm-sandboxed-libraries
 EOF
 
 ./mach build
