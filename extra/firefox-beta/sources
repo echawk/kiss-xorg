@@ -6,4 +6,3 @@ https://fossies.org/linux/misc/unzip60.tar.gz unzip
 patches/fix-clang-as.patch
 patches/fix-linux-header.patch
 patches/no-fribidi.patch
-patches/fix-disable-accessibility.patch
