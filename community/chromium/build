@@ -72,16 +72,18 @@ mv -f _ ui/ozone/platform/wayland/host/wayland_window.cc
 # harfbuzz-ng: syslib broken
 # icu: Breakage on updates.
 # libevent: Random freezes with javascript.
+# libjpeg: Build failure
 # libpng: KISS builds with APNG patch (https://crbug.com/752403#c10).
 # libvpx: Broken ?
 # libxml: bundle as it's only required by browsers
 # libxslt: bundle as it's only requred by browsers
 # zlib: KISS build without 'minizip'.
+#    libjpeg
+#    libjpeg_turbo
 system="
     flac
     fontconfig
     libdrm
-    libjpeg
     libwebp
     opus
 "
@@ -89,7 +91,7 @@ system="
 # remove build scripts for system provided dependencies - basically does the
 # same as the bundled script to remove bundled libs, but this way we don't
 # have to list the remaining libs.
-for lib in $system libjpeg_turbo; do
+for lib in $system; do
     find . -type f -path "*third_party/$lib/*" \
         \! -path "*third_party/$lib/chromium/*" \
         \! -path "*third_party/$lib/google/*" \
