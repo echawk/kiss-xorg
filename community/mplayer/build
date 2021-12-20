@@ -16,7 +16,8 @@ export PATH="$PWD/junk/bin:$PATH"
 ./configure \
     --prefix=/usr \
     --disable-vidix \
-    --disable-ossaudio
+    --disable-ossaudio \
+    --disable-ffmpeg_a
 
 make
 make install DESTDIR="$1"
