@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-(
+if ! kiss list yasm; then (
     cd yasm
 
     ./configure \
@@ -8,7 +8,7 @@
 
     make
     make DESTDIR="$PWD/../junk" install
-)
+) fi
 
 export PATH="$PWD/junk/bin:$PATH"
 
