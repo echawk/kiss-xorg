@@ -1,13 +1,15 @@
 #!/bin/sh -e
 
-for f in yasm fribidi ; do (
+for f in yasm fribidi ; do
+    if ! kiss list "$f"; then (
     cd "$f"
     ./configure \
         --prefix=/
 
     make
     make DESTDIR="$PWD/../junk" install
-) done
+    ) fi
+done
 
 export PATH="$PWD/junk/bin:$PATH"
 
