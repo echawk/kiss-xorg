@@ -23,7 +23,7 @@ chmod +x configure
 #rm -rf po-functions
 
 for f in plugins/fn-*/Makefile.*; do
-    sed 's@LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po@cp@g' >_
+    sed 's@LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po@cp@g' "$f" >_
     mv -f _ "$f"
 done
 for f in schemas/Makefile.*; do
@@ -58,7 +58,8 @@ kiss list gobject-introspection && gi=en
     --without-gda \
     --"${gi:-dis}"able-introspection \
     --without-perl \
-    --disable-nls
+    --disable-nls \
+    --disable-schemas-compile
 
 make
 make install
