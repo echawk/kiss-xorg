@@ -12,7 +12,7 @@
     make install
 )
 
-(
+if ! kiss list yasm; then (
     cd yasm
 
     ./configure \
@@ -20,9 +20,10 @@
 
     make
     make DESTDIR="$PWD/../junk" install
-)
+) fi
 
-for f in zip unzip; do (
+for f in zip unzip; do
+    if ! kiss list "$f"; then (
     cd "$f"
 
     make \
@@ -32,7 +33,8 @@ for f in zip unzip; do (
     make \
         prefix="$PWD/../junk" \
         -f unix/Makefile install
-) done
+    ) fi
+done
 
 export PATH="$PWD/junk/bin:$PATH"
 
