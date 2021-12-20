@@ -2,6 +2,7 @@
 ./autogen.sh NOCONFIG
 export LIBPOSTFIX=/
 export CXXFLAGS="$CXXFLAGS -fPIC -fpermissive"
+export CFLAGS="$CFLAGS -fPIC -fpermissive"
 ./configure \
     --prefix=/usr \
     --enable-python3=yes \
