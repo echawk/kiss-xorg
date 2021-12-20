@@ -1,15 +1,14 @@
 #!/bin/sh -e
 
-for f in yasm fribidi ; do
-    if ! kiss list "$f"; then (
-    cd "$f"
+
+if ! kiss list yasm; then (
+    cd yasm
     ./configure \
         --prefix=/
 
     make
     make DESTDIR="$PWD/../junk" install
-    ) fi
-done
+) fi
 
 export PATH="$PWD/junk/bin:$PATH"
 
@@ -17,6 +16,7 @@ export PATH="$PWD/junk/bin:$PATH"
     --prefix=/usr \
     --disable-vidix \
     --disable-ossaudio \
+    --disable-fribidi \
     --disable-ffmpeg_a
 
 make
