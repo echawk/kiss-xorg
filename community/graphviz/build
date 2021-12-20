@@ -8,7 +8,7 @@ export CXXFLAGS="$CXXFLAGS -fPIC -fpermissive"
     --disable-python \
     --enable-lefty
 
-sed "s/ -shared / -Wl,-O1,--as-needed\0/g" libtool >_
+sed "s/ -shared / -Wl,-O1,--as-needed\0/g" libtool > _
 mv -f _ libtool
 
 make

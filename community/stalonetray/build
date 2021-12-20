@@ -2,5 +2,5 @@
 autoreconf -vif
 ./configure \
     --prefix=/usr
-make ||:
-make install ||:
+make || :
+make install || :

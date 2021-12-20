@@ -7,7 +7,7 @@ done
 export PATH="$PWD:$PATH"
 
 # Fix the configure script because it double checks for intltool.
-sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure >_
+sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure > _
 mv -f _ configure
 chmod +x configure
 

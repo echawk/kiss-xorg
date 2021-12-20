@@ -8,7 +8,7 @@ if ! kiss list yasm; then (
 
     make
     make DESTDIR="$PWD/../junk" install
-) fi
+); fi
 
 export PATH="$PWD/junk/bin:$PATH"
 
@@ -26,11 +26,10 @@ zstd
 "
 
 conf=""
-for lib in $syslibs
-do
+for lib in $syslibs; do
     # If we have the lib already installed, theres no need to build it again.
-    if kiss list "$lib" ; then
-        if [ "$lib" = "freetype-harfbuzz" ] ; then
+    if kiss list "$lib"; then
+        if [ "$lib" = "freetype-harfbuzz" ]; then
             lib=freetype
         fi
         conf="$conf builtin_$lib=no"

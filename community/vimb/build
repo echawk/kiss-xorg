@@ -3,12 +3,14 @@ cmd="shell pkg-config --libs webkit2gtk-webextension-4.0"
 # Fix LDFLAGS, courtesy of Arch Linux
 sed -E \
     "s~^EXTLDFLAGS.*~EXTLDFLAGS  = \$($cmd) -shared~" \
-    config.mk > _ ; mv -f _ config.mk
+    config.mk > _
+mv -f _ config.mk
 
 # Chnage the follow hints from numbers to letters on the home row
 sed -E \
     "s~(setting_add\(c, \"hint-keys\", TYPE_CHAR, &\")0123456789~\1asdfghjkl~" \
-    src/setting.c > _ ; mv -f _ src/setting.c
+    src/setting.c > _
+mv -f _ src/setting.c
 
 make PREFIX=/usr
 make DESTDIR="$1" PREFIX=/usr install

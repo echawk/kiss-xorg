@@ -38,49 +38,47 @@ export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
 for f in Source/WebCore/bindings/scripts/CodeGenerator.pm \
     Source/WebCore/bindings/scripts/CodeGeneratorJS.pm \
     Source/WebCore/css/makeprop.pl \
-    Source/cmake/tools/scripts/version-stamp.pl
-do
+    Source/cmake/tools/scripts/version-stamp.pl; do
     sed -e '/foreach my.*(keys/s/(keys/(sort keys/' "$f" > _
     mv -f _ "$f"
 done
 
 mk() {
-cmake -B build \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib \
-    -DLIB_INSTALL_DIR=/usr/lib \
-    -DPORT=GTK \
-    -DCMAKE_SKIP_RPATH=ON \
-    -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
-    -DENABLE_SAMPLING_PROFILER=OFF \
-    -DENABLE_GEOLOCATION=OFF \
-    -DENABLE_GLES2=ON \
-    -DENABLE_INTROSPECTION=OFF \
-    -DENABLE_MINIBROWSER=OFF \
-    -DENABLE_SPELLCHECK=OFF \
-    -DUSE_GSTREAMER_GL=OFF \
-    -DUSE_SOUP2=ON \
-    -DUSE_LIBHYPHEN=OFF \
-    -DUSE_LIBNOTIFY=OFF \
-    -DUSE_LIBSECRET=OFF \
-    -DUSE_OPENJPEG=${jpeg:-OFF} \
-    -DUSE_SYSTEMD=OFF \
-    -DUSE_WOFF2=OFF \
-    -DUSE_WPE_RENDERER=OFF \
-    -DENABLE_WEB_CRYPTO=${tasn:-OFF} \
-    -DENABLE_VIDEO=${streaming:-OFF} \
-    -DENABLE_WEB_AUDIO=${streaming:-OFF} \
-    -DENABLE_GAMEPAD=OFF \
-    -Wno-dev
+    cmake -B build \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib \
+        -DLIB_INSTALL_DIR=/usr/lib \
+        -DPORT=GTK \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
+        -DENABLE_SAMPLING_PROFILER=OFF \
+        -DENABLE_GEOLOCATION=OFF \
+        -DENABLE_GLES2=ON \
+        -DENABLE_INTROSPECTION=OFF \
+        -DENABLE_MINIBROWSER=OFF \
+        -DENABLE_SPELLCHECK=OFF \
+        -DUSE_GSTREAMER_GL=OFF \
+        -DUSE_SOUP2=ON \
+        -DUSE_LIBHYPHEN=OFF \
+        -DUSE_LIBNOTIFY=OFF \
+        -DUSE_LIBSECRET=OFF \
+        -DUSE_OPENJPEG=${jpeg:-OFF} \
+        -DUSE_SYSTEMD=OFF \
+        -DUSE_WOFF2=OFF \
+        -DUSE_WPE_RENDERER=OFF \
+        -DENABLE_WEB_CRYPTO=${tasn:-OFF} \
+        -DENABLE_VIDEO=${streaming:-OFF} \
+        -DENABLE_WEB_AUDIO=${streaming:-OFF} \
+        -DENABLE_GAMEPAD=OFF \
+        -Wno-dev
 
-cmake --build   build
-cmake --install build
+    cmake --build build
+    cmake --install build
 }
 
 # If using mold as system linker, switch since mold cannot link all of webkit (yet).
-if [ "$(kiss owns /usr/bin/ld)" = mold ]
-then
+if [ "$(kiss owns /usr/bin/ld)" = mold ]; then
     kiss alternatives | grep "/usr/bin/ld" | kiss a -
     mk
     kiss alternatives mold "/usr/bin/ld"

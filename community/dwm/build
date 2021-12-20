@@ -2,11 +2,13 @@
 
 # Amend install path to '/usr'.
 sed '' "s#/usr/local#/usr#" \
-    config.mk > _ ; mv -f _ config.mk
+    config.mk > _
+mv -f _ config.mk
 
 # Remove pixel gap.
 sed '' "s/static const int resizehints = 1/static const int resizehints = 0/" \
-    config.def.h > _ ; mv -f _ config.def.h
+    config.def.h > _
+mv -f _ config.def.h
 
 make
 make DESTDIR="$1" install

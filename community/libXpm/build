@@ -3,7 +3,7 @@
 export CFLAGS="$CFLAGS -fcommon"
 
 ac_cv_search_gettext=no \
-./configure \
+    ./configure \
     --prefix=/usr
 
 make

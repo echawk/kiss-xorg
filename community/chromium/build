@@ -112,8 +112,9 @@ done
 ./third_party/libaddressinput/chromium/tools/update-strings.py
 
 # 'clang' builds are untested but should most likely work fine with our flags.
-case $("$CC" --version) in (*clang*)
+case $("$CC" --version) in  *clang*)
     clang=true
+    ;;
 esac
 
 kiss list libva && vaapi=true
@@ -195,7 +196,7 @@ out/Release/gn gen out/Release --args="$conf"
 #
 # -n is non-POSIX hence we "attempt".
 # shellcheck disable=2039
-ulimit -n 4096 2>/dev/null || :
+ulimit -n 4096 2> /dev/null || :
 
 ninja -C out/Release chrome
 

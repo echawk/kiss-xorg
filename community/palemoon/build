@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # Build autoconf 2.13 for browser's sole use.
-(
+(   
     cd autoconf2.13
 
     ./configure \
@@ -20,20 +20,20 @@ if ! kiss list yasm; then (
 
     make
     make DESTDIR="$PWD/../junk" install
-) fi
+); fi
 
 for f in zip unzip; do
     if ! kiss list "$f"; then (
-    cd "$f"
+        cd "$f"
 
-    make \
-        CC="$CC $CFLAGS $CXXFLAGS" \
-        -f unix/Makefile generic
+        make \
+            CC="$CC $CFLAGS $CXXFLAGS" \
+            -f unix/Makefile generic
 
-    make \
-        prefix="$PWD/../junk" \
-        -f unix/Makefile install
-    ) fi
+        make \
+            prefix="$PWD/../junk" \
+            -f unix/Makefile install
+    ); fi
 done
 
 export PATH="$PWD/junk/bin:$PATH"
@@ -42,7 +42,7 @@ sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in >
 
 # Apparently `mach` is now a *bash* script, yet it's marked as /bin/sh.
 # So we just update the shebang.
-sed -e '1s~/bin/sh~/bin/bash~' mach >_
+sed -e '1s~/bin/sh~/bin/bash~' mach > _
 mv -f _ mach
 chmod +x mach
 

@@ -3,8 +3,7 @@
 export DESTDIR="$1"
 
 # Use local glm headers.
-for f in src/*.?pp
-do
+for f in src/*.?pp; do
     sed 's|<glm/glm\.hpp>|"../glm/glm/glm.hpp"|' "$f" > _
     mv -f _ "$f"
 done
