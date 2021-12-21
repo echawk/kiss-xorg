@@ -1,0 +1,10 @@
+cairo
+cmake make
+fontconfig
+freetype-harfbuzz
+glu
+gtkmm3
+json-c
+libpng
+mesa
+pangomm
