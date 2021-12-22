@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+export ac_cv_prog_RUBY=no
+
+sed -e "/subdir('tests')/d" \
+    -e "/subdir('po')/d" meson.build > _
+mv -f _ meson.build
+
+kiss list gobject-introspection && intro=true
+
+meson \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --localstatedir=/var \
+    --buildtype=plain \
+    -Ddocs=false \
+    -Dintrospection="${intro:-false}" \
+    -Dvapigen=disabled \
+    -Dgdk-pixbuf=disabled \
+    . output
+
+ninja -C output
+ninja -C output install
