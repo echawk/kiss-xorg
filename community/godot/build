@@ -14,10 +14,13 @@ export PATH="$PWD/junk/bin:$PATH"
 
 syslibs="
 freetype-harfbuzz
+graphite
+icu
 libogg
 libvorbis
 libpng
 libtheora
+libvorbis
 libvpx
 libwebp
 pcre2
@@ -28,12 +31,11 @@ zstd
 conf=""
 for lib in $syslibs; do
     # If we have the lib already installed, theres no need to build it again.
-    if kiss list "$lib"; then
-        if [ "$lib" = "freetype-harfbuzz" ]; then
-            lib=freetype
-        fi
-        conf="$conf builtin_$lib=no"
-    fi
+        case $lib in
+            freetype-harfbuzz) conf="$conf builtin_freetype=no builtin_harfbuzz=no" ;;
+            graphite) [ -e "${KISS_ROOT:-/}usr/lib/libgraphite2.so" ] && conf="$conf builtin_graphite=no" ;;
+            *) kiss list "$lib" && conf="$conf builtin_$lib=no" ;;
+    esac
 done
 
 python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
