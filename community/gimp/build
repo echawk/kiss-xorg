@@ -1,0 +1,69 @@
+#!/bin/sh -e
+
+# Check for gettext. Looking to remove completely.
+command -v xgettext
+
+# 'Vendor' libtool.
+for t in merge update extract perl; do
+    ln -sf intltool "intltool-$t"
+done
+export PATH="$PWD:$PATH"
+
+# Apply any bundled patches.
+for patch in *.patch; do
+    patch -Np1 -i "$patch"
+done
+
+# Fix the configure script because it likes to double check for intltool.
+# Force xgettext to be found.
+# Fix the versioning on mypaint-brushes.
+sed -e "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" \
+    -e "s/as_fn_error \$? \"itstool.*/echo fixed/" \
+    -e "s/have_required_xgettext=\"no\"/have_required_xgettext=\"yes\"/" \
+    -e 's/mypaint-brushes-1.0/mypaint-brushes-2.0/' \
+    configure >_
+mv -f _ configure
+
+chmod +x configure
+
+./configure \
+    --prefix=/usr \
+    --libexecdir=/usr/bin \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --enable-default-binary \
+    --enable-mp \
+    --enable-sse \
+    --disable-gtk_doc \
+    --disable-vector-icons \
+    --disable-check-update \
+    --disable-altivec \
+    --disable-mmx \
+    --with-xmc \
+    --with-x \
+    --with-jpeg2000 \
+    --with-appdata-test \
+    --without-webkit \
+    --without-xvfb-run \
+    --without-libbacktrace \
+    --without-aa \
+    --without-libheif \
+    --without-javascript \
+    --without-lua \
+    --without-libmng \
+    --without-openexr \
+    --without-gs \
+    --without-python \
+    --without-gudev \
+    --without-libunwind \
+    --without-vala \
+    --without-webp \
+    --without-wmf \
+    --disable-nls \
+    --without-libxpm
+
+make
+make install
+
+rm -rf "$1/usr/share/gtk-doc"
+find "$1" -name '*.la' -type f -exec rm -rf {} +

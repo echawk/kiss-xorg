@@ -1,0 +1,3 @@
+http://download.gimp.org/pub/gimp/vMAJOR.MINOR/gimp-VERSION.tar.bz2
+patches/remove_po_dir.patch
+files/intltool
