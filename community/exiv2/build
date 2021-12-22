@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DEXIV2_BUILD_SAMPLES=OFF \
+    -DEXIV2_BUILD_UNIT_TESTS=OFF \
+    -DEXIV2_ENABLE_NLS=OFF
+
+cmake --build   build
+cmake --install build
