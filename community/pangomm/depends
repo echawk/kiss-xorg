@@ -21,6 +21,8 @@ libsigc++
 libxcb
 libxshmfence
 mesa
+meson make
 pango
 pixman
+samurai make
 zlib

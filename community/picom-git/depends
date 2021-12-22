@@ -3,6 +3,7 @@ libev
 meson   make
 pixman
 pkgconf make
+samurai make
 uthash  make
 xcb-util-image
 xcb-util-renderutil

@@ -33,9 +33,11 @@ libwebp
 libxcb
 libxshmfence
 mesa
+meson make
 pango
 pangomm
 pixman
+samurai make
 tiff
 xz
 zlib

@@ -1,4 +1,6 @@
 glib
 libffi
 libsigc++
+meson make
+samurai make
 zlib
