@@ -1,0 +1,5 @@
+gobject-introspection make
+lcms
+meson                 make
+pkgconf               make
+samurai               make
