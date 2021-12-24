@@ -13,4 +13,4 @@ sed -E \
 mv -f _ src/config.def.h
 
 make PREFIX=/usr
-make DESTDIR="$1" PREFIX=/usr install
+make PREFIX=/usr install
