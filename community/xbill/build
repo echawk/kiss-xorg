@@ -7,4 +7,4 @@ LIBS='-lXpm' ./configure \
     --enable-athena \
     --disable-gtk
 make
-make DESTDIR="$1" install
+make install
