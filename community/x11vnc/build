@@ -8,4 +8,4 @@ patch -p1 < libressl.patch
     --prefix=/usr
 
 make
-make DESTDIR="$1" install
+make install
