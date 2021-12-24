@@ -19,6 +19,6 @@ export PATH="$PWD/junk/bin:$PATH"
     --disable-ffmpeg_a
 
 make
-make install DESTDIR="$1"
+make install
 
 install -Dm0644 etc/example.conf "$1/etc/mplayer/mplayer.conf"
