@@ -6,4 +6,4 @@
     ac_cv_path_DOXYGEN=false
 
 make
-make DESTDIR="$1" install
+make install
