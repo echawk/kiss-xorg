@@ -6,4 +6,4 @@
     --with-trust-paths=/etc/pki/anchors
 
 make
-make DESTDIR="$1" install
+make install
