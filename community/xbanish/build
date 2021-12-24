@@ -2,7 +2,6 @@
 
 make
 make \
-    DESTDIR="$1" \
     PREFIX=/usr \
     MANDIR=/usr/share/man/man1 \
     install
