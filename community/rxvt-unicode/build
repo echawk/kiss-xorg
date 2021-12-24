@@ -23,4 +23,4 @@ patch -p1 < gentables.patch
     --disable-wtmp \
     --disable-lastlog
 
-make DESTDIR="$1" install
+make install
