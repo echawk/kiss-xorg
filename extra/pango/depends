@@ -6,3 +6,4 @@ libXft
 libXrender
 meson   make
 pkgconf make
+samurai make
