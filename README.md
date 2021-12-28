@@ -31,9 +31,9 @@ KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
 
 ## Support
 
-distro/fork | tested?
------------:|--------:
-[kisslinux](https://kisslinux.org) | Y
-[gkisslinux](https://github.com/gkisslinux) | Y
-[glasnost](https://glasnost.org) | N
-[wyverkiss](https://github.com/wyvertux) | N
+distro/fork | tested? | notes
+-----------:|--------:|-----:
+[kisslinux](https://kisslinux.org) | Y | n/a
+[gkisslinux](https://github.com/gkisslinux) | Y |
+[glasnost](https://glasnost.org) | N |
+[wyverkiss](https://github.com/wyvertux) | Y | need to fork some packges for gmake & bison
