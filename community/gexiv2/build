@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-sed "/subdir('tests')/d" meson.build > _
+sed "/subdir('test')/d" meson.build > _
 mv -f _ meson.build
 
 kiss list gobject-introspection && intro="true"
@@ -14,6 +14,7 @@ meson \
     -Dgtk_doc=false \
     -Dintrospection="${intro:-false}" \
     -Dvapi=true \
+    -Dpython3=false \
     . output
 
 ninja -C output
