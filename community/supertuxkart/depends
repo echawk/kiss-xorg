@@ -1,0 +1,16 @@
+cmake make
+curl
+freetype-harfbuzz
+glew
+glu
+libX11
+libjpeg-turbo
+libogg
+libpng
+libvorbis
+mesa
+openal-soft
+openssl
+sdl2
+sqlite
+zlib
