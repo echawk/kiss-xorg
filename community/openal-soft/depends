@@ -1,0 +1,3 @@
+cmake make
+gcc
+linux-headers make
