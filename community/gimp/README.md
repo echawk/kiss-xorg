@@ -63,7 +63,7 @@ Then:
 
 You will need to run the following sed command:
 
-`$ sed -i -E -e "s/^rm -f//" -e "s/(introspection=)no/\1yes/" build`
+`$ sed -i -E -e "s/^rm -f.*//" -e "s/(introspection=)no/\1yes/" build`
 
 This will give you the 'gtk-encode-symbolic-svg' executable as well as enabling
 gobject.
