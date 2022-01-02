@@ -59,7 +59,7 @@ First install librsvg:
 
 Then:
 
-`$ kiss fork librsvg`
+`$ kiss fork gtk+3`
 
 You will need to run the following sed command:
 
