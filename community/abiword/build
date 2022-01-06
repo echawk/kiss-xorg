@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+kiss list libedit && {
+    sed "s/-lreadline/-ledit/;s/-lhistory//" configure > _
+    mv -f _ configure
+    chmod +x configure
+}
+
 ./configure \
     --prefix=/usr \
     --disable-maintainer-mode \
