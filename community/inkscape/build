@@ -1,5 +1,14 @@
 #!/bin/sh -e
 
+err() {
+    echo $@
+    exit 1
+}
+
+command -v inkscape && {
+    err "Uninstall inkscape to avoid a circular dependency"
+}
+
 for p in *.patch; do
     patch -p1 < $p
 done
