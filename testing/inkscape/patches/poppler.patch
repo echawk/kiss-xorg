@@ -16,7 +16,7 @@ index e3d04d544b..feecefa043 100644
    }
    if (printCommands) {
      printf("  font: tag=%s name='%s' %g\n",
-+#if POPPLER_CHECK_VERSION(21,12,0)
++#if POPPLER_CHECK_VERSION(22,01,0)
 +	   font->getTag().c_str(),
 +#else
  	   font->getTag()->getCString(),
