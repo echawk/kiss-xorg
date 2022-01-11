@@ -56,6 +56,7 @@ chmod +x configure
     --disable-skia \
     --enable-gtk3 \
     --enable-openssl \
+    --enable-release-build \
     --with-system-bzip2 \
     --with-system-boost \
     --with-system-cairo \
