@@ -1,0 +1,10 @@
+https://download.documentfoundation.org/libreoffice/src/7.2.5/libreoffice-7.2.5.2.tar.xz
+patches/autoconf-boost-macros.patch
+patches/disable-liborcus-unittest.patch
+patches/fix-execinfo.patch
+patches/linux-musl.patch
+patches/musl-libintl.patch
+patches/musl-stacksize.patch
+patches/pld-skia-patches.patch
+patches/remove-backtrace.patch
+patches/skia-freetype2.11.diff
