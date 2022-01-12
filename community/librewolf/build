@@ -6,7 +6,7 @@ done
 
 # Build autoconf 2.13 for Librewolf's sole use.
 # See: https://bugzilla.mozilla.org/show_bug.cgi?id=104642
-(   
+(
     cd autoconf2.13
 
     ./configure \
@@ -19,7 +19,7 @@ done
 
 # Build yasm for Librewolf's sole use. Librewolf is the only package which needs it
 # and upstream is kinda dead.
-(   
+(
     cd yasm
 
     ./configure \
@@ -47,14 +47,18 @@ export PATH="$PWD/junk/bin:$PATH"
 librewolf_patch_dir=common/patches/
 
 patches="
-context-menu.patch
-megabar.patch
-mozilla-vpn-ad.patch
-mozilla_dirs.patch
 remove_addons.patch
+mozilla-vpn-ad.patch
+context-menu.patch
+mozilla_dirs.patch
 urlbarprovider-interventions.patch
+allow-ubo-private-mode.patch
+deprecated/megabar.patch
 sed-patches/disable-pocket.patch
 sed-patches/stop-undesired-requests.patch
+ui-patches/remove-snippets-from-home.patch
+ui-patches/sanitizing-description.patch
+ui-patches/remove-organization-policy-banner.patch
 ui-patches/pref-naming.patch
 ui-patches/remove-branding-urlbar.patch
 ui-patches/remove-cfrprefs.patch
