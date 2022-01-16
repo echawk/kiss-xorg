@@ -17,9 +17,7 @@ done
     make install
 )
 
-# Build yasm for Librewolf's sole use. Librewolf is the only package which needs it
-# and upstream is kinda dead.
-(
+if ! command -v yasm; then (
     cd yasm
 
     ./configure \
@@ -27,7 +25,7 @@ done
 
     make
     make DESTDIR="$PWD/../junk" install
-)
+); fi
 
 # Build zip/unzip for Librewolf's sole use.
 for f in zip unzip; do (
