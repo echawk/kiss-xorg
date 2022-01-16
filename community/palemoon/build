@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # Build autoconf 2.13 for browser's sole use.
-(   
+(
     cd autoconf2.13
 
     ./configure \
@@ -12,7 +12,7 @@
     make install
 )
 
-if ! kiss list yasm; then (
+if ! command -v yasm; then (
     cd yasm
 
     ./configure \
