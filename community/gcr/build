@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
 mkdir -p gcr-build
 cd gcr-build
 
