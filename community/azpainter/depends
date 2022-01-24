@@ -1,9 +1,8 @@
 fontconfig
 libX11
+libXcursor
 libXext
 libXi
-libXcursor
 libjpeg-turbo
 libpng
 tiff
-zlib
