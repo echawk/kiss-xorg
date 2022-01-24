@@ -28,6 +28,6 @@ cat << EOF > "$1/usr/share/emacs/site-lisp/site-start.el"
 EOF
 
 make
-make DESTDIR="$1" install
+make install
 
 rm -rf "$1/usr/lib/systemd"
