@@ -11,4 +11,4 @@ sed "s/static const int resizehints = 1/static const int resizehints = 0/" \
 mv -f _ config.def.h
 
 make
-make DESTDIR="$1" install
+make install
