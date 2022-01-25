@@ -1,0 +1,5 @@
+libX11
+libXi
+libXrandr
+libXxf86vm
+mesa

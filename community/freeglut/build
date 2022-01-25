@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+export CFLAGS="$CFLAGS -fcommon"
+
+cmake \
+    -Bbuild \
+    -DFREEGLUT_BUILD_STATIC_LIBS=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=None
+
+cmake --build   build
+cmake --install build
