@@ -51,7 +51,6 @@ context-menu.patch
 mozilla_dirs.patch
 urlbarprovider-interventions.patch
 allow-ubo-private-mode.patch
-deprecated/megabar.patch
 sed-patches/disable-pocket.patch
 sed-patches/stop-undesired-requests.patch
 ui-patches/remove-snippets-from-home.patch

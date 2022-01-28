@@ -6,6 +6,5 @@ https://fossies.org/linux/misc/unzip60.tar.gz unzip
 patches/fix-clang-as.patch
 patches/fix-linux-header.patch
 patches/no-fribidi.patch
-https://gitlab.com/librewolf-community/browser/linux/-/archive/vVERSION-1/linux-vVERSION-1.tar.bz2
 git+https://gitlab.com/librewolf-community/browser/common.git common
 git+https://gitlab.com/librewolf-community/settings.git settings
