@@ -9,6 +9,7 @@ gdk-pixbuf
 gegl
 gexiv2
 glib
+gobject-introspection make
 gtk+3
 json-c
 lcms
