@@ -1,7 +1,6 @@
 babl
 bash                  make
 glib
-gobject-introspection make
 meson                 make
 pkgconf               make
 samurai               make
