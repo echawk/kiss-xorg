@@ -3,7 +3,10 @@
 sed "/subdir('test')/d" meson.build > _
 mv -f _ meson.build
 
-kiss list gobject-introspection && intro="true"
+if kiss list gobject-introspection; then
+    intro="true"
+    vapi="true"
+fi
 
 meson \
     --prefix=/usr \
@@ -13,7 +16,7 @@ meson \
     --buildtype=plain \
     -Dgtk_doc=false \
     -Dintrospection="${intro:-false}" \
-    -Dvapi=true \
+    -Dvapi=${vapi:-false} \
     -Dpython3=false \
     . output
 
