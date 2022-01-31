@@ -1,5 +1,18 @@
 # kiss-xorg
 
+```ascii
++----------------------------------------+
+|                           ;;;;;;;;;;;;;|
+| XORG                      ;\;;;\\;;;|;;|
+|                            ;\\;;|;|;;|||
+|                             ;'| '    ;||
+|         .---.                 | | |   ||
+|;;;     [     ]   |||    ;;@   | | '   ||
+|@;@;;   |  X  | `-vvv  ;@;;;;_/    |   \|
+|;;;@;;@ |     |    | ;;;;;;@/   /;;\    |
++----------------------------------------+
+```
+
 A collection of repositories for running Xorg on KISS Linux.
 
 Due to upstream KISS making the switch to wayland, and
