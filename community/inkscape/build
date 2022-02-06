@@ -9,10 +9,6 @@ command -v inkscape && {
     err "Uninstall inkscape to avoid a circular dependency"
 }
 
-for p in *.patch; do
-    patch -p1 < $p
-done
-
 sed -e "/INKSCAPE_CXX_FLAGS \"-Werror=format/d" \
     CMakeScripts/DefineDependsandFlags.cmake > _
 mv -f _ CMakeScripts/DefineDependsandFlags.cmake
