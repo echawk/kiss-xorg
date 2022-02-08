@@ -1,13 +1,14 @@
 https://commondatastorage.googleapis.com/chromium-browser-official/chromium-98.0.4758.80.tar.xz
-https://github.com/stha09/chromium-patches/releases/download/chromium-98-patchset-4/chromium-98-patchset-4.tar.xz
+https://github.com/stha09/chromium-patches/releases/download/chromium-98-patchset-5/chromium-98-patchset-5.tar.xz
 git+https://github.com/Eloston/ungoogled-chromium#61d47f6bcdec8c71151144f07c7f8a0197eeca7a ungoogled-chromium
 files/chromium.sh
 patches/chromium-InkDropHost-crash.patch
+patches/chromium-downgrade-duplicate-peer-error-to-dvlog.patch
 patches/chromium-fix-build-break-with-system-libdrm.patch
 patches/chromium-fix-narrowing-cast.patch
 patches/chromium-optional-atk-dbus.patch
 patches/chromium-sql-make-VirtualCursor-standard-layout-type.patch
-patches/chromium-use-FT-Done_MM_Var-in-CFX_Font-AdjustMMParams.patch
+patches/chromium-use-FT_Done_MM_Var-in-CFX_Font-AdjustMMParams.patch
 patches/glibc-malloc.patch
 patches/glibc-variable-stack-size.patch
 patches/musl-crashpad.patch

@@ -1,29 +1,5 @@
-From 5b287e0be8d8d8475ec6ef81b16eaa61e19db078 Mon Sep 17 00:00:00 2001
-From: "Steinar H. Gunderson" <sesse@chromium.org>
-Date: Tue, 25 Jan 2022 19:14:53 +0000
-Subject: [PATCH] Fix build break with system libdrm.
-
-This patch is submitted on behalf of Andres Salomon
-<dilinger@queued.net> (on Cc). Also adding him to src/AUTHORS
-per policy, as he has signed the CLA.
-
-Original patch:
-https://salsa.debian.org/dilinger/chromium/-/commit/2333c2fb985ac1ef3d7331776a7833d965c63302
-
-Change-Id: I18bd60e2e80f2b9181e74ee7972c3f457ab33b10
-Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/3401704
-Reviewed-by: Andres Calderon Jaramillo <andrescj@chromium.org>
-Commit-Queue: Steinar H Gunderson <sesse@chromium.org>
-Auto-Submit: Steinar H Gunderson <sesse@chromium.org>
-Cr-Commit-Position: refs/heads/main@{#963119}
----
- AUTHORS                                      | 1 +
- media/gpu/chromeos/BUILD.gn                  | 1 +
- media/gpu/chromeos/video_decoder_pipeline.cc | 2 +-
- 3 files changed, 3 insertions(+), 1 deletion(-)
-
 diff --git a/AUTHORS b/AUTHORS
-index 0eba3de5065..50edd3f6b38 100644
+index daf447d..22c0c56 100644
 --- a/AUTHORS
 +++ b/AUTHORS
 @@ -93,6 +93,7 @@ Andreas Papacharalampous <andreas@apap04.com>
@@ -35,10 +11,10 @@ index 0eba3de5065..50edd3f6b38 100644
  Andrew Boyarshin <andrew.boyarshin@gmail.com>
  Andrew Brampton <me@bramp.net>
 diff --git a/media/gpu/chromeos/BUILD.gn b/media/gpu/chromeos/BUILD.gn
-index 7cb4c3ea39a..6fe21c15ecc 100644
+index a5c8945..1a9c549 100644
 --- a/media/gpu/chromeos/BUILD.gn
 +++ b/media/gpu/chromeos/BUILD.gn
-@@ -25,6 +25,7 @@ source_set("chromeos") {
+@@ -24,6 +24,7 @@ source_set("chromeos") {
  
    deps = [
      "//base",
@@ -47,10 +23,10 @@ index 7cb4c3ea39a..6fe21c15ecc 100644
      "//media/gpu:buildflags",
      "//media/gpu:command_buffer_helper",
 diff --git a/media/gpu/chromeos/video_decoder_pipeline.cc b/media/gpu/chromeos/video_decoder_pipeline.cc
-index d2f154ea0d8..416b9434a8d 100644
+index 33a7f5b..bf7254d 100644
 --- a/media/gpu/chromeos/video_decoder_pipeline.cc
 +++ b/media/gpu/chromeos/video_decoder_pipeline.cc
-@@ -28,8 +28,8 @@
+@@ -27,8 +27,8 @@
  #include "third_party/abseil-cpp/absl/types/optional.h"
  
  #if BUILDFLAG(USE_VAAPI)

@@ -1,25 +1,5 @@
-From cb0aad687f34629a42053d600cf2947282cea2c0 Mon Sep 17 00:00:00 2001
-From: Lei Zhang <thestig@chromium.org>
-Date: Mon, 31 Jan 2022 22:42:35 +0000
-Subject: [PATCH] Use FT_Done_MM_Var() in CFX_Font::AdjustMMParams() when
- possible.
-
-When FreeType has FT_Done_MM_Var(), use that to free memory in
-CFX_Font::AdjustMMParams() to avoid mismatched alloc/free functions.
-
-Bug: pdfium:1400
-Change-Id: I044540893103921fc64cdd53fcd628cfebf2c9db
-Reviewed-on: https://pdfium-review.googlesource.com/c/pdfium/+/90130
-Reviewed-by: Nigi <nigi@chromium.org>
-Commit-Queue: Lei Zhang <thestig@chromium.org>
-
-(cherry picked from commit ffeb67faf715475f6e463d65c368f556780adf19)
----
- core/fxge/cfx_font.cpp | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/core/fxge/cfx_font.cpp b/core/fxge/cfx_font.cpp
-index 7a4e8eb24..0ef421fe7 100644
+diff --git a/third_party/pdfium/core/fxge/cfx_font.cpp b/third_party/pdfium/core/fxge/cfx_font.cpp
+index 7a4e8eb..0ef421f 100644
 --- a/third_party/pdfium/core/fxge/cfx_font.cpp
 +++ b/third_party/pdfium/core/fxge/cfx_font.cpp
 @@ -43,6 +43,30 @@ struct OUTLINE_PARAMS {
