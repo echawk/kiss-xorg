@@ -1,20 +1,16 @@
 #!/bin/sh -e
 
-# Remove po/ dir.
-sed "/subdir('po')/d" meson.build > _
-mv -f _ meson.build
-
 # Swap to shell script instead of perl script
 # for conversion of rules files. See files/xml2lst.
-sed -E "s/(xml2lst).pl/\1/" rules/meson.build > _
-mv -f _ rules/meson.build
+sed 's/perl //;s/xml2lst\.pl/xml2lst/' rules/Makefile.in > _
+mv -f _ rules/Makefile.in
 
-meson \
+./configure \
     --prefix=/usr \
-    -D compat-rules=true \
-    -D xorg-rules-symlinks=true \
-    -D xkb-base="/usr/share/X11/xkb" \
-    . output
+    --enable-compat-rules \
+    --without-xsltproc \
+    --disable-runtime-deps \
+    --disable-nls
 
-ninja -C output
-ninja -C output install
+make
+make DESTDIR="$1" install
