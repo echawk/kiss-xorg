@@ -1,22 +1,8 @@
-diff --git a/base/files/file_util_posix.cc b/base/files/file_util_posix.cc
-index aa18b72..0300b08 100644
---- a/base/files/file_util_posix.cc
-+++ b/base/files/file_util_posix.cc
-@@ -846,6 +846,9 @@ FILE* OpenFile(const FilePath& filename, const char* mode) {
- // NaCl doesn't implement system calls to open files directly.
- #if !defined(OS_NACL)
- FILE* FileToFILE(File file, const char* mode) {
-+  if (!file.IsValid() || !(fcntl(file.GetPlatformFile(), F_GETFD) != -1 || errno != EBADF))
-+    return nullptr;
-+
-   FILE* stream = fdopen(file.GetPlatformFile(), mode);
-   if (stream)
-     file.TakePlatformFile();
 diff --git a/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc b/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc
-index 96d09e7..802ce4c 100644
+index 86f5d07..8086cdf 100644
 --- a/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc
 +++ b/chrome/browser/metrics/chrome_browser_main_extra_parts_metrics.cc
-@@ -61,7 +61,9 @@
+@@ -62,7 +62,9 @@
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch
  // of lacros-chrome is complete.
  #if defined(OS_LINUX) || BUILDFLAG(IS_CHROMEOS_LACROS)
@@ -26,7 +12,7 @@ index 96d09e7..802ce4c 100644
  
  #include "base/linux_util.h"
  #include "base/strings/string_split.h"
-@@ -327,7 +329,7 @@ void RecordLinuxDistro() {
+@@ -331,7 +333,7 @@ void RecordLinuxDistro() {
  void RecordLinuxGlibcVersion() {
  // TODO(crbug.com/1052397): Revisit the macro expression once build flag switch
  // of lacros-chrome is complete.
@@ -36,7 +22,7 @@ index 96d09e7..802ce4c 100644
  
    UMALinuxGlibcVersion glibc_version_result = UMA_LINUX_GLIBC_NOT_PARSEABLE;
 diff --git a/net/dns/dns_config_service_posix.cc b/net/dns/dns_config_service_posix.cc
-index 1aef5a0..3c26191 100644
+index 3a541ac..c3af527 100644
 --- a/net/dns/dns_config_service_posix.cc
 +++ b/net/dns/dns_config_service_posix.cc
 @@ -93,7 +93,7 @@ absl::optional<DnsConfig> ReadDnsConfig() {
@@ -49,10 +35,10 @@ index 1aef5a0..3c26191 100644
    // res_init behaves the same way.
    memset(&_res, 0, sizeof(_res));
 diff --git a/sandbox/linux/seccomp-bpf/trap.cc b/sandbox/linux/seccomp-bpf/trap.cc
-index cef1cdd..46d9acb 100644
+index cb71a9b..bcf19ea 100644
 --- a/sandbox/linux/seccomp-bpf/trap.cc
 +++ b/sandbox/linux/seccomp-bpf/trap.cc
-@@ -174,7 +174,7 @@ void Trap::SigSys(int nr, LinuxSigInfo* info, ucontext_t* ctx) {
+@@ -175,7 +175,7 @@ void Trap::SigSys(int nr, LinuxSigInfo* info, ucontext_t* ctx) {
    // If the version of glibc doesn't include this information in
    // siginfo_t (older than 2.17), we need to explicitly copy it
    // into an arch_sigsys structure.
@@ -181,10 +167,10 @@ index df36fe3..df1ab9d 100644
  #include <stdint.h>
  #define ots_ntohl(x) ntohl (x)
 diff --git a/third_party/perfetto/include/perfetto/ext/base/thread_utils.h b/third_party/perfetto/include/perfetto/ext/base/thread_utils.h
-index 2e9c4e5..cb71b29 100644
+index 4a1f0b6..6aa5436 100644
 --- a/third_party/perfetto/include/perfetto/ext/base/thread_utils.h
 +++ b/third_party/perfetto/include/perfetto/ext/base/thread_utils.h
-@@ -29,7 +29,7 @@
+@@ -30,7 +30,7 @@
  #include <algorithm>
  #endif
  
