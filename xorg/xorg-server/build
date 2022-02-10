@@ -3,8 +3,8 @@
 patch -p1 < rootless_modesetting.patch
 
 ./configure \
-    --prefix=/usr \
-    --localstatedir=/var \
+    --prefix='/usr' \
+    --localstatedir='/var' \
     --disable-systemd-logind \
     --disable-xwayland \
     --disable-unit-tests \
