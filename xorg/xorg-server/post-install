@@ -16,4 +16,9 @@ NOTE: This groups based permissions model may not
 
 -> addgroup USER video
 
+NOTE: You may need to load some kernel modules. If you are using AMDGPU you need to load the amdgpu module:
+
+-> modprobe amdgpu
+
+
 EOF
