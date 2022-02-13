@@ -42,6 +42,13 @@ for f in zip unzip; do (
 
 export PATH="$PWD/junk/bin:$PATH"
 
+# Detect what the current linker is.
+case "$(readlink "$(command -v ld)")" in
+    ld.bfd) ld="bfd";;
+    lld) ld="lld";;
+    *) ld="other";;
+esac
+
 librewolf_patch_dir=common/patches/
 
 patches="
@@ -109,7 +116,7 @@ ac_add_options --without-system-nss
 ac_add_options --without-system-nspr
 ac_add_options --disable-eme
 ac_add_options --disable-dbus
-ac_add_options --disable-gold
+ac_add_options --enable-linker="$ld"
 ac_add_options --disable-tests
 ac_add_options --disable-vtune
 ac_add_options --disable-updater
