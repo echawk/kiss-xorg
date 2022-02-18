@@ -48,5 +48,5 @@ distro/fork | tested? | notes
 -----------:|--------:|-----:
 [kisslinux](https://kisslinux.org) | Y | n/a
 [gkisslinux](https://github.com/gkisslinux) | Y |
-[glasnost](https://glasnost.org) | N |
+[glasnost](https://glasnost.org) | Y | clang is a dep of some packages, so a dummy package is needed
 [wyverkiss](https://github.com/wyvertux) | Y | need to fork some packges for gmake & bison
