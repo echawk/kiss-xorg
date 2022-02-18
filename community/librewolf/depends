@@ -26,6 +26,7 @@ libXrandr
 libXrender
 libXt
 libXxf86vm
+libXtst
 libdrm
 libffi
 libjpeg-turbo
