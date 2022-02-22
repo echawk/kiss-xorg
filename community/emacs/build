@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# Enable '-no-pie' as it can fix a seg fault in `temacs`.
+export CFLAGS="$CFLAGS -no-pie"
+
 ./configure \
     --prefix=/usr \
     --with-modules \
@@ -9,6 +12,7 @@
     --without-dbus \
     --without-gconf \
     --without-gsettings \
+    --without-rsvg \
     --with-xpm=no \
     --with-tiff=no \
     --with-gnutls=yes
