@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+# Enable '-no-pie' as it can fix a seg fault in `temacs`.
+# Also, override any user provided CFLAGS, as they can also cause seg faults.
+export CFLAGS="-no-pie"
+
 ./configure \
     --prefix=/usr \
     --with-modules \
@@ -9,6 +13,7 @@
     --without-dbus \
     --without-gconf \
     --without-gsettings \
+    --without-rsvg \
     --with-xpm=no \
     --with-tiff=no \
     --with-gnutls=yes \
@@ -27,7 +32,12 @@ cat << EOF > "$1/usr/share/emacs/site-lisp/site-start.el"
 (setq-default shr-blocked-images ".*\.svg$")
 EOF
 
-make
+# Disable ASLR for the build procedure, as it can lead to seg faults.
+case "$(uname -m)" in
+    x86_64) _arch=linux64 ;;
+    i*86) _arch=linux32 ;;
+esac
+setarch $_arch -R make
 make install
 
 rm -rf "$1/usr/lib/systemd"
