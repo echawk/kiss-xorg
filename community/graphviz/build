@@ -1,16 +1,11 @@
 #!/bin/sh -e
-./autogen.sh NOCONFIG
-export LIBPOSTFIX=/
-export CXXFLAGS="$CXXFLAGS -fPIC -fpermissive"
-export CFLAGS="$CFLAGS -fPIC -fpermissive"
-./configure \
-    --prefix=/usr \
-    --enable-python3=yes \
-    --disable-python \
-    --enable-lefty
 
-sed "s/ -shared / -Wl,-O1,--as-needed\0/g" libtool > _
-mv -f _ libtool
+export CXXFLAGS="$CXXFLAGS -fPIC "
+export CFLAGS="$CFLAGS -fPIC "
 
-make
-make install
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+
+cmake --build   build
+cmake --install build
