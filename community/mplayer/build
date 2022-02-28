@@ -15,7 +15,8 @@ export PATH="$PWD/junk/bin:$PATH"
     --prefix=/usr \
     --disable-vidix \
     --disable-ossaudio \
-    --disable-fribidi
+    --disable-fribidi \
+    --disable-ffmpeg_a
 
 make
 make install
