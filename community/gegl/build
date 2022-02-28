@@ -18,6 +18,7 @@ meson \
     -Dintrospection="${intro:-false}" \
     -Dvapigen=disabled \
     -Dgdk-pixbuf=disabled \
+    -Dlibav=disabled \
     . output
 
 ninja -C output
