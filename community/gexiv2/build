@@ -5,9 +5,10 @@ mv -f _ meson.build
 
 if kiss list gobject-introspection; then
     intro="true"
+fi
+if kiss list vala; then
     vapi="true"
 fi
-
 meson \
     --prefix=/usr \
     --sysconfdir=/etc \
