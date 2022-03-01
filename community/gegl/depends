@@ -1,4 +1,5 @@
 babl
+json-glib
 bash                  make
 glib
 meson                 make
