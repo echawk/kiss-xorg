@@ -1,0 +1,9 @@
+gdk-pixbuf
+glib
+gperf
+gtk+3
+json-glib
+libarchive
+libsoup
+meson make
+samurai make
