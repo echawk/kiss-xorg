@@ -4,11 +4,6 @@
 sed "/subdir('po')/d" meson.build > _
 mv -f _ meson.build
 
-# Swap to shell script instead of perl script
-# for conversion of rules files. See files/xml2lst.
-sed -E "s/(xml2lst).pl/\1/" rules/meson.build > _
-mv -f _ rules/meson.build
-
 meson \
     --prefix=/usr \
     -D compat-rules=true \
