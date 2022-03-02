@@ -20,7 +20,6 @@ pango
 pixman
 python
 xcb-proto
-xcb-proto
 xcb-util
 xcb-util-cursor
 xcb-util-image
