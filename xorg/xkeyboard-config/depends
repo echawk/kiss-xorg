@@ -1,4 +1,7 @@
 libX11  make
+meson   make
+perl    make
 pkgconf make
 python  make
+samurai make
 xkbcomp
