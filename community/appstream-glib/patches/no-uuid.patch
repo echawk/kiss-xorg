@@ -1,0 +1,141 @@
+diff --git a/libappstream-glib/appstream-glib.pc.in b/libappstream-glib/appstream-glib.pc.in
+index 872d30d..60abcf6 100644
+--- a/libappstream-glib/appstream-glib.pc.in
++++ b/libappstream-glib/appstream-glib.pc.in
+@@ -6,7 +6,7 @@ includedir=@includedir@
+ Name: appstream-glib
+ Description: Objects and helper methods to help reading and writing AppStream metadata
+ Version: @VERSION@
+-Requires.private: libarchive uuid
++Requires.private: libarchive
+ Requires: glib-2.0, gobject-2.0, gdk-pixbuf-2.0
+ Libs: -L${libdir} -lappstream-glib
+ Cflags: -I${includedir}/libappstream-glib
+diff --git a/libappstream-glib/as-utils.c b/libappstream-glib/as-utils.c
+index 007a86b..35fd9d0 100644
+--- a/libappstream-glib/as-utils.c
++++ b/libappstream-glib/as-utils.c
+@@ -23,13 +23,6 @@
+ #include <archive.h>
+ #include <libsoup/soup.h>
+ #include <stdlib.h>
+-#ifndef _WIN32
+-#ifdef __APPLE__
+-#include <uuid/uuid.h>
+-#else
+-#include <uuid.h>
+-#endif
+-#endif
+ 
+ #ifdef HAVE_RPM
+ #include <rpm/rpmlib.h>
+@@ -1531,53 +1524,7 @@ as_utils_guid_from_data (const gchar *namespace_id,
+ 			 gsize data_len,
+ 			 GError **error)
+ {
+-#ifdef _WIN32
+-	g_set_error_literal (error,
+-			     AS_UTILS_ERROR,
+-			     AS_UTILS_ERROR_FAILED,
+-			     "not supported");
+ 	return FALSE;
+-#else
+-	gchar guid_new[37]; /* 36 plus NUL */
+-	gsize digestlen = 20;
+-	guint8 hash[20];
+-	gint rc;
+-	uuid_t uu_namespace;
+-	uuid_t uu_new;
+-	g_autoptr(GChecksum) csum = NULL;
+-
+-	g_return_val_if_fail (namespace_id != NULL, FALSE);
+-	g_return_val_if_fail (data != NULL, FALSE);
+-	g_return_val_if_fail (data_len != 0, FALSE);
+-
+-	/* convert the namespace to binary */
+-	rc = uuid_parse (namespace_id, uu_namespace);
+-	if (rc != 0) {
+-		g_set_error (error,
+-			     AS_UTILS_ERROR,
+-			     AS_UTILS_ERROR_FAILED,
+-			     "namespace '%s' is invalid",
+-			     namespace_id);
+-		return FALSE;
+-	}
+-
+-	/* hash the namespace and then the string */
+-	csum = g_checksum_new (G_CHECKSUM_SHA1);
+-	g_checksum_update (csum, (guchar *) uu_namespace, 16);
+-	g_checksum_update (csum, (guchar *) data, (gssize) data_len);
+-	g_checksum_get_digest (csum, hash, &digestlen);
+-
+-	/* copy most parts of the hash 1:1 */
+-	memcpy (uu_new, hash, 16);
+-
+-	/* set specific bits according to Section 4.1.3 */
+-	uu_new[6] = (guint8) ((uu_new[6] & 0x0f) | (5 << 4));
+-	uu_new[8] = (guint8) ((uu_new[8] & 0x3f) | 0x80);
+-
+-	/* return as a string */
+-	uuid_unparse (uu_new, guid_new);
+-	return g_strdup (guid_new);
+-#endif
+ }
+ 
+ /**
+@@ -1593,20 +1540,7 @@ as_utils_guid_from_data (const gchar *namespace_id,
+ gboolean
+ as_utils_guid_is_valid (const gchar *guid)
+ {
+-#ifdef _WIN32
+-	/* XXX Ideally we should set a GError but this was already a public
+-	 * API, and it doesn't have such parameter.
+-	 */
+-	g_printerr ("%s: not supported\n", G_STRFUNC);
+ 	return FALSE;
+-#else
+-	gint rc;
+-	uuid_t uu;
+-	if (guid == NULL)
+-		return FALSE;
+-	rc = uuid_parse (guid, uu);
+-	return rc == 0;
+-#endif
+ }
+ 
+ /**
+diff --git a/libappstream-glib/meson.build b/libappstream-glib/meson.build
+index 715123d..f5beaae 100644
+--- a/libappstream-glib/meson.build
++++ b/libappstream-glib/meson.build
+@@ -16,7 +16,7 @@ if platform_win32
+ elif platform_osx
+   deps += [giounix]
+ else
+-  deps += [giounix, uuid]
++  deps += [giounix]
+ endif
+ 
+ if get_option('dep11')
+@@ -158,9 +158,6 @@ pkg_req_private = [
+   'libarchive'
+ ]
+ 
+-if not platform_win32
+-  pkg_req_private += ['uuid']
+-endif
+ 
+ pkgg.generate(
+   version : as_version,
+diff --git a/meson.build b/meson.build
+index 331dd7a..5ca8750 100644
+--- a/meson.build
++++ b/meson.build
+@@ -69,7 +69,6 @@ elif platform_osx
+   giounix = dependency('gio-unix-2.0', version : glib_ver)
+ else
+   giounix = dependency('gio-unix-2.0', version : glib_ver)
+-  uuid = dependency('uuid')
+ endif
+ libarchive = dependency('libarchive')
+ soup = dependency('libsoup-2.4', version : '>= 2.51.92')
