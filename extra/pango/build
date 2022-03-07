@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
-patch -p1 < no-fribidi.patch
+for p in *.patch; do
+    patch -p1 < "$p"
+done
 
 # Disable download of missing (optional) dependencies
 # during the build. This cannot be turned off otherwise.
