@@ -1,1 +1,2 @@
-https://download.gnome.org/sources/gobject-introspection/MAJOR.MINOR/gobject-introspection-VERSION.tar.xz
+#https://download.gnome.org/sources/gobject-introspection/MAJOR.MINOR/gobject-introspection-VERSION.tar.xz
+git+https://gitlab.gnome.org/GNOME/gobject-introspection.git
