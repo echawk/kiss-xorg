@@ -1,0 +1,51 @@
+diff --git a/pango/pango-layout.c b/pango/pango-layout.c
+index 6e4bb35..d5a6d8a 100644
+--- a/pango/pango-layout.c
++++ b/pango/pango-layout.c
+@@ -85,7 +85,6 @@
+ #include <locale.h>
+
+ #include <hb-ot.h>
+-#include <hb-glib.h>
+
+ #include "pango-layout-private.h"
+ #include "pango-attributes-private.h"
+@@ -6720,7 +6719,7 @@ apply_baseline_shift (PangoLayoutLine *line,
+
+       hb_font = pango_font_get_hb_font (item->analysis.font);
+
+-      script = hb_glib_script_to_script (item->analysis.script);
++      script = (hb_script_t) g_unicode_script_to_iso15924 (item->analysis.script);
+       language = hb_language_from_string (pango_language_to_string (item->analysis.language), -1);
+       hb_ot_tags_from_script_and_language (script, language,
+                                            &script_count, script_tags,
+diff --git a/utils/viewer-pangocairo.c b/utils/viewer-pangocairo.c
+index 2cfe2ce..3b2fc1d 100644
+--- a/utils/viewer-pangocairo.c
++++ b/utils/viewer-pangocairo.c
+@@ -27,7 +27,6 @@
+ #include <pango/pangocairo.h>
+
+ #include <hb-ot.h>
+-#include <hb-glib.h>
+
+ static int opt_annotate = 0;
+
+@@ -350,7 +349,7 @@ render_callback (PangoLayout *layout,
+
+               if (baseline_tag == 0)
+                 {
+-                  hb_script_t script = hb_glib_script_to_script (run->item->analysis.script);
++                  hb_script_t script = (hb_script_t) g_unicode_script_to_iso15924 (run->item->analysis.script);
+
+                   if (run->item->analysis.flags & PANGO_ANALYSIS_FLAG_CENTERED_BASELINE)
+                     baseline_tag = HB_OT_LAYOUT_BASELINE_TAG_IDEO_EMBOX_CENTRAL;
+@@ -366,7 +365,7 @@ render_callback (PangoLayout *layout,
+                 dir = HB_DIRECTION_TTB;
+               else
+                 dir = HB_DIRECTION_LTR;
+-              script = hb_glib_script_to_script (run->item->analysis.script);
++              script = (hb_script_t) g_unicode_script_to_iso15924 (run->item->analysis.script);
+               lang = HB_TAG_NONE;
+
+               for (int i = 0; i < G_N_ELEMENTS (baselines); i++)
