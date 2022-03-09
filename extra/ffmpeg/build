@@ -22,7 +22,7 @@
     --enable-openssl \
     --enable-shared \
     --enable-version3 \
-    --x86asmexe=nasm \
+    --x86asmexe=nasm
 
 make
 make install
