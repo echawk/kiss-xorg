@@ -53,7 +53,7 @@ librewolf_patch_dir=common/patches/
 
 patches="
 remove_addons.patch
-mozilla-vpn-ad.patch
+unity-menubar.patch
 context-menu.patch
 mozilla_dirs.patch
 urlbarprovider-interventions.patch
