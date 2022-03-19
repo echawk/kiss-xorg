@@ -1,5 +1,4 @@
 alsa-lib
-bash          make
 gtk+3
 libXt
 perl          make
