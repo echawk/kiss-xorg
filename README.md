@@ -47,6 +47,6 @@ KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
 distro/fork | tested? | notes
 -----------:|--------:|-----:
 [kisslinux](https://kisslinux.org) | Y | n/a
-[gkisslinux](https://github.com/gkisslinux) | Y |
+[gkisslinux](https://github.com/kiss-community/grepo) | Y |
 [glasnost](https://glasnost.org) | Y | clang is a dep of some packages, so a dummy package is needed
 [wyverkiss](https://github.com/wyvertux) | Y | need to fork some packges for gmake & bison
