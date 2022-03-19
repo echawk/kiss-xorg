@@ -7,9 +7,9 @@ meson \
     --sysconfdir=/etc \
     --mandir=/usr/share/man \
     -Ddebug=false \
-    -Djpeg=true \
-    -Dpng=true \
-    -Dtiff=false \
+    -Djpeg=enabled \
+    -Dpng=enabled \
+    -Dtiff=disabled \
     -Ddocs=false \
     -Dman=false \
     -Dgio_sniffing=false \
