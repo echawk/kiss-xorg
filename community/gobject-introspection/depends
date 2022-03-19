@@ -1,4 +1,5 @@
 bison   make
 glib
+libffi
 meson   make
 samurai make
