@@ -40,17 +40,15 @@ export PATH="$PWD/junk/bin:$PATH"
 
 sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in > .mozconfig
 
-# Apparently `mach` is now a *bash* script, yet it's marked as /bin/sh.
-# So we just update the shebang.
-sed -e '1s~/bin/sh~/bin/bash~' mach > _
-mv -f _ mach
-chmod +x mach
-
 for patch in *.patch; do
     patch -p1 < "$patch"
 done
 
 export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/browser"
+
+# Apparently `mach` is now a *bash* script, yet it's marked as /bin/sh.
+# So we just delete the offending code.
+printf '#!/bin/sh\n./platform/mach $@' > ./mach
 
 ./mach build
 ./mach stage
