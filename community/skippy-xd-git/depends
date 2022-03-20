@@ -2,5 +2,5 @@ giflib
 libXcomposite
 libXft
 libXinerama
-libjpeg
+libjpeg-turbo
 xorg-server
