@@ -13,4 +13,4 @@ sed -E \
 mv -f _ src/setting.c
 
 make PREFIX=/usr
-make PREFIX=/usr install
+make DESTDIR="$1" PREFIX=/usr install
