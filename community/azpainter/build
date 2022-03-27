@@ -3,5 +3,5 @@
 ./configure \
     --prefix=/usr
 
-make
-make install
+ninja -C build
+ninja -C build install
