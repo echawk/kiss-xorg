@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -p1 < add-av_stream_get_first_dts-for-chromium.patch
+
 ./configure \
     --cc="${CC:-cc}" \
     --cxx="${CXX:-c++}" \
