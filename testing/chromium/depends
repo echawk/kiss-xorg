@@ -19,6 +19,7 @@ libexif
 libgcrypt
 libjpeg-turbo
 libwebp
+libxkbcommon
 libxml2
 libxslt
 mesa
