@@ -48,7 +48,7 @@ export PATH="$PWD/junk/bin:$PATH"
 # Detect what the current linker is.
 case "$(readlink "$(command -v ld)")" in
     ld.bfd) ld="bfd";;
-    lld) ld="lld";;
+    *lld) ld="lld";;
     *) ld="other";;
 esac
 
