@@ -1,8 +1,11 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 make
-make DESTDIR="$1" PREFIX=/usr install
-make DESTDIR="$1" PREFIX=/usr -C gadgets  install
+make PREFIX=/usr install
+make PREFIX=/usr -C gadgets  install
 
 install -Dm644 README  "$1/usr/share/doc/dzen/README"
 install -Dm644 CREDITS "$1/usr/share/doc/dzen/CREDITS"

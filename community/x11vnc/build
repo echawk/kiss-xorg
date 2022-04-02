@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 patch -p1 < libressl.patch
 
 ./autogen.sh

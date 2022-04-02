@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Swap to shell script instead of perl script
 # for conversion of rules files. See files/xml2lst.
 sed 's/xml2lst\.pl/xml2lst/' rules/meson.build > _
@@ -17,4 +20,4 @@ meson \
     . output
 
 ninja -C output
-DESTDIR="$1" ninja -C output install
+ninja -C output install

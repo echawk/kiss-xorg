@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Build autoconf 2.13 for browser's sole use.
 (
     cd autoconf2.13

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 export CFLAGS="$CFLAGS -fcommon"
 
 ac_cv_search_gettext=no \
@@ -7,4 +10,4 @@ ac_cv_search_gettext=no \
     --prefix=/usr
 
 make
-make DESTDIR="$1" install
+make install

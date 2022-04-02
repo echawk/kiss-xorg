@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 cargo build --release
 
 install -Dm755 target/release/alacritty "$1/usr/bin/alacritty"

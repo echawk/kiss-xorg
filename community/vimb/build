@@ -1,4 +1,7 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
+
 cmd="shell pkg-config --libs webkit2gtk-webextension-4.0"
 # Fix LDFLAGS, courtesy of Arch Linux
 sed -E \
@@ -13,4 +16,4 @@ sed -E \
 mv -f _ src/setting.c
 
 make PREFIX=/usr
-make DESTDIR="$1" PREFIX=/usr install
+make PREFIX=/usr install

@@ -1,4 +1,7 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
+
 unzip *.zip*
 mkdir -p "$1/usr/bin"
 cp tkdiff-*/tkdiff "$1/usr/bin"

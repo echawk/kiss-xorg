@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # 'Vendor' libtool.
 for t in merge update extract perl; do
     ln -sf intltool "intltool-$t"

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 export RUSTFLAGS="$RUSTFLAGS -C debuginfo=2"
 
 kiss list gobject-introspection && gi=en

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
 # Also, override any user provided CFLAGS, as they can also cause seg faults.
 export CFLAGS="-no-pie"

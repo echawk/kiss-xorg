@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # We have to edit the make file to change the installation directory.
 sed "s/lib64/lib/g" \
     config/Makefile.linux > _

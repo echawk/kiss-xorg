@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 git submodule update --init extlib/libdxfrw extlib/mimalloc
 
 cmake -B build \

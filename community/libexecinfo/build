@@ -1,4 +1,7 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
+
 export CFLAGS="$CFLAGS -fno-omit-frame-pointer"
 
 for p in "execinfo.c&#include <sys/types.h>" "stacktraverse.c&#include <stddef.h>" "test.c&#include <stdio.h>"; do

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
 # Enable streaming related options if gstreamer is installed.

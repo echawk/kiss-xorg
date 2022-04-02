@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 export ac_cv_prog_RUBY=no
 
 sed -e "/subdir('tests')/d" \

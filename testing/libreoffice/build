@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 export CXXFLAGS="$CXXFLAGS -DGLM_ENABLE_EXPERIMENTAL -DU_USING_ICU_NAMESPACE=1"
 
 # Libreoffice needs `cp` from GNU coreutils.
@@ -83,6 +86,6 @@ sed "/gb_Top_MODULE_CHECK_TARGETS /s/ slowcheck//" Makefile > _
 mv -f _ Makefile
 
 make build-nocheck
-make PREFIXDIR=/usr DESTDIR="$1" distro-pack-install
+make PREFIXDIR=/usr distro-pack-install
 
 rm -rf -- "$1/usr/lib32"

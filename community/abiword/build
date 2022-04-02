@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 kiss list libedit && {
     sed "s/-lreadline/-ledit/;s/-lhistory//" configure > _
     mv -f _ configure

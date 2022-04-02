@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 export PKG_CONFIG_PATH="/usr/lib/pkgconfig"
 
 ./configure \

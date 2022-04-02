@@ -1,8 +1,11 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 ./configure \
     --prefix=/usr \
     --with-shared-memory-dir=/dev/shm
 
 make
-make DESTDIR="$1" install
+make install

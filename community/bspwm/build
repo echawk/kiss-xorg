@@ -1,3 +1,6 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
+
 make PREFIX=/usr
-make DESTDIR="$1" PREFIX=/usr install
+make PREFIX=/usr install

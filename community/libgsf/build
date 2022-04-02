@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 for f in Makefile.*; do
     sed -e 's/gsf-gnome//' -e 's/thumbnailer//' "$f" > _
     mv -f _ "$f"

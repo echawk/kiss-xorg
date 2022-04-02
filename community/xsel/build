@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 sh autogen.sh
 # Fix strncpy() error.
 sed 's/MAXFNAME)/MAXFNAME-1)/' xsel.c > _

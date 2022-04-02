@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 sed '/INTLTOOL_APPLIED_VERSION=/d' configure > _
 mv -f _ configure
 sed "/version|grep '(GNU/d"        configure > _

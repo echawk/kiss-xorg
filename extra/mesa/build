@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Install python-mako which is solely needed for mesa
 # and thus contained in this build.
 {

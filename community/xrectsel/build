@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 sed -i /config.h/d xrectsel.c
 $CC -o xrectsel xrectsel.c -lX11
 install -Dt "$1/usr/bin" xrectsel

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Without this folder, Qt can't find its own header files.
 mkdir -p .git
 

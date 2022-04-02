@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 patch -p1 < rootless_modesetting.patch
 ed src/radeon_kms.c <<EOF
 934a

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Setup docutils to generate manual pages.
 {
     cd docutils
@@ -23,4 +26,4 @@ meson \
     . build
 
 ninja -C build
-DESTDIR="$1" ninja -C build install
+ninja -C build install

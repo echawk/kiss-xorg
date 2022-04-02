@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Remove the libstartup-notification dependency.
 patch -p0 < i3-no-libstartup-notification.patch
 

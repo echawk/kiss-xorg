@@ -1,4 +1,7 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
+
 autoreconf -vif
 ./configure \
     --prefix=/usr

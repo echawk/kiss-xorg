@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 if ! command -v yasm; then (
     cd yasm
     ./configure \

@@ -1,9 +1,12 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 ./configure \
     --prefix=/usr \
     --mandir=/usr/share/man \
     --localstatedir=/var
 
 make
-make DESTDIR="$1" install
+make install

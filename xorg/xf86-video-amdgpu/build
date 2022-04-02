@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 patch -p1 < rootless_modesetting.patch
 
 export LDFLAGS="$LDFLAGS -Wl,-z,lazy"
@@ -9,4 +12,4 @@ export CFLAGS="$CFLAGS -fcommon"
     --prefix=/usr
 
 make
-make DESTDIR="$1" install
+make install

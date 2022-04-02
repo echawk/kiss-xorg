@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Amend install path to '/usr'.
 sed "s#/usr/local#/usr#" \
     config.mk > _

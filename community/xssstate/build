@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 sed 's|PREFIX = /usr/local|PREFIX = /usr|g' config.mk > _
 mv -f _ config.mk
 

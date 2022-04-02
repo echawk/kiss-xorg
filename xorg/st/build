@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 sed 's|Liberation Mono|Monospace|g' config.def.h > _
 mv -f _ config.def.h
 
@@ -8,4 +11,4 @@ export TERMINFO="$1/usr/share/terminfo"
 mkdir -p "$TERMINFO"
 
 make
-make PREFIX=/usr DESTDIR="$1" install
+make PREFIX=/usr install

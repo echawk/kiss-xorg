@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 patch -p1 < rootless_modesetting.patch
 
 ./configure \
@@ -18,4 +21,4 @@ patch -p1 < rootless_modesetting.patch
     --with-systemd-daemon=off
 
 make
-make DESTDIR="$1" install
+make install

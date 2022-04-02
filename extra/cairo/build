@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Disable building 'cairo-sphinx'.
 sed -e "s/\(BUILD_SPHINX_TRUE=\)/\1'#'/" \
     -e "s/\(BUILD_SPHINX_FALSE=\)'#'/\1=/" \

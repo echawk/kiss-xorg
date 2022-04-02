@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 patch -p1 < no-fribidi.patch
 
 # Remove configure check for atk-bridge and fribidi.
@@ -41,7 +44,7 @@ mv -f _ Makefile.in
     --enable-gtk-doc-html=no
 
 make
-make DESTDIR="$1" install
+make install
 
 # We don't compile with librsvg which leads to this
 # utility solely causing compiler errors for some

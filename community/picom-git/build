@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 meson \
     --prefix=/usr \
     -Ddbus=false \

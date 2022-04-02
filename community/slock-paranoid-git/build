@@ -1,5 +1,8 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
+
 cp twilio_example.h twilio.h
 cp imgur_example.h  imgur.h
 make PREFIX=/usr
-make DESTDIR="$1" PREFIX=/usr install
+make PREFIX=/usr install

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 cmake -B build \
     -DGLM_INCLUDE_DIR="$PWD/glm" \
     -DCMAKE_INSTALL_PREFIX=/usr \

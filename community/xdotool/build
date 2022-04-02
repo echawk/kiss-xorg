@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 # Remove compiler debug stuff and post-install message.
 sed Makefile \
     -e '/CFLAGS.*-g/d' \
@@ -7,4 +10,4 @@ sed Makefile \
 mv -f _ Makefile
 
 make
-make DESTDIR="$1" PREFIX=/usr install
+make PREFIX=/usr install

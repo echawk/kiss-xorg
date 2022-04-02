@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 CFLAGS_FOR_BUILD=-fPIC \
 ./configure \
     --prefix=/usr \
@@ -8,7 +11,7 @@ CFLAGS_FOR_BUILD=-fPIC \
     --disable-static
 
 make
-make DESTDIR="$1" install
+make install
 
 # Remove library documentation.
 rm -rf "$1/usr/share/man/man3"

@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
+
 sed 's/pthread-stubs //' configure > _
 mv -f _ configure
 chmod +x configure
@@ -8,7 +11,7 @@ chmod +x configure
     --prefix=/usr
 
 make
-make DESTDIR="$1" install
+make install
 
 # Remove library documentation.
 # False positive.
