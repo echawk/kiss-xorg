@@ -64,7 +64,6 @@ mv -f _ ui/ozone/public/platform_gl_egl_utility.h
 # Compile gn early, so it can be used to generate gni stuff.
 ./tools/gn/bootstrap/bootstrap.py --skip-generate-buildfiles
 
-#    ffmpeg
 # harfbuzz-ng: syslib broken
 # icu: Breakage on updates.
 # libevent: Random freezes with javascript.
@@ -74,6 +73,7 @@ mv -f _ ui/ozone/public/platform_gl_egl_utility.h
 # libxslt: bundle as it's only requred by browsers
 # zlib: KISS build without 'minizip'.
 system="
+    ffmpeg
     flac
     fontconfig
     libdrm
@@ -191,7 +191,7 @@ out/Release/gn gen out/Release --args="$conf"
 # -n is non-POSIX hence we "attempt".
 # shellcheck disable=2039
 ulimit -n 4096 2>/dev/null || {
-    printf "Failed to set ulimit, build will fail!\n"
+    printf "Failed to set ulimit, build will fail!\n" >&2
     exit 1
 }
 
