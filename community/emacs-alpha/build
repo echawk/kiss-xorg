@@ -2,10 +2,13 @@
 
 export DESTDIR="$1"
 
-
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
 # Also, override any user provided CFLAGS, as they can also cause seg faults.
 export CFLAGS="-no-pie"
+if command -v clang; then
+    export CFLAGS="-O3 $CFLAGS"
+    export CC=clang
+fi
 
 ./configure \
     --prefix=/usr \
