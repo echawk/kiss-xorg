@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-export DESTDIR="$1"
-
-./configure \
-    --prefix=/usr
-make
-make install
