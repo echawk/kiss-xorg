@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+for p in html-parser html-tagset; do (
+    cd "$p"
+
+    perl Makefile.PL INSTALLDIRS=vendor
+
+    make
+    make DESTDIR="$1" install
+) done
