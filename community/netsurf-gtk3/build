@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+export CFLAGS="$CFLAGS -fcommon"
+export PATH="$PATH:$PWD/xxd"
+
+export PREFIX=/usr
+export LIBDIR=lib
+export INCLUDEDIR=include
+export TARGET=gtk3
+export NETSURF_HOMEPAGE=https://google.com
+
+# Build standalone xxd to remove VIM rquirement.
+cc xxd/xxd.c -o xxd/xxd
+
+make
+make install
+
+mkdir -p "$1/usr/share/applications/"
+cp -f netsurf/frontends/gtk/res/netsurf-gtk.desktop \
+    "$1/usr/share/applications/netsurf.desktop"
