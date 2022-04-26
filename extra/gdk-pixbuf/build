@@ -6,9 +6,9 @@ export DESTDIR="$1"
 : > tests/meson.build
 
 meson \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dmandir=/usr/share/man \
     -Ddebug=false \
     -Djpeg=enabled \
     -Dpng=enabled \

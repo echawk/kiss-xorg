@@ -5,9 +5,9 @@ export DESTDIR="$1"
 
 
 meson \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dmandir=/usr/share/man \
     -Dx11=true \
     . output
 

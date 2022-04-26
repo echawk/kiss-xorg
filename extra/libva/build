@@ -4,9 +4,9 @@ export DESTDIR="$1"
 
 
 meson \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dmandir=/usr/share/man \
     -Dwith_wayland=no \
     -Dwith_x11=yes \
     -Dwith_glx=yes \

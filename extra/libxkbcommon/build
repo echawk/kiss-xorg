@@ -5,8 +5,8 @@ export DESTDIR="$1"
 
 
 meson \
-    --prefix=/usr \
-    --libexecdir=/usr/lib \
+    -Dprefix=/usr \
+    -Dlibexecdir=/usr/lib \
     -Ddefault_library=both \
     -Denable-docs=false \
     -Denable-wayland=false \

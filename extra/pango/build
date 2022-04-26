@@ -16,7 +16,7 @@ rm -rf subprojects
 : > docs/meson.build
 
 meson \
-    --prefix=/usr \
+    -Dprefix=/usr \
     -Dgtk_doc=false \
     -Dintrospection=disabled \
     . build

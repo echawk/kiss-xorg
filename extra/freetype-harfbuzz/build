@@ -7,7 +7,7 @@ build_freetype() (
     cd freetype
 
     meson \
-        --prefix=/usr \
+        -Dprefix=/usr \
         -Ddefault_library=both \
         -Dbzip2=disabled \
         -Dzlib=disabled \
@@ -22,7 +22,7 @@ build_harfbuzz() (
     cd harfbuzz
 
     meson \
-        --prefix=/usr \
+        -Dprefix=/usr \
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
         -Ddefault_library=both \
         -Dglib=disabled \
