@@ -13,10 +13,10 @@ sed "/subdir('po')/d" meson.build > _
 mv -f _ meson.build
 
 meson \
-    --prefix=/usr \
-    -D compat-rules=true \
-    -D xorg-rules-symlinks=true \
-    -D xkb-base="/usr/share/X11/xkb" \
+    -Dprefix=/usr \
+    -Dcompat-rules=true \
+    -Dxorg-rules-symlinks=true \
+    -Dxkb-base="/usr/share/X11/xkb" \
     . output
 
 ninja -C output
