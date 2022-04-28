@@ -21,6 +21,8 @@ build_freetype() (
 build_harfbuzz() (
     cd harfbuzz
 
+kiss list icu  >/dev/null 2>&1 || icu_enabled=disabled
+
     meson \
         -Dprefix=/usr \
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
@@ -29,7 +31,7 @@ build_harfbuzz() (
         -Dfreetype=enabled \
         -Dgobject=disabled \
         -Dcairo=disabled \
-        -Dicu=disabled \
+        -Dicu="${icu_enabled:-enabled}" \
         -Dbenchmark=disabled \
         -Dtests=disabled \
         . output
