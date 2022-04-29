@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cat <<EOF
+NOTE: if you want 'harfbuzz-icu' functionality, install both 'icu' and 'glib'
+then rebuild this package.
+EOF

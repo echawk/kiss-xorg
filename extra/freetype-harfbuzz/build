@@ -21,15 +21,17 @@ build_freetype() (
 build_harfbuzz() (
     cd harfbuzz
 
+    pkg-config --exists icu-io glib-2.0 && icu_glib=enabled
+
     meson \
         -Dprefix=/usr \
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
         -Ddefault_library=both \
-        -Dglib=disabled \
+        -Dglib="${icu_glib:-disabled}" \
         -Dfreetype=enabled \
         -Dgobject=disabled \
         -Dcairo=disabled \
-        -Dicu=disabled \
+        -Dicu="${icu_glib:-disabled}" \
         -Dbenchmark=disabled \
         -Dtests=disabled \
         . output
