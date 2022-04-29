@@ -3,7 +3,6 @@ cmake  make
 glib-networking
 gperf  make
 gtk+3
-harfbuzz-icu
 lcms
 libXt
 libgcrypt
