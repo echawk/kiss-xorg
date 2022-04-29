@@ -1,15 +1,9 @@
 #!/bin/sh -e
 
-d() {
-    echo "$1"
-    exit 1
-}
-
 export DESTDIR="$1"
 
-export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
-pkg-config --exists harfbuzz-icu || d "-> harfbuzz doesn't have icu support"
+export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
 # Enable streaming related options if gstreamer is installed.
 kiss list gst-plugins-base && streaming=ON
