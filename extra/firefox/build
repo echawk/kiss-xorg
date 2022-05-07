@@ -2,8 +2,24 @@
 
 export DESTDIR="$1"
 
+(
+    cd dom/media/webrtc/third_party_build/gn-configs
+
+    mv x64_False_arm64_linux.json      x64_False_arm64_linux_True.json
+    mv x64_False_arm64_linux.mozconfig x64_False_arm64_linux_True.mozconfig
+    mv x64_False_x64_linux.json        x64_False_x64_linux_True.json
+    mv x64_False_x86_linux.json        x64_False_x86_linux_True.json
+    mv x64_False_x86_linux.mozconfig   x64_False_x86_linux_True.mozconfig
+    mv x64_True_arm64_linux.json       x64_True_arm64_linux_True.json
+    mv x64_True_arm64_linux.mozconfig  x64_True_arm64_linux_True.mozconfig
+    mv x64_True_x64_linux.json         x64_True_x64_linux_True.json
+    mv x64_True_x64_linux.mozconfig    x64_True_x64_linux_True.mozconfig
+    mv x64_True_x86_linux.json         x64_True_x86_linux_True.json
+    mv x64_True_x86_linux.mozconfig    x64_True_x86_linux_True.mozconfig
+)
 
 for p in *.patch; do
+    echo $p
     patch -p1 < "$p"
 done
 
@@ -69,7 +85,7 @@ export RUSTFLAGS="$RUSTFLAGS --remap-path-prefix=$PWD=."
 
 export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/firefox,--enable-new-dtags"
 export RUSTFLAGS="$RUSTFLAGS -Cdebuginfo=0"
-export MACH_USE_SYSTEM_PYTHON=1
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 export MOZ_DEBUG_FLAGS=-g0
 export MOZBUILD_STATE_PATH="$PWD/state"
 export MOZ_NOSPAM=1
@@ -77,10 +93,10 @@ export MOZ_NOSPAM=1
 cat > .mozconfig << EOF
 ac_add_options --prefix=/usr
 ac_add_options --libdir=/usr/lib
-ac_add_options --enable-alsa
 ac_add_options --enable-strip
 ac_add_options --enable-release
 ac_add_options --enable-rust-simd
+ac_add_options --enable-audio-backends=alsa
 ac_add_options --enable-install-strip
 ac_add_options --enable-official-branding
 ac_add_options --enable-application=browser
@@ -93,6 +109,7 @@ ac_add_options --with-system-zlib
 ac_add_options --with-system-pixman
 ac_add_options --without-system-nss
 ac_add_options --without-system-nspr
+ac_add_options --without-wasm-sandboxed-libraries
 ac_add_options --disable-eme
 ac_add_options --disable-dbus
 ac_add_options --enable-linker="$ld"
@@ -105,13 +122,11 @@ ac_add_options --disable-callgrind
 ac_add_options --disable-profiling
 ac_add_options --disable-necko-wifi
 ac_add_options --disable-crashreporter
-ac_add_options --disable-pulseaudio
 ac_add_options --disable-accessibility
 ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-parental-controls
 ac_add_options --disable-system-extension-dirs
-ac_add_options --without-wasm-sandboxed-libraries
 EOF
 
 ./mach build
@@ -127,4 +142,3 @@ rm -rf \
     "$1/usr/lib/firefox/browser/features/webcompat-reporter@mozilla.org.xpi" \
     "$1/usr/lib/firefox/browser/features/webcompat@mozilla.org.xpi" \
     "$1/usr/lib/firefox/browser/features/doh-rollout@mozilla.org.xpi"
-
