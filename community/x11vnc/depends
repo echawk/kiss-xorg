@@ -1,5 +1,10 @@
 autoconf make
 automake make
+cairo
+libXcomposite
+libXcursor
+libXdamage
+libXinerama
 libXtst
 libvncserver
 xrandr
