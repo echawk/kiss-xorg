@@ -2,51 +2,37 @@
 
 export DESTDIR="$1"
 
-
 patch -p1 < no-fribidi.patch
 
-# Remove configure check for atk-bridge and fribidi.
-sed -e 's/\(ATK_PACKAGES="atk\) atk-bridge-2.0"/\1"/' \
-    -e 's/fribidi >= 0\.19\.7//g' \
-    configure > _
-mv -f _ configure
-chmod +x configure
+# Disable native language support, disable atk-bridge, don't compile schemas.
+sed -e '/compile_schemas/s/true/false/' \
+    -e '/ENABLE_NLS/s/1/0/' \
+    -e "/subdir('po/d" \
+    -e "/atk-bridge/d" \
+    meson.build > _
+mv -f _ meson.build
 
 # Remove atk-bridge code.
 sed '/<atk-bridge.h>/d;/atk_bridge_adaptor_init/d' \
     gtk/a11y/gtkaccessibility.c > _
 mv -f _ gtk/a11y/gtkaccessibility.c
 
-# Don't build GTK examples/demos/testsuite.
-sed 's/demos tests testsuite examples//;s/docs \(m4macros\)/\1/' Makefile.in > _
-mv -f _ Makefile.in
+meson setup \
+    -Dprefix=/usr \
+    -Dx11_backend=true \
+    -Dwayland_backend=false \
+    -Dxinerama=yes \
+    -Dprint_backends=file,lpr \
+    -Dcolord=no \
+    -Dintrospection=false \
+    -Ddemos=false \
+    -Dexamples=false \
+    -Dtests=false \
+    output
 
-./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --enable-xkb \
-    --enable-xinerama \
-    --enable-xrandr \
-    --enable-xfixes \
-    --enable-xcomposite \
-    --enable-xdamage \
-    --enable-x11-backend \
-    --disable-schemas-compile \
-    --disable-cups \
-    --disable-papi \
-    --disable-cloudprint \
-    --disable-glibtest \
-    --disable-nls \
-    --disable-installed-tests \
-    --enable-introspection=no \
-    --enable-colord=no \
-    --enable-gtk-doc-html=no
+ninja -C output
+ninja -C output install
 
-make
-make install
-
-# We don't compile with librsvg which leads to this
-# utility solely causing compiler errors for some
-# packages. It has no use at all.
+# We don't compile with librsvg which leads to this utility solely causing
+# compiler errors for some packages. It has no use at all.
 rm -f "$1/usr/bin/gtk-encode-symbolic-svg"
