@@ -2,6 +2,21 @@
 
 export DESTDIR="$1"
 
+(
+    cd dom/media/webrtc/third_party_build/gn-configs
+
+    mv x64_False_arm64_linux.json      x64_False_arm64_linux_True.json
+    mv x64_False_arm64_linux.mozconfig x64_False_arm64_linux_True.mozconfig
+    mv x64_False_x64_linux.json        x64_False_x64_linux_True.json
+    mv x64_False_x86_linux.json        x64_False_x86_linux_True.json
+    mv x64_False_x86_linux.mozconfig   x64_False_x86_linux_True.mozconfig
+    mv x64_True_arm64_linux.json       x64_True_arm64_linux_True.json
+    mv x64_True_arm64_linux.mozconfig  x64_True_arm64_linux_True.mozconfig
+    mv x64_True_x64_linux.json         x64_True_x64_linux_True.json
+    mv x64_True_x64_linux.mozconfig    x64_True_x64_linux_True.mozconfig
+    mv x64_True_x86_linux.json         x64_True_x86_linux_True.json
+    mv x64_True_x86_linux.mozconfig    x64_True_x86_linux_True.mozconfig
+)
 
 for p in *.patch; do
     patch -p1 < "$p"
@@ -56,13 +71,13 @@ librewolf_patch_dir=common/patches/
 
 patches="
 remove_addons.patch
-unity-menubar.patch
-context-menu.patch
 mozilla_dirs.patch
 urlbarprovider-interventions.patch
 allow-ubo-private-mode.patch
+custom-ubo-assets-bootstrap-location.patch
+disable-data-reporting-at-compile-time.patch
 sed-patches/disable-pocket.patch
-sed-patches/stop-undesired-requests.patch
+sed-patches/allow-searchengines-non-esr.patch
 ui-patches/remove-snippets-from-home.patch
 ui-patches/sanitizing-description.patch
 ui-patches/remove-organization-policy-banner.patch
@@ -71,6 +86,7 @@ ui-patches/remove-branding-urlbar.patch
 ui-patches/remove-cfrprefs.patch
 "
 for patch in $patches; do
+    echo [PATCH] appling $patch
     patch -Np1 < "${librewolf_patch_dir}$patch"
 done
 
@@ -93,15 +109,15 @@ export RUSTFLAGS="$RUSTFLAGS --remap-path-prefix=$PWD=."
 
 export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/librewolf,--enable-new-dtags"
 export RUSTFLAGS="$RUSTFLAGS -Cdebuginfo=0"
-export MACH_USE_SYSTEM_PYTHON=1
+export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 export MOZ_DEBUG_FLAGS=-g0
-export MOZBUILD_STATE_PATH=$PWD/state
+export MOZBUILD_STATE_PATH="$PWD/state"
 export MOZ_NOSPAM=1
 
 cat > .mozconfig << EOF
 ac_add_options --prefix=/usr
 ac_add_options --libdir=/usr/lib
-ac_add_options --enable-alsa
+ac_add_options --enable-audio-backends=alsa
 ac_add_options --enable-strip
 ac_add_options --enable-release
 ac_add_options --enable-rust-simd
@@ -129,7 +145,6 @@ ac_add_options --disable-callgrind
 ac_add_options --disable-profiling
 ac_add_options --disable-necko-wifi
 ac_add_options --disable-crashreporter
-ac_add_options --disable-pulseaudio
 ac_add_options --disable-accessibility
 ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
