@@ -2,23 +2,21 @@
 
 export DESTDIR="$1"
 
-
 # Build fails with clang due to -Werror (forced on) and
 # -Wunused-command-line-argument which is triggered by.
 # the below CFLAGS.
 export CFLAGS="-Wno-unused-command-line-argument $CFLAGS"
 
-
-meson \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --mandir=/usr/share/man \
-    --libexecdir=/usr/lib \
+meson setup \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dmandir=/usr/share/man \
+    -Dlibexecdir=/usr/lib \
     -Ddebug-gui=false \
     -Ddocumentation=false \
     -Dtests=false \
     -Dlibwacom=false \
-    . output
+    output
 
 ninja -C output
 ninja -C output install
