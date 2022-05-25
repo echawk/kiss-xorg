@@ -19,13 +19,13 @@ export DESTDIR="$1"
     export PYTHONPATH
 }
 
-meson \
+meson setup \
     -Dprefix=/usr \
     -Dmandir=/usr/share/man \
     -Dalsa=enabled \
     -Dwayland=disabled \
     -Dx11=enabled \
-    . output
+    output
 
 ninja -C output
 ninja -C output install
