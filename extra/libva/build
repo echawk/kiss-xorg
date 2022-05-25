@@ -3,14 +3,14 @@
 export DESTDIR="$1"
 
 
-meson \
+meson setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
     -Dwith_wayland=no \
     -Dwith_x11=yes \
     -Dwith_glx=yes \
-    . output
+    output
 
 ninja -C output
 ninja -C output install
