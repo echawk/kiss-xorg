@@ -2,14 +2,12 @@
 
 export DESTDIR="$1"
 
-
-
-meson \
+meson setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
     -Dx11=true \
-    . output
+    output
 
 ninja -C output
 ninja -C output install
