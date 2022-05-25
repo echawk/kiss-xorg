@@ -20,10 +20,10 @@ export DESTDIR="$1"
     export PYTHONPATH
 }
 
-meson \
+meson setup \
     -Dprefix=/usr \
     -Dvalgrind=false \
-    . build
+    output
 
-ninja -C build
-ninja -C build install
+ninja -C output
+ninja -C output install
