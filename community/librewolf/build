@@ -2,22 +2,6 @@
 
 export DESTDIR="$1"
 
-(
-    cd dom/media/webrtc/third_party_build/gn-configs
-
-    mv x64_False_arm64_linux.json      x64_False_arm64_linux_True.json
-    mv x64_False_arm64_linux.mozconfig x64_False_arm64_linux_True.mozconfig
-    mv x64_False_x64_linux.json        x64_False_x64_linux_True.json
-    mv x64_False_x86_linux.json        x64_False_x86_linux_True.json
-    mv x64_False_x86_linux.mozconfig   x64_False_x86_linux_True.mozconfig
-    mv x64_True_arm64_linux.json       x64_True_arm64_linux_True.json
-    mv x64_True_arm64_linux.mozconfig  x64_True_arm64_linux_True.mozconfig
-    mv x64_True_x64_linux.json         x64_True_x64_linux_True.json
-    mv x64_True_x64_linux.mozconfig    x64_True_x64_linux_True.mozconfig
-    mv x64_True_x86_linux.json         x64_True_x86_linux_True.json
-    mv x64_True_x86_linux.mozconfig    x64_True_x86_linux_True.mozconfig
-)
-
 for p in *.patch; do
     patch -p1 < "$p"
 done
