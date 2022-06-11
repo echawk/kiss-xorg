@@ -7,6 +7,9 @@ patch -p1 < rootless_modesetting.patch
 # Building with GCC 12.1 fails because of this warning, so disable it.
 export CFLAGS="-Wno-error=array-bounds $CFLAGS"
 
+# Disable tests.
+: > test/meson.build
+
 meson setup \
     -Dprefix='/usr' \
     -Dlocalstatedir='/var' \
