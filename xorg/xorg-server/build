@@ -20,6 +20,7 @@ meson setup \
     -Ddri3=true \
     -Dglamor=true \
     -Dxorg=true \
+    -Dxephyr=false \
     -Dxdmcp=false \
     -Ddefault_font_path=/usr/share/fonts \
     -Dsecure-rpc=false \
