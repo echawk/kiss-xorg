@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+patch -p1 < bdfedit-1.3.diff
+
+install -Dm755 bdfedit "$1/usr/bin/bdfedit"
+install -Dm644 completion.tcl "$1/usr/share/bdfedit/completion.tcl"
+install -Dm644 bdfedit.samprc "$1/etc/bdfeditrc"
+install -Dm644 bdfedit.help "$1/usr/share/doc/bdfedit/readme.txt"
