@@ -1,17 +1,18 @@
-https://commondatastorage.googleapis.com/chromium-browser-official/chromium-100.0.4896.60.tar.xz
-https://github.com/stha09/chromium-patches/releases/download/chromium-100-patchset-4/chromium-100-patchset-4.tar.xz
-https://github.com/Eloston/ungoogled-chromium/archive/a12522ef5e016bec5da2b967f14879981a701117.tar.gz ungoogled-chromium
+https://commondatastorage.googleapis.com/chromium-browser-official/chromium-103.0.5060.53.tar.xz
+https://github.com/stha09/chromium-patches/releases/download/chromium-103-patchset-4/chromium-103-patchset-4.tar.xz
+https://github.com/Eloston/ungoogled-chromium/archive/ec75c03e2555ab060abb534a9b0d34d39aabdbe9.tar.gz ungoogled-chromium
 files/chromium.sh
 patches/chromium-InkDropHost-crash.patch
 patches/chromium-fix-narrowing-cast.patch
 patches/chromium-optional-atk-dbus.patch
-patches/chromium-webcodecs-stop-using-AudioOpusEncoder.patch
+patches/chromium-roll-src-third_party-ffmpeg.patch
 patches/glibc-malloc.patch
 patches/musl-crashpad.patch
 patches/musl-default-pthread-stacksize.patch
 patches/musl-fixes.patch
 patches/musl-hacks.patch
 patches/musl-missing-unistd-include.patch
+patches/musl-missing-cstdint-include.patch
 patches/musl-no-execinfo.patch
 patches/musl-no-getcontext.patch
 patches/musl-no-mallinfo.patch
