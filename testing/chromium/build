@@ -160,7 +160,6 @@ conf="
     use_sysroot=false
     use_thin_lto=false
     use_vaapi=${vaapi:-false}
-    use_x11=true
     use_xkbcommon=false
     build_with_tflite_lib=false
     chrome_pgo_phase=0
