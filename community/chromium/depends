@@ -1,11 +1,8 @@
 alsa-lib
-atk
 bison              make
 bzip2
-ffmpeg
 flac
 fontconfig
-freetype-harfbuzz
 glib
 gperf              make
 gtk+3
