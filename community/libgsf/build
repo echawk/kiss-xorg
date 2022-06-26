@@ -8,7 +8,7 @@ for f in Makefile.*; do
     mv -f _ "$f"
 done
 
-kiss list gobject-introspection && gi=en
+pkg-config --exists gobject-introspection-1.0 && gi=en
 
 ./configure \
     --prefix=/usr \

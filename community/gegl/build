@@ -9,7 +9,7 @@ sed -e "/subdir('tests')/d" \
     -e "/subdir('po')/d" meson.build > _
 mv -f _ meson.build
 
-kiss list gobject-introspection && intro=true
+pkg-config --exists gobject-introspection-1.0 && intro=true
 
 meson \
     --prefix=/usr \
