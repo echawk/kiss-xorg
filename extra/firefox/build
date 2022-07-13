@@ -3,22 +3,8 @@
 export DESTDIR="$1"
 
 for p in *.patch; do
-    echo $p
     patch -p1 < "$p"
 done
-
-# Build autoconf 2.13 for Firefox's sole use.
-# See: https://bugzilla.mozilla.org/show_bug.cgi?id=104642
-(
-    cd autoconf2.13
-
-    ./configure \
-        --prefix="$PWD/../junk" \
-        --program-suffix=-2.13
-
-    make
-    make install
-)
 
 # Build yasm for Firefox's sole use. Firefox is the only package which needs it
 # and upstream is kinda dead.
