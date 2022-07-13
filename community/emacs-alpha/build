@@ -2,6 +2,7 @@
 
 export DESTDIR="$1"
 
+
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
 # Also, override any user provided CFLAGS, as they can also cause seg faults.
 export CFLAGS="-no-pie"
@@ -10,7 +11,10 @@ if command -v clang; then
     export CC=clang
 fi
 
+kiss list libgccjit && conf="--with-native-compilation"
+
 ./configure \
+    ${conf:-} \
     --prefix=/usr \
     --with-modules \
     --with-xft \
@@ -22,8 +26,7 @@ fi
     --without-rsvg \
     --with-xpm=no \
     --with-tiff=no \
-    --with-gnutls=yes \
-    --with-native-compilation
+    --with-gnutls=yes
 
 mkdir -p "$1/usr/share/emacs/site-lisp"
 cat << EOF > "$1/usr/share/emacs/site-lisp/site-start.el"
