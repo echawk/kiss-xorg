@@ -1,11 +1,10 @@
-#!/bin/sh
+#!/bin/sh -e
 
 ./autogen.sh
 
 ./configure \
-  --prefix=/usr \
-  --with-fontdir=/usr/share/fonts
-
+    --prefix=/usr \
+    --with-fontdir=/usr/share/fonts
 
 make
 make install

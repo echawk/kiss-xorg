@@ -1,10 +1,9 @@
-autoconf
+autoconf make
 freetype-harfbuzz
 libXdmcp
 libXfont
 libXtst
 libfontenc
 libpng
-zlib
 libtool
 xtrans
