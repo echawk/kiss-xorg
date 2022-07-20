@@ -1,7 +1,6 @@
 atk
 atkmm
 boost
-bzip2
 cairo
 cairomm
 curl
@@ -55,5 +54,3 @@ poppler
 potrace
 sqlite
 tiff
-xz
-zlib

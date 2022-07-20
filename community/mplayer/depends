@@ -1,5 +1,4 @@
 alsa-lib
-bzip2
 fontconfig
 freetype-harfbuzz
 gnutls
@@ -22,4 +21,3 @@ opus
 pkgconf make
 x264
 xvidcore
-zlib

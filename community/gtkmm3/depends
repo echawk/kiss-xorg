@@ -1,6 +1,5 @@
 atk
 atkmm
-bzip2
 cairo
 cairomm
 expat
@@ -37,7 +36,4 @@ meson make
 pango
 pangomm
 pixman
-samurai make
 tiff
-xz
-zlib

@@ -1,4 +1,3 @@
-bzip2
 expat
 fontconfig
 freetype-harfbuzz
@@ -14,4 +13,3 @@ libXrender
 libjpeg-turbo
 libpng
 libxcb
-zlib

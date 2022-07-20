@@ -6,4 +6,3 @@ meson make
 pkgconf make
 samurai make
 sqlite
-zlib

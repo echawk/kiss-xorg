@@ -1,9 +1,6 @@
-bzip2
 glib
 libffi
 libgsf
 libpng
 libxml2
 pkgconf make
-xz
-zlib

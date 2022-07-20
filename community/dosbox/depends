@@ -12,4 +12,3 @@ libxcb
 libxshmfence
 mesa
 sdl
-zlib
