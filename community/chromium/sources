@@ -1,6 +1,6 @@
-https://commondatastorage.googleapis.com/chromium-browser-official/chromium-103.0.5060.53.tar.xz
+https://commondatastorage.googleapis.com/chromium-browser-official/chromium-103.0.5060.114.tar.xz
 https://github.com/stha09/chromium-patches/releases/download/chromium-103-patchset-4/chromium-103-patchset-4.tar.xz
-https://github.com/Eloston/ungoogled-chromium/archive/ec75c03e2555ab060abb534a9b0d34d39aabdbe9.tar.gz ungoogled-chromium
+https://github.com/ungoogled-software/ungoogled-chromium/archive/refs/tags/103.0.5060.114-2.tar.gz ungoogled-chromium
 files/chromium.sh
 patches/chromium-InkDropHost-crash.patch
 patches/chromium-fix-narrowing-cast.patch
