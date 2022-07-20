@@ -7,6 +7,10 @@ patch -p1 < rootless_modesetting.patch
 # Disable tests.
 : > test/meson.build
 
+# Make meson_options.txt muon compatible.
+sed -E "/boolean/s/'(true|false)'/\1/" meson_options.txt > _
+mv -f _ meson_options.txt
+
 meson setup \
     -Dprefix='/usr' \
     -Dlocalstatedir='/var' \
