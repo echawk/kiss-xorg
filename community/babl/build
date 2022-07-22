@@ -2,13 +2,17 @@
 
 export DESTDIR="$1"
 
-
+# Disable tests.
 sed "/subdir('tests')/d" meson.build > _
 mv -f _ meson.build
 
-meson \
-    --prefix=/usr \
-    . output
+# Remove broken code from meson.build.
+sed -e "/BABL_UNSTABLE/d" -e "/unstable/d" meson.build > _
+mv -f _ meson.build
+
+meson setup \
+    -Dprefix=/usr \
+    output
 
 ninja -C output
 ninja -C output install
