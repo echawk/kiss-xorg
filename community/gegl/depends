@@ -1,7 +1,7 @@
 babl
-json-glib
 bash                  make
 glib
+json-glib
 meson                 make
 pkgconf               make
 samurai               make
