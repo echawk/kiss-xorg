@@ -1,2 +1,10 @@
+cairo
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+glib
+libpng
+libxml2
+pango
 pkgconf make
 rust    make
