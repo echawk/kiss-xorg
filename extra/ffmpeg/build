@@ -23,7 +23,7 @@ patch -p1 < add-av_stream_get_first_dts-for-chromium.patch
     --enable-libx265 \
     --enable-libxvid \
     --enable-nonfree \
-    --enable-openssl \
+    --enable-libtls \
     --enable-shared \
     --enable-version3 \
     --x86asmexe=nasm
