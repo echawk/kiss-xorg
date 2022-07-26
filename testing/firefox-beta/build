@@ -33,6 +33,16 @@ for f in zip unzip; do (
 
 export PATH="$PWD/junk/bin:$PATH"
 
+for p in \
+    audioipc \
+    audioipc-client \
+    audioipc-server
+do
+    sed 's/\("files":{\)[^}]*/\1/' \
+        "third_party/rust/$p/.cargo-checksum.json" > _
+    mv -f _ "third_party/rust/$p/.cargo-checksum.json"
+done
+
 # Detect what the current linker is.
 case "$(readlink "$(command -v ld)")" in
     ld.bfd) ld="bfd";;
@@ -48,6 +58,9 @@ mv -f _ python/mozbuild/mozbuild/configure/check_debug_ranges.py
 case $("$CC" -print-file-name=libc++.so) in */*)
     export CXXSTDLIB=c++
 esac
+
+export CFLAGS="$CFLAGS -w"
+export CXXFLAGS="$CXXFLAGS -w"
 
 # Instruct the compiler to trim absolute paths in resulting binaries and instead
 # change them to relative paths ($PWD/... ./...).
