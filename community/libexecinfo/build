@@ -10,7 +10,7 @@ for p in "execinfo.c&#include <sys/types.h>" "stacktraverse.c&#include <stddef.h
 done
 
 for patch in *.patch; do
-    patch -p1 < $patch
+    patch -p1 < "$patch"
 done
 
 make

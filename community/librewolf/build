@@ -70,7 +70,7 @@ ui-patches/remove-branding-urlbar.patch
 ui-patches/remove-cfrprefs.patch
 "
 for patch in $patches; do
-    echo [PATCH] appling $patch
+    echo "[PATCH] appling $patch"
     patch -Np1 < "${librewolf_patch_dir}$patch"
 done
 

@@ -2,14 +2,9 @@
 
 export DESTDIR="$1"
 
-
-err() {
-    echo $@
-    exit 1
-}
-
 command -v inkscape && {
-    err "Uninstall inkscape to avoid a circular dependency"
+    echo "Uninstall inkscape to avoid a circular dependency"
+    exit 1
 }
 
 sed -e "/INKSCAPE_CXX_FLAGS \"-Werror=format/d" \
