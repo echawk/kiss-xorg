@@ -2,7 +2,7 @@ https://ftp.mozilla.org/pub/firefox/releases/VERSION/source/firefox-VERSION.sour
 https://github.com/yasm/yasm/releases/download/v1.3.0/yasm-1.3.0.tar.gz yasm
 https://fossies.org/linux/misc/zip30.tar.gz zip
 https://fossies.org/linux/misc/unzip60.tar.gz unzip
-patches/cbindgen-fix.patch
 patches/fix-clang-as.patch
 patches/fix-linux-header.patch
+patches/no-dbus.patch
 patches/no-fribidi.patch
