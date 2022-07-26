@@ -10,39 +10,3 @@ index 0b8c6f4..e9668e1 100644
  endif
  endif
  
-diff --git a/security/nss/lib/freebl/freebl.gyp b/security/nss/lib/freebl/freebl.gyp
-index e7703ba..3ee3435 100644
---- a/security/nss/lib/freebl/freebl.gyp
-+++ b/security/nss/lib/freebl/freebl.gyp
-@@ -19,13 +19,10 @@
-       'conditions': [
-         [ 'cc_is_clang==1', {
-           'cflags': [
--            '-no-integrated-as',
-           ],
-           'cflags_mozilla': [
--            '-no-integrated-as',
-           ],
-           'asflags_mozilla': [
--            '-no-integrated-as',
-           ],
-         }],
-       ],
-diff --git a/security/nss/lib/freebl/freebl_base.gypi b/security/nss/lib/freebl/freebl_base.gypi
-index afbffac..795bbd8 100644
---- a/security/nss/lib/freebl/freebl_base.gypi
-+++ b/security/nss/lib/freebl/freebl_base.gypi
-@@ -74,13 +74,10 @@
-           'conditions': [
-             [ 'cc_is_clang==1 and fuzz!=1 and coverage!=1', {
-               'cflags': [
--                '-no-integrated-as',
-               ],
-               'cflags_mozilla': [
--                '-no-integrated-as',
-               ],
-               'asflags_mozilla': [
--                '-no-integrated-as',
-               ],
-             }],
-           ],

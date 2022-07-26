@@ -2,22 +2,16 @@
 
 export DESTDIR="$1"
 
+# FIXME: the 'fix-clang-as' patch works fine on regular firefox, but not here?
+# Using gnu patch fixes it, but busybox patch fails.
+sed "/-no-integrated-as/d" security/nss/lib/freebl/freebl.gyp > _
+mv -f _ security/nss/lib/freebl/freebl.gyp
+sed "/-no-integrated-as/d" security/nss/lib/freebl/freebl_base.gypi > _
+mv -f _ security/nss/lib/freebl/freebl_base.gypi
+
 for p in *.patch; do
     patch -p1 < "$p"
 done
-
-# Build autoconf 2.13 for Librewolf's sole use.
-# See: https://bugzilla.mozilla.org/show_bug.cgi?id=104642
-(
-    cd autoconf2.13
-
-    ./configure \
-        --prefix="$PWD/../junk" \
-        --program-suffix=-2.13
-
-    make
-    make install
-)
 
 if ! command -v yasm; then (
     cd yasm
@@ -44,6 +38,16 @@ for f in zip unzip; do (
 
 export PATH="$PWD/junk/bin:$PATH"
 
+for p in \
+    audioipc \
+    audioipc-client \
+    audioipc-server
+do
+    sed 's/\("files":{\)[^}]*/\1/' \
+        "third_party/rust/$p/.cargo-checksum.json" > _
+    mv -f _ "third_party/rust/$p/.cargo-checksum.json"
+done
+
 # Detect what the current linker is.
 case "$(readlink "$(command -v ld)")" in
     ld.bfd) ld="bfd";;
@@ -51,22 +55,19 @@ case "$(readlink "$(command -v ld)")" in
     *) ld="other";;
 esac
 
+# For a full list of patches, head to:
+# https://gitlab.com/librewolf-community/browser/source/-/tree/main/patches
 librewolf_patch_dir=common/patches/
 
 patches="
-remove_addons.patch
 mozilla_dirs.patch
 urlbarprovider-interventions.patch
 allow-ubo-private-mode.patch
 custom-ubo-assets-bootstrap-location.patch
 disable-data-reporting-at-compile-time.patch
-sed-patches/disable-pocket.patch
 sed-patches/allow-searchengines-non-esr.patch
-ui-patches/remove-snippets-from-home.patch
 ui-patches/sanitizing-description.patch
-ui-patches/remove-organization-policy-banner.patch
 ui-patches/pref-naming.patch
-ui-patches/remove-branding-urlbar.patch
 ui-patches/remove-cfrprefs.patch
 "
 for patch in $patches; do
@@ -78,7 +79,7 @@ rm -f common/source_files/mozconfig
 cp -r common/source_files/* .
 
 sed "s/ccache_stats = None/return None/" \
-    python/mozbuild/mozbuild/configure/check_debug_ranges.py > _
+    python/mozbuild/mozbuild/configure/check_debug_ranges.py >_
 mv -f _ python/mozbuild/mozbuild/configure/check_debug_ranges.py
 
 # If using libc++, CXXSTDLIB needs to be set manually.
@@ -86,6 +87,9 @@ case $("$CC" -print-file-name=libc++.so) in */*)
     export CXXSTDLIB=c++
     ;;
 esac
+
+export CFLAGS="$CFLAGS -w"
+export CXXFLAGS="$CXXFLAGS -w"
 
 # Instruct the compiler to trim absolute paths in resulting binaries and instead
 # change them to relative paths ($PWD/... ./...).
@@ -101,10 +105,10 @@ export MOZ_NOSPAM=1
 cat > .mozconfig << EOF
 ac_add_options --prefix=/usr
 ac_add_options --libdir=/usr/lib
-ac_add_options --enable-audio-backends=alsa
 ac_add_options --enable-strip
 ac_add_options --enable-release
 ac_add_options --enable-rust-simd
+ac_add_options --enable-audio-backends=alsa
 ac_add_options --enable-install-strip
 ac_add_options --enable-official-branding
 ac_add_options --enable-application=browser
@@ -117,6 +121,7 @@ ac_add_options --with-system-zlib
 ac_add_options --with-system-pixman
 ac_add_options --without-system-nss
 ac_add_options --without-system-nspr
+ac_add_options --without-wasm-sandboxed-libraries
 ac_add_options --disable-eme
 ac_add_options --disable-dbus
 ac_add_options --enable-linker="$ld"
@@ -134,7 +139,6 @@ ac_add_options --disable-debug
 ac_add_options --disable-debug-symbols
 ac_add_options --disable-parental-controls
 ac_add_options --disable-system-extension-dirs
-ac_add_options --without-wasm-sandboxed-libraries
 
 ac_add_options --with-app-name=librewolf
 ac_add_options --with-app-basename=Librewolf

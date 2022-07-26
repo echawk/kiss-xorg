@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cat << EOF
+cat <<EOF
 
 NOTE: Install the 'hicolor-icon-theme' package if
       no other icon themes are installed.
