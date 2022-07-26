@@ -2,6 +2,11 @@
 
 export DESTDIR="$1"
 
+# Make sure `gunzip` is available.
+mkdir -p path
+ln -s /usr/bin/pigz "$PWD/path/gunzip"
+export PATH="$PWD/path:$PATH"
+
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
 # Also, override any user provided CFLAGS, as they can also cause seg faults.
 export CFLAGS="-no-pie"
