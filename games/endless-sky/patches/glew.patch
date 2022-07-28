@@ -1,0 +1,14 @@
+diff --git a/source/GameWindow.cpp_ b/source/GameWindow.cpp
+index c6b1c1d..8b2b957 100644
+--- a/source/GameWindow.cpp_
++++ b/source/GameWindow.cpp
+@@ -161,7 +161,8 @@ bool GameWindow::Init()
+ 	// Initialize GLEW.
+ #ifndef __APPLE__
+ 	glewExperimental = GL_TRUE;
+-	if(glewInit() != GLEW_OK){
++	GLenum err = glewInit();
++	if(GLEW_OK != err && err != GLEW_ERROR_NO_GLX_DISPLAY) {
+ 		ExitWithError("Unable to initialize GLEW!");
+ 		return false;
+ 	}
