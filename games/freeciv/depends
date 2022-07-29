@@ -1,0 +1,13 @@
+atk
+cairo
+curl
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+3
+icu
+libtool
+pango
+sdl2
+sdl2_mixer
+sqlite

@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+export CFLAGS="$CFLAGS -w"
+export CXXFLAGS="$CXXFLAGS -w"
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-shared \
+    --enable-client=gtk3 \
+    --enable-fcmp=gtk3 \
+    --enable-fcdb=sqlite3 \
+    --enable-aimodules \
+    --enable-debug=no
+
+make
+make install
