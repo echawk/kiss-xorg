@@ -1,0 +1,7 @@
+freetype-harfbuzz
+libX11
+mesa
+sdl2
+sdl2_image
+sdl2_mixer
+zlib
