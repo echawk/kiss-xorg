@@ -1,0 +1,9 @@
+bdftopcf make
+libX11
+libXaw
+libXext
+libXmu
+libXpm
+libXt
+mkfontdir make
+mkfontscale make

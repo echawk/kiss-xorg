@@ -1,0 +1,58 @@
+#!/bin/sh -e
+
+# Enable X11 if possible.
+if pkg-config --exists x11; then
+    hint_file=hints/linux-x11
+else
+    hint_file=hints/linux
+fi
+
+# Below is from Alpine.
+# Fix linking against debian-specific tinfo
+sed -e 's|^WINTTYLIB.*|WINTTYLIB = -lncurses|' -i sys/unix/hints/linux
+# Fix nonstandard cp usage
+sed -e 's/cp -n/cp/g' -i sys/unix/hints/linux
+# Fix glibc issue
+sed -e 's/#define _GNU_SOURCE//g' -i include/config1.h
+
+# Below is from Arch.
+sed -e 's|^/\* \(#define LINUX\) \*/|\1|' \
+    -e 's|^/\* \(#define TIMED_DELAY\) \*/|\1|' -i include/unixconf.h
+# we are setting up for setgid games, so modify all necessary permissions
+# to allow full access for groups
+sed -e '/^HACKDIR/ s|/games/lib/\$(GAME)dir|/var/games/nethack/|' \
+    -e '/^SHELLDIR/ s|/games|/usr/bin|' \
+    -e '/^VARDIRPERM/ s|0755|0775|' \
+    -e '/^VARFILEPERM/ s|0600|0664|' \
+    -e '/^GAMEPERM/ s|0755|02755|' \
+    -e 's|\(DSYSCF_FILE=\)\\"[^"]*\\"|\1\\"/var/games/nethack/sysconf\\"|' \
+    -e 's|\(DHACKDIR=\)\\"[^"]*\\"|\1\\"/var/games/nethack/\\"|' -i "$PWD/sys/unix/$hint_file"
+sed -e 's|^#GAMEUID.*|GAMEUID = root|' \
+    -e 's|^#GAMEGRP.*|GAMEGRP = games|' \
+    -e '/^FILEPERM\s*=/ s|0644|0664|' \
+    -e '/^DIRPERM\s*=/ s|0755|0775|' -i sys/unix/Makefile.top
+sed -e "/^MANDIR\s*=/s|/usr/man/man6|$1/usr/share/man/man6|" -i sys/unix/Makefile.doc
+
+cd sys/unix
+sh setup.sh "$hint_file"
+cd "$OLDPWD"
+
+make \
+    CC="$CC" \
+    LINK="$CC" \
+    LFLAGS="$LDFLAGS"
+
+make -j1 \
+    install manpages \
+    PREFIX="$1"
+
+sed -e "s|HACKDIR=$1/|HACKDIR=/|" \
+    -e 's|HACK=$HACKDIR|HACK=/usr/lib/nethack|' \
+    -i "$1"/usr/bin/nethack
+
+mkdir -p "$1/usr/lib/nethack"
+mv "$1/var/games/nethack/nethack" "$1/usr/lib/nethack"
+mv "$1/var/games/nethack/recover" "$1/usr/lib/nethack"
+
+mkdir -p "$1/usr/share/doc/nethack"
+cp doc/Guidebook.txt "$1/usr/share/doc/nethack/Guidebook.txt"
