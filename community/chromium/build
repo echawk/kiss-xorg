@@ -190,7 +190,7 @@ out/Release/gn gen out/Release --args="$conf"
 # as build may exhaust default (1024).
 #
 # -n is non-POSIX hence we "attempt".
-# shellcheck disable=2039
+# shellcheck disable=3045
 ulimit -n 4096 2>/dev/null || {
     printf "Failed to set ulimit, build will fail!\n" >&2
     exit 1

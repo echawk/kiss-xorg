@@ -41,6 +41,7 @@ for lib in $syslibs; do
     esac
 done
 
+# shellcheck disable=2086
 python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
     platform=x11 \
     target=release_debug \

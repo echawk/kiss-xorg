@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
 # Enable streaming related options if gstreamer is installed.
@@ -15,7 +14,10 @@ kiss list openjpeg2 && jpeg=ON
 kiss list libtasn1 && tasn=ON
 
 # Use clang if installed, decreases compilation time by 25%.
-kiss list clang && CC=clang CXX=clang++
+if command -v clang; then
+    export CC=clang
+    export CXX=clang++
+fi
 
 # Remove gettext requirement.
 sed -e 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c > _
