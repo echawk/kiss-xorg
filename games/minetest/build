@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+patch -p1 < fix-memory-include.patch
+
+# Disable ncurses as it is only useful for minetest server.
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DVERSION_EXTRA=_1 \
+    -DENABLE_GETTEXT=0 \
+    -DENABLE_CURSES=0 \
+    -DENABLE_SYSTEM_JSONCPP=1
+
+cmake --build   build
+cmake --install build
