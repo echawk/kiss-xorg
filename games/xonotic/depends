@@ -1,0 +1,4 @@
+curl
+libX11
+libjpeg-turbo
+sdl2
