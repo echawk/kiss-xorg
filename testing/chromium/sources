@@ -1,11 +1,12 @@
-https://commondatastorage.googleapis.com/chromium-browser-official/chromium-103.0.5060.53.tar.xz
-https://github.com/stha09/chromium-patches/releases/download/chromium-103-patchset-4/chromium-103-patchset-4.tar.xz
-https://github.com/Eloston/ungoogled-chromium/archive/ec75c03e2555ab060abb534a9b0d34d39aabdbe9.tar.gz ungoogled-chromium
+https://commondatastorage.googleapis.com/chromium-browser-official/chromium-104.0.5112.81.tar.xz
+https://github.com/stha09/chromium-patches/releases/download/chromium-104-patchset-2/chromium-104-patchset-2.tar.xz
+https://github.com/ungoogled-software/ungoogled-chromium/archive/refs/tags/104.0.5112.81-1.tar.gz ungoogled-chromium
 files/chromium.sh
 patches/chromium-InkDropHost-crash.patch
 patches/chromium-fix-narrowing-cast.patch
 patches/chromium-optional-atk-dbus.patch
 patches/chromium-roll-src-third_party-ffmpeg.patch
+patches/chromium-x11-ozone-fix-screensaver-suspension.patch
 patches/glibc-malloc.patch
 patches/musl-crashpad.patch
 patches/musl-default-pthread-stacksize.patch
