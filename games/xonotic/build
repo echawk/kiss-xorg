@@ -4,7 +4,7 @@ unzip "xonotic-$2.zip?no-extract"
 
 sed -e "s;^\(CPUOPTIMIZATIONS\)?=\(.*\);\1=${CFLAGS} \2;" \
     -e "s;^\(LDFLAGS_UNIXCOMMON\)=\(.*\);\1=${LDFLAGS} \2;" \
-    Xonotic/source/darkplaces/makefile.inc > _
+    Xonotic/source/darkplaces/makefile.inc >_
 mv -f _ Xonotic/source/darkplaces/makefile.inc
 
 make -C Xonotic/source/darkplaces \
@@ -13,6 +13,13 @@ make -C Xonotic/source/darkplaces \
     DP_LINK_TO_LIBJPEG=1 \
     sdl-release
 
-mkdir -p                                                "$1/usr/share/xonotic"
-cp -r Xonotic/data                                      "$1/usr/share/xonotic"
+make -C Xonotic/source/darkplaces \
+    SDL_CONFIG=sdl2-config \
+    DP_FS_BASEDIR=/usr/share/xonotic/ \
+    DP_LINK_TO_LIBJPEG=1 \
+    release
+
+mkdir -p "$1/usr/share/xonotic"
+cp -r Xonotic/data "$1/usr/share/xonotic"
 install -Dm755 Xonotic/source/darkplaces/darkplaces-sdl "$1/usr/bin/xonotic-sdl"
+install -Dm755 Xonotic/source/darkplaces/darkplaces-glx "$1/usr/bin/xonotic-glx"
