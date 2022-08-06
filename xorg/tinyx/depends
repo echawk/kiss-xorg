@@ -5,5 +5,5 @@ libXfont
 libXtst
 libfontenc
 libpng
-libtool
+libtool make
 xtrans
