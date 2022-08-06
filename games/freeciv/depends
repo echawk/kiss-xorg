@@ -6,7 +6,7 @@ gdk-pixbuf
 glib
 gtk+3
 icu
-libtool
+libtool make
 pango
 sdl2
 sdl2_mixer
