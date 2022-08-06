@@ -1,4 +1,5 @@
 cairo
+cmake make
 expat
 fontconfig
 freetype-harfbuzz
@@ -9,7 +10,7 @@ libX11
 libXaw
 libXmu
 libXt
-libtool
+libtool make
 libwebp
 pango
 poppler
