@@ -2,12 +2,13 @@
 
 export DESTDIR="$1"
 
+patch -p1 <muon.patch
 # Build fails with clang due to -Werror (forced on) and
 # -Wunused-command-line-argument which is triggered by.
 # the below CFLAGS.
 export CFLAGS="-Wno-unused-command-line-argument $CFLAGS"
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
@@ -19,4 +20,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon -C output install
