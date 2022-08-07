@@ -6,8 +6,8 @@ index 05d335b..2cd044e 100644
  
  // QuicConnections currently use around 1KB of polymorphic types which would
  // ordinarily be on the heap. Instead, store them inline in an arena.
--using QuicConnectionArena = QuicOneBlockArena<1248>;
-+using QuicConnectionArena = QuicOneBlockArena<1408>;
+-using QuicConnectionArena = QuicOneBlockArena<1280>;
++using QuicConnectionArena = QuicOneBlockArena<1504>;
  
  }  // namespace quic
  
