@@ -3,6 +3,7 @@
 ./bootstrap.sh build
 build/muon setup \
     -Dlibcurl=disabled \
+    -Dstatic=true \
     build
 
 ninja -C build
