@@ -10,7 +10,6 @@ libdrm
 libpng
 libxcb
 libxshmfence
-mesa
 meson   make
 pixman
 pkgconf make
