@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+./bootstrap.sh build
+build/muon setup \
+    -Dlibcurl=disabled \
+    build
+
+ninja -C build
+install -Dt "$1/usr/bin" build/muon

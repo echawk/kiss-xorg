@@ -2,7 +2,7 @@
 
 export DESTDIR="$1"
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
     -Dlibexecdir=/usr/lib \
     -Ddefault_library=both \
@@ -12,4 +12,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon -C output install
