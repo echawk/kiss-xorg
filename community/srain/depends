@@ -1,0 +1,9 @@
+cairo
+gdk-pixbuf
+glib
+gtk+3
+libconfig
+libsecret
+libsoup
+meson make
+openssl

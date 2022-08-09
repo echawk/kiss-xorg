@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+meson setup \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    output
+
+ninja -C output
+ninja -C output install
