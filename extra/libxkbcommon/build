@@ -9,6 +9,7 @@ muon setup \
     -Denable-docs=false \
     -Denable-wayland=false \
     -Denable-xkbregistry=false \
+    -Dpkg_config_path=/usr/lib/pkgconfig \
     output
 
 ninja -C output
