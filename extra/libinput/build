@@ -17,6 +17,7 @@ muon setup \
     -Ddocumentation=false \
     -Dtests=false \
     -Dlibwacom=false \
+    -Dpkg_config_path=/usr/lib/pkgconfig \
     output
 
 ninja -C output
