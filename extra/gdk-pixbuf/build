@@ -18,6 +18,7 @@ meson setup \
     -Dgio_sniffing=false \
     -Dinstalled_tests=false \
     -Dbuiltin_loaders=all \
+    -Dwrap_mode=nofallback \
     output
 
 ninja -C output
