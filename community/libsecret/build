@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-gtk-doc \
+    --disable-manpages \
+    --disable-nls
+
+make
+make install
