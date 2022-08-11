@@ -2,6 +2,12 @@
 
 export DESTDIR="$1"
 
+if ! patch --help 2>&1 | grep gnu; then
+    echo "Switch to gnu patch:"
+    echo "# kiss a patch /usr/bin/patch"
+    exit 1
+fi
+
 patch -p1 < no-uuid.patch
 
 # Don't build tests.

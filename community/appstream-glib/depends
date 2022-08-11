@@ -6,4 +6,5 @@ json-glib
 libarchive
 libsoup
 meson make
+patch make
 samurai make
