@@ -1,4 +1,3 @@
-bzip2
 freetype-harfbuzz
 libX11
 libXau
@@ -23,4 +22,3 @@ pixman
 pkgconf make
 xkeyboard-config
 xtrans make
-zlib
