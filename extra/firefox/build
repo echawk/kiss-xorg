@@ -36,7 +36,8 @@ export PATH="$PWD/junk/bin:$PATH"
 for p in \
     audioipc \
     audioipc-client \
-    audioipc-server
+    audioipc-server \
+    packed_simd_2
 do
     sed 's/\("files":{\)[^}]*/\1/' \
         "third_party/rust/$p/.cargo-checksum.json" > _

@@ -6,3 +6,4 @@ patches/fix-clang-as.patch
 patches/fix-linux-header.patch
 patches/no-dbus.patch
 patches/no-fribidi.patch
+patches/packed_simd_2-0.3.8.patch
