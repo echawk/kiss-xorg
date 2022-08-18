@@ -10,6 +10,7 @@ libdrm
 libepoxy
 libfontenc
 libpciaccess
+libudev-zero
 libxcb
 libxcvt
 libxkbfile
