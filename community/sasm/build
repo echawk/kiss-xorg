@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+qmake PREFIX=/usr
+make
+make INSTALL_ROOT="$1" install
+rm -rf "$1/usr/bin/fasm"
