@@ -1,3 +1,4 @@
 libX11
+libXrandr
 pkgconf   make
 xorgproto make
