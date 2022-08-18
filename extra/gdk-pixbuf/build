@@ -2,9 +2,6 @@
 
 export DESTDIR="$1"
 
-
-: > tests/meson.build
-
 meson setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
@@ -13,9 +10,10 @@ meson setup \
     -Djpeg=enabled \
     -Dpng=enabled \
     -Dtiff=disabled \
-    -Ddocs=false \
+    -Dgtk_doc=false \
     -Dman=false \
     -Dgio_sniffing=false \
+    -Dtests=false \
     -Dinstalled_tests=false \
     -Dbuiltin_loaders=all \
     -Dwrap_mode=nofallback \
