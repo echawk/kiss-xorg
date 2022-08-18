@@ -1,0 +1,6 @@
+cmake make
+libusb
+openssl
+qt5
+qt5-multimedia
+sdl2
