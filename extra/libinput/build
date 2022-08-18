@@ -2,11 +2,12 @@
 
 export DESTDIR="$1"
 
-patch -p1 <muon.patch
+patch -p1 < muon.patch
+
 # Build fails with clang due to -Werror (forced on) and
 # -Wunused-command-line-argument which is triggered by.
 # the below CFLAGS.
-export CFLAGS="-Wno-unused-command-line-argument $CFLAGS"
+export CFLAGS="$CFLAGS -Wno-unused-command-line-argument"
 
 muon setup \
     -Dprefix=/usr \

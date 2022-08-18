@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 ./configure \
     --prefix=/usr \
     --with-shared-memory-dir=/dev/shm

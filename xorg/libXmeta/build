@@ -2,8 +2,7 @@
 
 export DESTDIR="$1"
 
-
-TMPDIR=$1/tmp
+TMPDIR="$1/tmp"
 
 ./configure \
     --prefix=/usr \

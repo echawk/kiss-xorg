@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 # Setup docutils to generate manual pages.
 {
     cd docutils

@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 sed 's|Liberation Mono|Monospace|g' config.def.h > _
 mv -f _ config.def.h
 
