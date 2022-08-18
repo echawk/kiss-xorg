@@ -1,0 +1,21 @@
+alsa-lib
+cmake make
+curl
+ffmpeg
+fmt
+glu
+libICE
+libSM
+libX11
+libXext
+libXi
+libXrandr
+libevdev
+libpng
+libudev-zero
+libusb
+libxcb
+llvm
+mesa
+qt5
+zstd
