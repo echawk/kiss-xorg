@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 ./configure \
     --prefix=/usr \
     --with-fontrootdir=/usr/share/fonts/X11
