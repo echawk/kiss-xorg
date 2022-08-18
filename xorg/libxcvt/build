@@ -4,6 +4,7 @@ export DESTDIR="$1"
 
 muon setup \
     -Dprefix=/usr \
+    -Dpkg_config_path=/usr/lib/pkgconfig \
     output
 
 ninja -C output
