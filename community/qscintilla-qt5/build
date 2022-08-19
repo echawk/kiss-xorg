@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+cd Qt4Qt5
+qmake
+make
+make DESTDIR="$1" INSTALL_ROOT="$1" install
