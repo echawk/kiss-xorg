@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+# Ensure no rpath.
+sed 's@-Wl,-rpath,\.\./lib@@' Makefile > _
+mv -f _ Makefile
+
+make -j1 CC="$CC" CXX="$CXX" LINK="$CXX"
+
+for folder in src example; do
+    sed -e 's/\/usr\/local\//\/usr\//g' -i "$folder/Makefile"
+    make INSTALL_ROOT="$1" install -j 1 -C "$folder"
+done
