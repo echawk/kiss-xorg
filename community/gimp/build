@@ -17,6 +17,14 @@ for patch in *.patch; do
     patch -Np1 -i "$patch"
 done
 
+sed "/DEFAULT_ICON_THEME/s/Symbolic/Color/" app/config/gimpguiconfig.h > _
+mv -f _ app/config/gimpguiconfig.h
+
+sed "/Symbolic/d" icons/Makefile.am > _
+mv -f _ icons/Makefile.am
+sed "/Symbolic/d" icons/Makefile.in > _
+mv -f _ icons/Makefile.in
+
 # Fix the configure script because it likes to double check for intltool.
 # Force xgettext to be found.
 # Fix the versioning on mypaint-brushes.

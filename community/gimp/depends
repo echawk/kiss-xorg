@@ -12,7 +12,16 @@ glib
 gobject-introspection make
 gtk+3
 json-c
+json-glib
 lcms
+libICE
+libSM
+libX11
+libXcursor
+libXext
+libXfixes
+libXmu
+libXt
 libarchive
 libjpeg-turbo
 libmypaint
