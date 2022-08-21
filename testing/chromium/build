@@ -9,6 +9,9 @@ printf "NOTE: It is HIGHLY recommended to build this package with sane build fla
 export CC=clang
 export CXX=clang++
 
+# Remove dependency on wayland during swiftshader build.
+sed -i "/VK_USE_PLATFORM_WAYLAND_KHR/d" third_party/swiftshader/src/Vulkan/BUILD.gn
+
 # Patches relating to libc are conditionally applied to avoid breakage.
 kiss list musl && {
     for patch in musl-*.patch; do
@@ -66,7 +69,9 @@ sed '/<vector>/a #include <algorithm>' \
 mv -f _ ui/ozone/public/platform_gl_egl_utility.h
 
 # Compile gn early, so it can be used to generate gni stuff.
+if ! command -v gn; then
 ./tools/gn/bootstrap/bootstrap.py --skip-generate-buildfiles
+fi
 
 # harfbuzz-ng: syslib broken
 # icu: Breakage on updates.
