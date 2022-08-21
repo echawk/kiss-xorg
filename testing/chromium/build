@@ -4,6 +4,11 @@ export DESTDIR="$1"
 
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
+# Building with clang fixes segfaults on certain webpages.
+# Link: https://github.com/kiss-community/community/issues/1191
+export CC=clang
+export CXX=clang++
+
 # Patches relating to libc are conditionally applied to avoid breakage.
 kiss list musl && {
     for patch in musl-*.patch; do
@@ -118,7 +123,7 @@ kiss list pipewire && pipewire=true
 
 conf="
     angle_enable_null=true
-    angle_enable_swiftshader=true
+    angle_enable_swiftshader=false
     blink_enable_generated_code_formatting=false
     blink_symbol_level=0
     clang_use_chrome_plugins=false
