@@ -1,3 +1,4 @@
 glib
 libgcrypt
 libgpg-error
+meson make
