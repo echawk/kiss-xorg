@@ -4,11 +4,6 @@ export DESTDIR="$1"
 
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
-# Building with clang fixes segfaults on certain webpages.
-# Link: https://github.com/kiss-community/community/issues/1191
-export CC=clang
-export CXX=clang++
-
 # Patches relating to libc are conditionally applied to avoid breakage.
 kiss list musl && {
     for patch in musl-*.patch; do

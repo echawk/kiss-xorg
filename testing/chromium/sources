@@ -8,6 +8,7 @@ patches/chromium-optional-atk-dbus.patch
 patches/chromium-roll-src-third_party-ffmpeg.patch
 patches/chromium-x11-ozone-fix-screensaver-suspension.patch
 patches/chromium-104-swiftshader-no-wayland.patch
+patches/chromium-EnumTable-crash.patch
 patches/glibc-malloc.patch
 patches/musl-crashpad.patch
 patches/musl-default-pthread-stacksize.patch
