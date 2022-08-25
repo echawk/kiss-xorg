@@ -1,0 +1,5 @@
+fontconfig
+freetype-harfbuzz
+libX11
+libXft
+libXrender
