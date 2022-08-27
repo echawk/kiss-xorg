@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --libdir=/usr/lib \
+    --with-gtk=3 \
+    --with-libjpeg=sys \
+    --with-libpng=sys \
+    --with-libtiff=sys \
+    --with-libxpm=sys \
+    --with-opengl \
+    --with-sdl \
+    --enable-aui \
+    --enable-graphics_ctx \
+    --enable-mediactrl \
+    --enable-shared \
+    --enable-unicode \
+    --disable-webview \
+    --disable-precomp-headers \
+    --disable-rpath \
+    --without-libmspack
+
+make
+make DESTDIR="$1" install
+
+ln -s wx-config "$1/usr/bin/wx-config-gtk3"
