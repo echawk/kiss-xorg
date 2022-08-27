@@ -4,6 +4,6 @@ libXfixes
 libdrm
 linux-headers make
 mesa
-meson         make
+muon          make
 pkgconf       make
 samurai       make
