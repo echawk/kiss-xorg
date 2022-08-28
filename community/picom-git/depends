@@ -1,6 +1,6 @@
 libconfig
 libev
-meson   make
+muon    make
 pixman
 pkgconf make
 samurai make
