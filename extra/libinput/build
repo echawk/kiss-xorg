@@ -9,7 +9,7 @@ patch -p1 < muon.patch
 # the below CFLAGS.
 export CFLAGS="$CFLAGS -Wno-unused-command-line-argument"
 
-muon setup \
+meson setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
@@ -22,4 +22,4 @@ muon setup \
     output
 
 ninja -C output
-muon -C output install
+ninja -C output install
