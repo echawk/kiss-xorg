@@ -27,6 +27,7 @@ libjpeg-turbo
 libmypaint
 libpng
 librsvg
+meson make
 openjpeg2
 pango
 poppler
