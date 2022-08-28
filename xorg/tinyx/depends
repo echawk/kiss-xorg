@@ -1,5 +1,7 @@
 autoconf make
+automake make
 freetype-harfbuzz
+libXdmcp make
 libXfont
 libXtst
 libfontenc
