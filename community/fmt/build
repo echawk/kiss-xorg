@@ -6,7 +6,9 @@ cmake -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
-    -DBUILD_SHARED_LIBS=1
+    -DBUILD_SHARED_LIBS=1 \
+    -DFMT_TEST=OFF \
+    -DFMT_DOC=OFF
 
 cmake --build   build
 cmake --install build
