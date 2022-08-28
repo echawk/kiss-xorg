@@ -5,7 +5,7 @@ export DESTDIR="$1"
 # Don't build tests.
 :> tests/meson.build
 
-muon setup \
+meson setup \
     -Dprefix=/usr \
     -Dpkg_config_path=/usr/lib/pkgconfig \
     -Dx11=enabled \
@@ -13,4 +13,4 @@ muon setup \
     output
 
 ninja -C output
-muon -C output install
+ninja -C output install

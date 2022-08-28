@@ -1,2 +1,2 @@
 libXext
-muon make
+meson make
