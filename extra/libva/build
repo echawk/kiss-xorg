@@ -2,7 +2,7 @@
 
 export DESTDIR="$1"
 
-muon setup \
+meson setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
@@ -13,4 +13,4 @@ muon setup \
     output
 
 ninja -C output
-muon -C output install
+ninja -C output install
