@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+if pkg-config --exists gobject-introspection-1.0; then
+    echo "Uninstall gobject-introspection before continuing."
+    exit 1
+fi
+
+export CFLAGS="$CFLAGS -UGDK_PIXBUF_DISABLE_DEPRECATED"
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-debug=no \
+    --disable-gtk-doc \
+    --with-xinput=yes
+
+make
+make install
+
+rm -f  "$1/usr/bin/gtk-update-icon-cache"
+rm -f  "$1/usr/bin/gtk-demo"
+rm -rf "$1/usr/share/gtk-2.0/demo"

@@ -1,0 +1,20 @@
+atk
+cairo
+fontconfig
+freetype-harfbuzz
+fribidi
+gdk-pixbuf
+glib
+libX11
+libXcomposite
+libXcursor
+libXdamage
+libXext
+libXfixes
+libXi
+libXinerama
+libXrandr
+libXrender
+libepoxy
+pango
+python make
