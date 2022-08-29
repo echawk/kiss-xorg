@@ -14,7 +14,7 @@ sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure > _
 mv -f _ configure
 chmod +x configure
 
-kiss list gobject-introspection && gi=en
+pkg-config --exists gobject-introspection-1.0 && gi=en
 
 ./configure \
     --prefix=/usr \
