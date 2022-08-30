@@ -1,0 +1,12 @@
+atk
+cairo
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gpgme
+gtk+2
+libassuan
+libgpg-error
+openssl
+pango
