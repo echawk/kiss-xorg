@@ -21,7 +21,7 @@ export DESTDIR="$1"
 
 meson setup \
     -Dprefix=/usr \
-    -Dvalgrind=false \
+    -Dvalgrind=disabled \
     output
 
 ninja -C output
