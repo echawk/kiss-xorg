@@ -6,7 +6,6 @@ patches/chromium-InkDropHost-crash.patch
 patches/chromium-fix-narrowing-cast.patch
 patches/chromium-optional-atk-dbus.patch
 patches/chromium-roll-src-third_party-ffmpeg.patch
-patches/chromium-x11-ozone-fix-screensaver-suspension.patch
 patches/chromium-105-swiftshader-no-wayland.patch
 patches/chromium-EnumTable-crash.patch
 patches/musl-crashpad.patch
@@ -21,8 +20,7 @@ patches/musl-no-mallinfo.patch
 patches/musl-quiche-arena-size.patch
 patches/musl-resolver.patch
 patches/musl-sandbox.patch
-patches/musl-scoped-file.patch
-patches/musl-stacktrace.patch
+patches/musl-scoped-file-no-close.patch
 patches/musl-stat.patch
 patches/musl-sync.patch
 patches/musl-tid-caching.patch
