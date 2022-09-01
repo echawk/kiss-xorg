@@ -15,6 +15,7 @@ libdrm
 libexif
 libgcrypt
 libjpeg-turbo
+libva
 libwebp
 libxkbcommon
 libxml2

@@ -4,24 +4,17 @@ export DESTDIR="$1"
 
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
+# Glob includes the libstdc++ patchset aswell.
+for patch in chromium-*.patch; do
+    patch -p1 < "$patch"
+done
+
 # Patches relating to libc are conditionally applied to avoid breakage.
 kiss list musl && {
     for patch in musl-*.patch; do
         patch -p1 < "$patch"
     done
 }
-
-# Saves me from having to fork this package just for 2 patches.
-kiss list glibc && {
-    for patch in glibc-*.patch; do
-        patch -p1 < "$patch"
-    done
-}
-
-# Glob includes the libstdc++ patchset aswell.
-for patch in chromium-*.patch; do
-    patch -p1 < "$patch"
-done
 
 python ungoogled-chromium/utils/prune_binaries.py \
     ./ ungoogled-chromium/pruning.list
@@ -55,11 +48,6 @@ sed 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
     tools/generate_shim_headers/generate_shim_headers.py > _
 mv -f _ tools/generate_shim_headers/generate_shim_headers.py
 
-# Missing include required for std::find()
-sed '/<vector>/a #include <algorithm>' \
-    ui/ozone/public/platform_gl_egl_utility.h > _
-mv -f _ ui/ozone/public/platform_gl_egl_utility.h
-
 # Compile gn early, so it can be used to generate gni stuff.
 ./tools/gn/bootstrap/bootstrap.py --skip-generate-buildfiles
 
@@ -80,7 +68,6 @@ system="
     libdrm
     libjpeg
     libwebp
-    libxslt
     opus
 "
 
@@ -113,18 +100,20 @@ case $("$CC" --version) in (*clang*)
     ;;
 esac
 
-kiss list libva && vaapi=true
 kiss list pipewire && pipewire=true
 
 conf="
     angle_enable_null=true
     angle_enable_swiftshader=false
+    enable_swiftshader=true
+    enable_swiftshader_vulkan=false
+    rtc_use_x11=true
+    rtc_use_x11_extensions=true
+    use_xkbcommon=false
     blink_enable_generated_code_formatting=false
     blink_symbol_level=0
     clang_use_chrome_plugins=false
     custom_toolchain=\"//build/toolchain/linux/unbundle:default\"
-    enable_swiftshader=false
-    enable_swiftshader_vulkan=false
     enable_vr=false
     enable_widevine=false
     fatal_linker_warnings=false
@@ -140,8 +129,6 @@ conf="
     proprietary_codecs=true
     rtc_build_examples=false
     rtc_use_pipewire=${pipewire:-false}
-    rtc_use_x11=true
-    rtc_use_x11_extensions=true
     symbol_level=0
     use_allocator=\"none\"
     use_allocator_shim=false
@@ -157,9 +144,10 @@ conf="
     use_lld=false
     use_pulseaudio=false
     use_sysroot=false
+    use_system_wayland_scanner=false
     use_thin_lto=false
-    use_vaapi=${vaapi:-false}
-    use_xkbcommon=false
+    use_cfi_icall=false
+    use_vaapi=true
     build_with_tflite_lib=false
     chrome_pgo_phase=0
     disable_fieldtrial_testing_config=true
@@ -168,7 +156,6 @@ conf="
     enable_mdns=false
     enable_mse_mpeg2ts_stream_parser=true
     enable_nacl=false
-    enable_one_click_signin=false
     enable_reading_list=false
     enable_remoting=false
     enable_reporting=false
@@ -207,7 +194,7 @@ cp chromium.sh "$1/usr/bin/chromium"
 # Fix for Xorg hardware acceleration.
 # https://github.com/ehawkvu/kiss-xorg/issues/2
 for lib in libEGL.so libGLESv2.so; do
-    install -Dm755 "out/Release/$lib" "$1/usr/lib/chromium"
+    cp "out/Release/$lib" "$1/usr/lib/chromium/"
 done
 
 cd out/Release
