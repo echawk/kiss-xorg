@@ -75,6 +75,8 @@
    audio_frames->emplace_back(av_frame_clone(frame));
    return true;
  }
+diff --git a/media/ffmpeg/ffmpeg_common.cc b/media/ffmpeg/ffmpeg_common.cc
+index 9500983..9a3070a 100644
 --- a/media/ffmpeg/ffmpeg_common.cc
 +++ b/media/ffmpeg/ffmpeg_common.cc
 @@ -345,11 +345,10 @@ bool AVCodecContextToAudioDecoderConfig(const AVCodecContext* codec_context,
