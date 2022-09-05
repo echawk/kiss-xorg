@@ -18,7 +18,6 @@ libxshmfence
 linux-headers make
 mesa
 meson make
-openssl
 pixman
 pkgconf make
 xkeyboard-config
