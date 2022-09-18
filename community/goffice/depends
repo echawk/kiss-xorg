@@ -8,3 +8,4 @@ librsvg
 libtool  make
 libxml2
 libxslt
+pango
