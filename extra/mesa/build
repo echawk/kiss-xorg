@@ -49,7 +49,8 @@ meson setup \
     -Dglx=auto \
     -Degl=enabled \
     -Dvalgrind=false \
-    -Dzstd=false \
+    -Dzstd=disabled \
+    -Dvulkan-drivers='' \
     -Dglvnd="${glvnd_enabled:-true}" \
     output
 
