@@ -1,0 +1,14 @@
+cairo
+cmake make
+freetype-harfbuzz
+gdk-pixbuf
+giflib
+glib
+gtk+3
+libjpeg-turbo
+libpng
+libxml2
+pango
+python
+tiff
+zlib

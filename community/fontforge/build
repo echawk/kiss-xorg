@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+sed "/subdirectory(po)/d" CMakeLists.txt > _
+mv -f _ CMakeLists.txt
+
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_MAINTAINER_TOOLS=TRUE \
+    -DENABLE_FONTFORGE_EXTRAS=TRUE \
+    -DENABLE_DOCS=OFF \
+    -DENABLE_LIBSPIRO=OFF \
+    -DENABLE_CODE_COVERAGE=OFF \
+    -DENABLE_LIBREADLINE=OFF \
+    -DUNIX=TRUE
+
+cmake --build   build
+cmake --install build
