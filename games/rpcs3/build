@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+export CFLAGS="$CFLAGS -w"
+export CXXFLAGS="$CXXFLAGS -w"
+
+git submodule update --init
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_SYSTEM_CURL=ON \
+    -DUSE_SYSTEM_FFMPEG=ON \
+    -DUSE_SYSTEM_LIBPNG=ON
+
+cmake --build   build
+cmake --install build
