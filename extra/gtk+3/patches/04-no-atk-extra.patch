@@ -1,0 +1,82 @@
+--- a/gtk/a11y/gtkplugaccessible.h
++++ b/gtk/a11y/gtkplugaccessible.h
+@@ -24,48 +24,4 @@
+ 
+ #include <gtk/a11y/gtkwindowaccessible.h>
+ 
+-#if ATK_CHECK_VERSION(2,35,1)
+-
+-#define GTK_HAVE_ATK_PLUG_SET_CHILD
+-
+-G_BEGIN_DECLS
+-
+-#define GTK_TYPE_PLUG_ACCESSIBLE                         (gtk_plug_accessible_get_type ())
+-#define GTK_PLUG_ACCESSIBLE(obj)                         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_PLUG_ACCESSIBLE, GtkPlugAccessible))
+-#define GTK_PLUG_ACCESSIBLE_CLASS(klass)                 (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_PLUG_ACCESSIBLE, GtkPlugAccessibleClass))
+-#define GTK_IS_PLUG_ACCESSIBLE(obj)                      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_PLUG_ACCESSIBLE))
+-#define GTK_IS_PLUG_ACCESSIBLE_CLASS(klass)              (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_PLUG_ACCESSIBLE))
+-#define GTK_PLUG_ACCESSIBLE_GET_CLASS(obj)               (G_TYPE_INSTANCE_GET_CLASS ((obj), GTK_TYPE_PLUG_ACCESSIBLE, GtkPlugAccessibleClass))
+-
+-typedef struct _GtkPlugAccessible        GtkPlugAccessible;
+-typedef struct _GtkPlugAccessibleClass   GtkPlugAccessibleClass;
+-typedef struct _GtkPlugAccessiblePrivate GtkPlugAccessiblePrivate;
+-
+-/**
+- * GtkPlugAccessible:
+- *
+- * Since: 3.24.30
+- */
+-struct _GtkPlugAccessible
+-{
+-  GtkWindowAccessible parent;
+-
+-  GtkPlugAccessiblePrivate *priv;
+-};
+-
+-struct _GtkPlugAccessibleClass
+-{
+-  GtkWindowAccessibleClass parent_class;
+-};
+-
+-GDK_AVAILABLE_IN_ALL
+-GType gtk_plug_accessible_get_type (void);
+-
+-GDK_AVAILABLE_IN_ALL
+-gchar *gtk_plug_accessible_get_id (GtkPlugAccessible *plug);
+-
+-G_END_DECLS
+-
+-#endif /* ATK_CHECK_VERSION(2,35,1) */
+-
+ #endif /* __GTK_PLUG_ACCESSIBLE_H__ */
+--- a/gtk/gtkplug.c
++++ b/gtk/gtkplug.c
+@@ -178,8 +178,6 @@ gtk_plug_class_init (GtkPlugClass *class)
+   widget_class->unmap = gtk_plug_unmap;
+   widget_class->focus = gtk_plug_focus;
+ 
+-  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_PANEL);
+-
+   container_class->check_resize = gtk_plug_check_resize;
+ 
+   window_class->set_focus = gtk_plug_set_focus;
+diff --git a/gtk/gtksocket.c b/gtk/gtksocket.c
+index ffdaf8bee4..18b3d5563d 100644
+--- a/gtk/gtksocket.c
++++ b/gtk/gtksocket.c
+@@ -271,7 +271,6 @@ gtk_socket_class_init (GtkSocketClass *class)
+ 		  G_TYPE_BOOLEAN, 0);
+ 
+ 
+-  gtk_widget_class_set_accessible_type (widget_class, GTK_TYPE_SOCKET_ACCESSIBLE);
+ }
+ 
+ static void
+@@ -1432,7 +1431,6 @@ _gtk_socket_accessible_embed (GtkWidget *socket, GdkWindow *window)
+       return;
+     }
+ 
+-  gtk_socket_accessible_embed (GTK_SOCKET_ACCESSIBLE (gtk_widget_get_accessible (socket)), (gchar*) data);
+   XFree (data);
+ 
+   return;
