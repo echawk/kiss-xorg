@@ -8,7 +8,7 @@ if pkg-config --exists atk; then
     patch -p1 < 01-no-fribidi.patch
 else
     for p in *.patch; do
-        patch -p1 < $p
+        patch -p1 < "$p"
     done
 fi
 
