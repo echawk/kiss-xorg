@@ -2,12 +2,9 @@
 
 export DESTDIR="$1"
 
-
-# Adding this patch forces the libXft
-# dependency, but the upstream (git) already
-# uses it. It is also much better than the ancient
-# logical X font description.
-patch -p1 < tabbed-0.6-xft.diff
+# Release tarball is missing xembed's manpage.
+sed "/xembed.1/d" Makefile > _
+mv -f _ Makefile
 
 make
 make PREFIX=/usr install
