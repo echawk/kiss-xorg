@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cat <<EOF
+It's important to now rebuild 'gtk+3' if you want to have atk methods available
+in your gtk+3 library.
+
+Run the following:
+
+# kiss build gtk+3
+# kiss install gtk+3
+EOF
