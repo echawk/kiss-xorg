@@ -4,6 +4,14 @@ export DESTDIR="$1"
 
 patch -p1 < add-av_stream_get_first_dts-for-chromium.patch
 
+# Check for libtls, available when using libressl or libretls.
+if pkg-config --exists libtls; then
+    _ssl="--enable-libtls"
+else
+    # Assume OpenSSL
+    _ssl="--enable-openssl"
+fi
+
 ./configure \
     --cc="$CC" \
     --cxx="$CXX" \
@@ -23,7 +31,7 @@ patch -p1 < add-av_stream_get_first_dts-for-chromium.patch
     --enable-libx265 \
     --enable-libxvid \
     --enable-nonfree \
-    --enable-libtls \
+    $_ssl \
     --enable-shared \
     --enable-version3 \
     --x86asmexe=nasm
