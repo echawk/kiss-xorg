@@ -2,5 +2,4 @@ libevdev
 libudev-zero
 linux-headers make
 mtdev
-meson         make
-pkgconf       make
+muon          make
