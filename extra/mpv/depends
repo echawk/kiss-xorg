@@ -11,6 +11,5 @@ libva
 libxkbcommon
 linux-headers make
 mesa
-meson make
-pkgconf make
+muon make
 python-docutils  make
