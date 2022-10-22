@@ -3,3 +3,5 @@ patches/01-no-fribidi.patch
 patches/02-fix-firefox.patch
 patches/03-no-accessibility.patch
 patches/04-no-atk-extra.patch
+patches/05-muon.patch
+patches/05-muon-atk.patch

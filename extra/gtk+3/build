@@ -1,16 +1,23 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 
 export DESTDIR="$1"
 
+patch -p1 < 01-no-fribidi.patch
 # Some packages in community/ requrire that gtk+3 have atk methods.
 # So if atk is installed, then we don't patch it out of gtk, just fribidi.
 if pkg-config --exists atk; then
-    patch -p1 < 01-no-fribidi.patch
+    patch -p1 < 05-muon-atk.patch
 else
-    for p in *.patch; do
-        patch -p1 < "$p"
-    done
+    patch -p1 < 02-fix-firefox.patch
+    patch -p1 < 03-no-accessibility.patch
+    patch -p1 < 04-no-atk-extra.patch
+    patch -p1 < 05-muon.patch
 fi
+
+# Patch merged upstream
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4615
+sed "s/'\(true\|false\)'/\1/" meson_options.txt > _
+mv -f _ meson_options.txt
 
 # Disable native language support, disable atk-bridge, don't compile schemas.
 sed -e '/compile_schemas/s/true/false/' \
@@ -25,7 +32,7 @@ sed '/<atk-bridge.h>/d;/atk_bridge_adaptor_init/d' \
     gtk/a11y/gtkaccessibility.c > _
 mv -f _ gtk/a11y/gtkaccessibility.c
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
     -Dx11_backend=true \
     -Dwayland_backend=false \
@@ -39,7 +46,7 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install
 
 # We don't compile with librsvg which leads to this utility solely causing
 # compiler errors for some packages. It has no use at all.

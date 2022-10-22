@@ -13,7 +13,6 @@ libXrandr
 libepoxy
 libxkbcommon
 mesa
-meson   make
+muon   make
 pango
-pkgconf make
-python  make
+python make
