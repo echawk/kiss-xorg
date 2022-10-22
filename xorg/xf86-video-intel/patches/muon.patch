@@ -1,0 +1,34 @@
+diff --git a/meson.build b/meson.build
+index 227ca2eb..12122323 100644
+--- a/meson.build
++++ b/meson.build
+@@ -130,10 +130,10 @@ endif
+ 
+ pixman = dependency('pixman-1', version : '>= 0.16.0', required : true)
+ 
+-if pixman.version() >= '0.24.0'
++if pixman.version().version_compare('>= 0.24.0')
+   config.set('HAS_PIXMAN_TRIANGLES', 1)
+ endif
+-if pixman.version() >= '0.27.1'
++if pixman.version().version_compare('>= 0.27.1')
+   config.set('HAS_PIXMAN_GLYPHS', 1)
+ endif
+ 
+diff --git a/src/meson.build b/src/meson.build
+index 1125c65b..bd4a4c39 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -5,9 +5,9 @@ pixman = dependency('pixman-1', required : true)
+ with_dri1 = get_option('dri1')
+ if with_dri1
+   dri1 = dependency('xf86driproto', required : true)
+-  has_dri1 = (cc.has_header('dri.h', dependencies : xorg) and
+-	      cc.has_header('sarea.h', dependencies : xorg) and
+-	      cc.has_header('dristruct.h', dependencies : xorg))
++  has_dri1 = (cc.has_header('xorg/dri.h', dependencies : [pixman, dri1, libdrm]) and
++            cc.has_header('xorg/sarea.h', dependencies : [xorg, libdrm]) and
++            cc.has_header('xorg/dristruct.h', dependencies : [xorg,libdrm], prefix : '#include <xorg/xorg-server.h>'))
+ 
+   # Currently 'required' doesn't work for cc.has_header() & co.
+   if not has_dri1

@@ -4,7 +4,9 @@ export DESTDIR="$1"
 
 export LDFLAGS="$LDFLAGS -Wl,-z,lazy"
 
-meson setup \
+patch -p1 < muon.patch
+
+muon setup \
     -Dprefix=/usr \
     -Dlibexecdir=/usr/lib \
     -Ddefault-dri=3 \
@@ -13,4 +15,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install

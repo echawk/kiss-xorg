@@ -3,7 +3,8 @@ libXcursor
 libXinerama
 libXrandr
 libXtst
+libdrm
 linux-headers make
-meson         make
-pkgconf       make
+muon          make
+pixman
 xorg-server
