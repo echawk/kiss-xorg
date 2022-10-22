@@ -1,5 +1,3 @@
 bison   make
 libxcb
-meson   make
-pkgconf make
-samurai make
+muon    make
