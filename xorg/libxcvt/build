@@ -2,9 +2,9 @@
 
 export DESTDIR="$1"
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
-    output
+    build
 
-ninja -C output
-ninja -C output install
+ninja -C build
+muon  -C build install
