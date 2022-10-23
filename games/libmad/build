@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+sed '/ -fforce-mem/d' configure > _
+mv -f _ configure
+chmod +x configure
+
+./configure \
+    --prefix=/usr
+
+make
+make install
