@@ -2,6 +2,10 @@
 
 export DESTDIR="$1"
 
+# Disable valgrind test, incompatible with muon.
+sed "s/valgrind.found()/false/" meson.build > _
+mv -f _ meson.build
+
 meson setup \
     -Dprefix=/usr \
     -Dlibexecdir=/usr/lib \
