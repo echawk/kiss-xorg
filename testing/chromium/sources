@@ -1,17 +1,20 @@
 https://commondatastorage.googleapis.com/chromium-browser-official/chromium-VERSION.tar.xz
-https://github.com/stha09/chromium-patches/releases/download/chromium-MAJOR-patchset-3/chromium-MAJOR-patchset-3.tar.xz
+https://github.com/stha09/chromium-patches/releases/download/chromium-MAJOR-patchset-1/chromium-MAJOR-patchset-1.tar.xz
 https://github.com/ungoogled-software/ungoogled-chromium/archive/VERSION-1.tar.gz ungoogled-chromium
 files/chromium.sh
+patches/chromium-103-VirtualCursor-std-layout.patch
 patches/chromium-105-swiftshader-no-wayland.patch
 patches/chromium-EnumTable-crash.patch
 patches/chromium-angle-wayland-include.patch
 patches/chromium-credentials-sys-types-header.patch
+patches/chromium-fix-TFLite-build-error.patch
 patches/chromium-fix-missing-cmath-include.patch
 patches/chromium-fix-narrowing-cast.patch
 patches/chromium-optional-atk-dbus.patch
 patches/chromium-partition-atfork.patch
 patches/chromium-roll-src-third_party-ffmpeg-102.patch
 patches/chromium-roll-src-third_party-ffmpeg-106.patch
+patches/chromium-systypes.patch
 patches/chromium-xdg-basedir.patch
 patches/musl-canonicalize-file-name.patch
 patches/musl-default-pthread-stacksize.patch
