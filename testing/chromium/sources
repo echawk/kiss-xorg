@@ -14,7 +14,6 @@ patches/chromium-optional-atk-dbus.patch
 patches/chromium-partition-atfork.patch
 patches/chromium-roll-src-third_party-ffmpeg-102.patch
 patches/chromium-roll-src-third_party-ffmpeg-106.patch
-patches/chromium-systypes.patch
 patches/chromium-xdg-basedir.patch
 patches/musl-canonicalize-file-name.patch
 patches/musl-default-pthread-stacksize.patch
@@ -29,6 +28,7 @@ patches/musl-no-stat-redefine.patch
 patches/musl-quiche-arena-size.patch
 patches/musl-sandbox.patch
 patches/musl-scoped-file-no-close.patch
+patches/musl-systypes.patch
 patches/musl-temp-failure-retry.patch
 patches/musl-tid-caching.patch
 patches/musl-v8-monotonic-pthread-cont_timedwait.patch
