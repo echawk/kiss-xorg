@@ -4,7 +4,7 @@ glib
 libev
 libxcb
 libxkbcommon
-meson make
+muon make
 pango
 samurai make
 xcb-util
