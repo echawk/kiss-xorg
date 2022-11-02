@@ -2,10 +2,9 @@
 
 export DESTDIR="$1"
 
-
-meson \
-    --prefix=/usr \
-    . output
+muon setup \
+    -Dprefix=/usr \
+    output
 
 ninja -C output
-ninja -C output install
+muon  -C output install
