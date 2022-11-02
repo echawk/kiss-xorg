@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+./configure \
+    --prefix=/usr \
+    --disable-examples \
+    --disable-python-bindings \
+    --enable-lib-only
+
+make
+make install
