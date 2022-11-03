@@ -1,0 +1,231 @@
+From 5a8c0c6cbf342552141bc01d9814263ae3d0c5e5 Mon Sep 17 00:00:00 2001
+From: hovercats <hovercatswithlasereyes@protonmail.com>
+Date: Thu, 3 Nov 2022 19:10:01 +0100
+Subject: [PATCH] remove the need for gcr
+
+---
+ Makefile     |  2 +-
+ arg.h        | 48 --------------------------------------
+ config.def.h |  1 -
+ config.mk    |  4 ++--
+ surf.1       |  3 ---
+ surf.c       | 66 +++++++++++++++++++++++++++++-----------------------
+ 7 files changed, 40 insertions(+), 85 deletions(-)
+ delete mode 100644 arg.h
+ delete mode 100644 common.h
+
+diff --git a/Makefile b/Makefile
+index 1edf820..e071a91 100644
+--- a/Makefile
++++ b/Makefile
+@@ -22,7 +22,7 @@ options:
+ surf: $(OBJ)
+ 	$(CC) $(SURFLDFLAGS) $(LDFLAGS) -o $@ $(OBJ) $(LIBS)
+ 
+-$(OBJ) $(WOBJ): config.h common.h config.mk
++$(OBJ) $(WOBJ): config.h  config.mk
+ 
+ config.h:
+ 	cp config.def.h $@
+diff --git a/arg.h b/arg.h
+deleted file mode 100644
+index ba3fb3f..0000000
+--- a/arg.h
++++ /dev/null
+@@ -1,48 +0,0 @@
+-/*
+- * Copy me if you can.
+- * by 20h
+- */
+-
+-#ifndef ARG_H__
+-#define ARG_H__
+-
+-extern char *argv0;
+-
+-/* use main(int argc, char *argv[]) */
+-#define ARGBEGIN	for (argv0 = *argv, argv++, argc--;\
+-					argv[0] && argv[0][0] == '-'\
+-					&& argv[0][1];\
+-					argc--, argv++) {\
+-				char argc_;\
+-				char **argv_;\
+-				int brk_;\
+-				if (argv[0][1] == '-' && argv[0][2] == '\0') {\
+-					argv++;\
+-					argc--;\
+-					break;\
+-				}\
+-				for (brk_ = 0, argv[0]++, argv_ = argv;\
+-						argv[0][0] && !brk_;\
+-						argv[0]++) {\
+-					if (argv_ != argv)\
+-						break;\
+-					argc_ = argv[0][0];\
+-					switch (argc_)
+-#define ARGEND			}\
+-			}
+-
+-#define ARGC()		argc_
+-
+-#define EARGF(x)	((argv[0][1] == '\0' && argv[1] == NULL)?\
+-				((x), abort(), (char *)0) :\
+-				(brk_ = 1, (argv[0][1] != '\0')?\
+-					(&argv[0][1]) :\
+-					(argc--, argv++, argv[0])))
+-
+-#define ARGF()		((argv[0][1] == '\0' && argv[1] == NULL)?\
+-				(char *)0 :\
+-				(brk_ = 1, (argv[0][1] != '\0')?\
+-					(&argv[0][1]) :\
+-					(argc--, argv++, argv[0])))
+-
+-#endif
+diff --git a/config.def.h b/config.def.h
+index ef44721..2745e79 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -163,7 +163,6 @@ static Key keys[] = {
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_n,      find,       { .i = -1 } },
+ 
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_p,      print,      { 0 } },
+-	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
+ 
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      togglecookiepolicy, { 0 } },
+ 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
+diff --git a/config.mk b/config.mk
+index 2eb9fb0..6e51980 100644
+--- a/config.mk
++++ b/config.mk
+@@ -12,8 +12,8 @@ LIBDIR = $(LIBPREFIX)/surf
+ X11INC = `pkg-config --cflags x11`
+ X11LIB = `pkg-config --libs x11`
+ 
+-GTKINC = `pkg-config --cflags gtk+-3.0 gcr-3 webkit2gtk-4.0`
+-GTKLIB = `pkg-config --libs gtk+-3.0 gcr-3 webkit2gtk-4.0`
++GTKINC = `pkg-config --cflags gtk+-3.0  webkit2gtk-4.0`
++GTKLIB = `pkg-config --libs gtk+-3.0  webkit2gtk-4.0`
+ WEBEXTINC = `pkg-config --cflags webkit2gtk-4.0 webkit2gtk-web-extension-4.0 gio-2.0`
+ WEBEXTLIBS = `pkg-config --libs webkit2gtk-4.0 webkit2gtk-web-extension-4.0 gio-2.0`
+ 
+diff --git a/surf.1 b/surf.1
+index 496afb9..78e8f9c 100644
+--- a/surf.1
++++ b/surf.1
+@@ -194,9 +194,6 @@ Reloads the website without using the cache.
+ .B Ctrl\-y
+ Copies current URI to primary selection.
+ .TP
+-.B Ctrl\-t
+-Display the current TLS certificate in a popup window.
+-.TP
+ .B Ctrl\-Shift\-a
+ Toggle through the the
+ .I cookie policies\fR.
+diff --git a/surf.c b/surf.c
+index af0fa74..9186fc7 100644
+--- a/surf.c
++++ b/surf.c
+@@ -6,7 +6,6 @@
+ #include <sys/socket.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+-#include <glib.h>
+ #include <inttypes.h>
+ #include <libgen.h>
+ #include <limits.h>
+@@ -24,15 +23,49 @@
+ #include <glib/gstdio.h>
+ #include <gtk/gtk.h>
+ #include <gtk/gtkx.h>
+-#include <gcr/gcr.h>
+ #include <JavaScriptCore/JavaScript.h>
+ #include <webkit2/webkit2.h>
+ #include <X11/X.h>
+ #include <X11/Xatom.h>
+ #include <glib.h>
+ 
+-#include "arg.h"
+-#include "common.h"
++/* use main(int argc, char *argv[]) */
++#define ARGBEGIN	for (argv0 = *argv, argv++, argc--;\
++					argv[0] && argv[0][0] == '-'\
++					&& argv[0][1];\
++					argc--, argv++) {\
++				char argc_;\
++				char **argv_;\
++				int brk_;\
++				if (argv[0][1] == '-' && argv[0][2] == '\0') {\
++					argv++;\
++					argc--;\
++					break;\
++				}\
++				for (brk_ = 0, argv[0]++, argv_ = argv;\
++						argv[0][0] && !brk_;\
++						argv[0]++) {\
++					if (argv_ != argv)\
++						break;\
++					argc_ = argv[0][0];\
++					switch (argc_)
++#define ARGEND			}\
++			}
++#define ARGC()		argc_
++
++#define EARGF(x)	((argv[0][1] == '\0' && argv[1] == NULL)?\
++				((x), abort(), (char *)0) :\
++				(brk_ = 1, (argv[0][1] != '\0')?\
++					(&argv[0][1]) :\
++					(argc--, argv++, argv[0])))
++
++#define ARGF()		((argv[0][1] == '\0' && argv[1] == NULL)?\
++				(char *)0 :\
++				(brk_ = 1, (argv[0][1] != '\0')?\
++					(&argv[0][1]) :\
++					(argc--, argv++, argv[0])))
++
++#define MSGBUFSZ 8
+ 
+ #define LENGTH(x)               (sizeof(x) / sizeof(x[0]))
+ #define CLEANMASK(mask)         (mask & (MODKEY|GDK_SHIFT_MASK))
+@@ -142,7 +175,6 @@ typedef struct {
+ } SiteSpecific;
+ 
+ /* Surf */
+-static void die(const char *errstr, ...);
+ static void usage(void);
+ static void setup(void);
+ static void sigchld(int unused);
+@@ -1800,30 +1832,6 @@ print(Client *c, const Arg *a)
+ 	                                  GTK_WINDOW(c->win));
+ }
+ 
+-void
+-showcert(Client *c, const Arg *a)
+-{
+-	GTlsCertificate *cert = c->failedcert ? c->failedcert : c->cert;
+-	GcrCertificate *gcrt;
+-	GByteArray *crt;
+-	GtkWidget *win;
+-	GcrCertificateWidget *wcert;
+-
+-	if (!cert)
+-		return;
+-
+-	g_object_get(cert, "certificate", &crt, NULL);
+-	gcrt = gcr_simple_certificate_new(crt->data, crt->len);
+-	g_byte_array_unref(crt);
+-
+-	win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+-	wcert = gcr_certificate_widget_new(gcrt);
+-	g_object_unref(gcrt);
+-
+-	gtk_container_add(GTK_CONTAINER(win), GTK_WIDGET(wcert));
+-	gtk_widget_show_all(win);
+-}
+-
+ void
+ clipboard(Client *c, const Arg *a)
+ {
+-- 
+2.38.1
+
