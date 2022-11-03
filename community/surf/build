@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
+patch -p1 < no-gcr.patch
 
 make
 make PREFIX=/usr install
