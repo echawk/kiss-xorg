@@ -4,7 +4,9 @@
 
 ./configure \
     --prefix=/usr \
-    --with-fontdir=/usr/share/fonts
+    --with-fontdir=/usr/share/fonts \
+    --disable-xdmcp \
+    --disable-xdm-auth-1
 
 make
 make install
