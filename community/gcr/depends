@@ -1,6 +1,0 @@
-glib
-libgcrypt
-libtasn1
-meson make
-p11-kit
-samurai make
