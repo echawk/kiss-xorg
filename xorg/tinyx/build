@@ -1,9 +1,5 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
-./autogen.sh
-
 ./configure \
     --prefix=/usr \
     --with-fontdir=/usr/share/fonts \
@@ -11,7 +7,7 @@ export DESTDIR="$1"
     --disable-xdm-auth-1
 
 make
-make install
+make DESTDIR="$1" install
 
 chmod u+s "$1/usr/bin/Xfbdev"
 chmod u+s "$1/usr/bin/Xvesa"
