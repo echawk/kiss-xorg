@@ -2,19 +2,16 @@
 
 export DESTDIR="$1"
 
-if ! patch --help 2>&1 | grep gnu; then
-    echo "Switch to gnu patch:"
-    echo "# kiss a patch /usr/bin/patch"
-    exit 1
-fi
+for p in *.patch; do
+    patch -p1 < "$p"
+done
 
-patch -p1 < no-uuid.patch
+# Don't build tests and po.
+sed -e "/subdir('tests')/d" \
+    -e "/subdir('po')/d" meson.build > _
+mv -f _ meson.build
 
-# Don't build tests.
-sed "/subdir('tests')/d" data/meson.build > _
-mv -f _ data/meson.build
-
-meson setup \
+muon setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
@@ -26,4 +23,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install

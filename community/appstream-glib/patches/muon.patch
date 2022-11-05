@@ -1,0 +1,41 @@
+diff --git a/libappstream-glib/meson.build b/libappstream-glib/meson.build
+index c124532..8acc2fa 100644
+--- a/libappstream-glib/meson.build
++++ b/libappstream-glib/meson.build
+@@ -31,9 +31,33 @@ if get_option('stemmer')
+   deps += stemmer
+ endif
+ 
+-asresources = gnome.compile_resources(
+-  'as-resources', 'appstream-glib.gresource.xml',
+-  c_name : 'as'
++asresources = [] 
++asresources += custom_target('asresources_c',
++  output: 'as-resources.c',
++  input: files('appstream-glib.gresource.xml'),
++  command: [
++    find_program('glib-compile-resources'),
++    '@INPUT@',
++    '--sourcedir=' + meson.current_source_dir(),
++    '--c-name=as',
++    '--internal',
++    '--generate',
++    '--target=@OUTPUT@',
++  ], 
++)
++
++asresources += custom_target('asresources_h',
++  output: 'as-resources.h',
++  input: files('appstream-glib.gresource.xml'),
++  command: [ 
++    find_program('glib-compile-resources'), 
++    '@INPUT@', 
++    '--sourcedir=' + meson.current_source_dir(),
++    '--c-name=as',
++    '--internal',
++    '--generate',
++    '--target=@OUTPUT@',
++  ],  
+ )
+ 
+ configure_file(
