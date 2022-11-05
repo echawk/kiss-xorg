@@ -1,0 +1,89 @@
+diff --git a/libsoup/meson.build b/libsoup/meson.build
+index e585b3fe..14a43e3b 100644
+--- a/libsoup/meson.build
++++ b/libsoup/meson.build
+@@ -1,9 +1,34 @@
+ pkg = import('pkgconfig')
+ 
+-resources = gnome.compile_resources('soup-resources',
+-    'soup.gresource.xml',
+-    c_name: 'soup',
+-    source_dir: '.'
++resources = [] 
++resources += custom_target('resources_c',
++  output: 'soup-resources.c',
++  input: files('soup.gresource.xml'),
++  command: [
++    find_program('glib-compile-resources'),
++    '@INPUT@',
++    '--sourcedir=.',
++    '--sourcedir=' + meson.current_source_dir(),
++    '--c-name=soup',
++    '--internal',
++    '--generate',
++    '--target=@OUTPUT@',
++  ], 
++)
++
++resources += custom_target('resources_h',
++  output: 'soup-resources.h',
++  input: files('soup.gresource.xml'),
++  command: [ 
++    find_program('glib-compile-resources'),
++    '@INPUT@',
++    '--sourcedir=.',
++    '--sourcedir=' + meson.current_source_dir(),
++    '--c-name=soup',
++    '--internal', 
++    '--generate',
++    '--target=@OUTPUT@',
++  ],
+ )
+ 
+ soup_sources = [
+@@ -222,16 +247,38 @@ soup_version_h = configure_file(input : 'soup-version.h.in',
+   install_dir : join_paths(get_option('includedir'), includedir),
+   configuration : version_cdata)
+ 
+-enum_types = 'soup-enum-types'
+-soup_enums = gnome.mkenums('soup-enum-types',
+-  sources : [
++soup_enums = []
++soup_enums += custom_target('soup-enum-types_c',
++  capture : true,
++  output : 'soup-enum-types.c',
++  input: [
+     soup_installed_headers,
+     soup_gnome_installed_headers
+   ],
+-  h_template : enum_types + '.h.template',
+-  c_template : enum_types + '.c.template',
+-  install_header : true,
+-  install_dir : join_paths(get_option('includedir'), includedir))
++  install : true,
++  install_dir : join_paths(get_option('includedir'), includedir),
++  command: [
++    find_program('glib-mkenums'),
++    '--template', files('soup-enum-types.c.template'),
++    '@INPUT@',
++  ], 
++)
++
++soup_enums += custom_target('soup-enum-types_h',
++  capture : true,
++  output : 'soup-enum-types.h',
++  input : [
++    soup_installed_headers,
++    soup_gnome_installed_headers
++  ],
++  install : true,
++  install_dir : join_paths(get_option('includedir'), includedir),
++  command: [ 
++    find_program('glib-mkenums'), 
++    '--template', files('soup-enum-types.h.template'),
++    '@INPUT@', 
++  ], 
++)
+ 
+ soup_enum_h = soup_enums[1]
+ soup_enum_c = soup_enums[0]

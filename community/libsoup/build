@@ -1,12 +1,15 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 
 export DESTDIR="$1"
 
-meson setup \
+patch -p1 < muon.patch
+
+muon setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dlocalstatedir=/var \
     -Dtls_check=false \
+    -Dtests=false \
     -Dvapi=disabled \
     -Dgssapi=disabled \
     -Dbrotli=disabled \
@@ -14,4 +17,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install
