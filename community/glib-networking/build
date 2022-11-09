@@ -3,8 +3,8 @@
 export DESTDIR="$1"
 
 # Don't build tests that fail due to `gnutls` not being built with `p11-kit`.
-sed "/subdir('tls\/tests')/d" meson.build > _
-mv -f _ meson.build
+sed "/subdir('tests')/d" tls/meson.build > _
+mv -f _ tls/meson.build
 
 # Check if we have openssl, and use it if we have it.
 if pkg-config --exists openssl; then
