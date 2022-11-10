@@ -1,3 +1,4 @@
+cmake make
 curl
 ffmpeg
 glew
