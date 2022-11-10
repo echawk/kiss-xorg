@@ -1,3 +1,4 @@
+cmake make
 gcc
 glu
 mesa
