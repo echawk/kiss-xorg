@@ -3,6 +3,7 @@ atkmm
 boost
 cairo
 cairomm
+cmake make
 curl
 double-conversion
 expat
