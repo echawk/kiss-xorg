@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 if ! command -v yasm; then (
     cd yasm
 
@@ -41,8 +40,13 @@ for lib in $syslibs; do
     esac
 done
 
+case "$(uname)" in
+    Linux) JOBS="$(nproc)";;
+    FreeBSD | Darwin | OpenBSD) JOBS="$(sysctl -n hw.ncpu)";;
+esac
+
 # shellcheck disable=2086
-python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
+python scons/scripts/scons.py "${MAKEFLAGS:--j$JOBS}" \
     platform=x11 \
     target=release_debug \
     execinfo=yes \
@@ -53,4 +57,6 @@ python scons/scripts/scons.py "${MAKEFLAGS:--j$(nproc)}" \
     bits=64 \
     $conf
 
-install -Dm755 bin/godot.x11.opt.tools.64 "$1/usr/bin/godot"
+mkdir -p "$1/usr/bin"
+cp bin/godot.x11.opt.tools.64 "$1/usr/bin/godot"
+chmod +x "$1/usr/bin/godot"
