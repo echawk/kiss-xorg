@@ -2,8 +2,6 @@
 
 export DESTDIR="$1"
 
-export ac_cv_prog_RUBY=no
-
 sed -e "/subdir('tests')/d" \
     -e "/subdir('po')/d" meson.build > _
 mv -f _ meson.build
