@@ -11,11 +11,8 @@ fi
 patch -p1 < no-uuid.patch
 
 # Don't build tests.
-ed data/meson.build > /dev/null << EOF
-/subdir('tests')/d
-w
-q
-EOF
+sed "/subdir('tests')/d" data/meson.build > _
+mv -f _ data/meson.build
 
 meson setup \
     -Dprefix=/usr \
