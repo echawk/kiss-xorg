@@ -14,6 +14,10 @@ mv -f _ meson.build
 sed -e "/BABL_UNSTABLE/d" -e "/unstable/d" meson.build > _
 mv -f _ meson.build
 
+# Make meson_options.txt compatible with muon.
+sed -E "/value/s/'(true|false)'/\1/" meson_options.txt > _
+mv -f _ meson_options.txt
+
 meson setup \
     -Dprefix=/usr \
     output
