@@ -2,7 +2,7 @@
 
 export DESTDIR="$1"
 
-./autogen.sh
+autoreconf -vif
 
 ./configure \
     --prefix=/usr
