@@ -43,6 +43,25 @@ KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
 ...
 ```
 
+## What's that extra file? (esources)
+
+Packages in this repo have an additional file, not directly specified by kiss,
+that being the `esources` file. This file is meant to side step the use
+of VERSION markers in `sources` which is a somewhat contentious topic.
+
+This does require having access to an additional command, namely
+`kiss-echecksum` which is available from my personal repo
+[here](https://raw.githubusercontent.com/ehawkvu/kiss-personal/master/bin/kiss-echecksum).
+If there is interest, I would not mind tryping to upstream this utility to the
+`contrib/` folder for kiss.
+
+Bumping versions then has this workflow:
+
+```shell
+echo "9.99.9 1" >> version
+kiss echecksum
+```
+
 ## Support
 
 distro/fork | tested? | notes
