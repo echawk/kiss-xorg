@@ -1,3 +1,3 @@
-http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-VERSION.tar.bz2
+http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-1.1.tar.bz2
 patches/10-execinfo.patch
 patches/30-linux-makefile.patch
