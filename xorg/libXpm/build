@@ -1,13 +1,1 @@
-#!/bin/sh -e
-
-export DESTDIR="$1"
-
-
-export CFLAGS="$CFLAGS -fcommon"
-
-ac_cv_search_gettext=no \
-    ./configure \
-    --prefix=/usr
-
-make
-make install
+../libXmeta/build
