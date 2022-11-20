@@ -24,7 +24,7 @@ Feel free to create Issues and Pull Requests for outdated software!
 
 * `xorg/`  - contains the X11 distribution, and other misc software for X
 * `extra/` - contains the browser (firefox) and media player (mpv)
-	* NOTE: You will still need the upsteam extra repo!
+	* NOTE: You will still need the upstream extra repo!
 * `community/` - contains useful software that depends on X
 	* currently working on saving some of the software that was dropped from [kiss-community/community](https://github.com/kiss-community/community)
 * `games/` - contains video games
@@ -52,13 +52,13 @@ of VERSION markers in `sources` which is a somewhat contentious topic.
 This does require having access to an additional command, namely
 `kiss-echecksum` which is available from my personal repo
 [here](https://raw.githubusercontent.com/ehawkvu/kiss-personal/master/bin/kiss-echecksum).
-If there is interest, I would not mind tryping to upstream this utility to the
+If there is interest, I would not mind trying to upstream this utility to the
 `contrib/` folder for kiss.
 
 Bumping versions then has this workflow:
 
 ```shell
-echo "9.99.9 1" >> version
+echo "9.99.9 1" > version
 kiss echecksum
 ```
 
@@ -69,6 +69,6 @@ distro/fork | tested? | notes
 [kisslinux](https://kisslinux.org) | Y | n/a
 [gkisslinux](https://github.com/kiss-community/grepo) | Y |
 [glasnost](https://glasnost.org) | Y | clang is a dep of some packages, so a dummy package is needed
-[wyverkiss](https://github.com/wyvertux) | Y | need to fork some packges for gmake & bison
+[wyverkiss](https://github.com/wyvertux) | Y | need to fork some packages for gmake & bison
 [noir](https://github.com/noirlinux/main) | N |
 [carbslinux](https://carbslinux.org/) | n/a | carbs ships with Xorg already
