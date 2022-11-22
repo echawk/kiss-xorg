@@ -2,7 +2,9 @@
 
 export DESTDIR="$1"
 
-patch -p1 < muon.patch
+sed "s#install_subdir('libinput', install_dir : dir_etc)#install_emptydir(dir_etc / 'libinput')#" \
+    meson.build > _
+mv -f _ meson.build
 
 # Build fails with clang due to -Werror (forced on) and
 # -Wunused-command-line-argument which is triggered by.
