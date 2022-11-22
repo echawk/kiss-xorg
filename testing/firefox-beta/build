@@ -6,42 +6,8 @@ for p in *.patch; do
     patch -p1 < "$p"
 done
 
-# Build yasm for Firefox's sole use. Firefox is the only package which needs it
-# and upstream is kinda dead.
-(
-    cd yasm
-
-    ./configure \
-        --prefix=/
-
-    make
-    make DESTDIR="$PWD/../junk" install
-)
-
-# Build zip/unzip for Firefox's sole use.
-for f in zip unzip; do (
-    cd "$f"
-
-    make \
-        CC="$CC $CFLAGS $CXXFLAGS" \
-        -f unix/Makefile generic
-
-    make \
-        prefix="$PWD/../junk" \
-        -f unix/Makefile install
-) done
-
-export PATH="$PWD/junk/bin:$PATH"
-
-for p in \
-    audioipc \
-    audioipc-client \
-    audioipc-server
-do
-    sed 's/\("files":{\)[^}]*/\1/' \
-        "third_party/rust/$p/.cargo-checksum.json" > _
-    mv -f _ "third_party/rust/$p/.cargo-checksum.json"
-done
+sed '/UNZIP/d' toolkit/moz.configure > _
+mv -f _ toolkit/moz.configure
 
 # Detect what the current linker is.
 case "$(readlink "$(command -v ld)")" in
@@ -90,8 +56,9 @@ ac_add_options --with-system-png
 ac_add_options --with-system-jpeg
 ac_add_options --with-system-zlib
 ac_add_options --with-system-pixman
-ac_add_options --without-system-nss
-ac_add_options --without-system-nspr
+ac_add_options --with-system-nss
+ac_add_options --with-system-nspr
+ac_add_options --with-system-webp
 ac_add_options --without-wasm-sandboxed-libraries
 ac_add_options --disable-eme
 ac_add_options --disable-dbus
@@ -119,9 +86,4 @@ EOF
 rm -rf \
     "$1/usr/include" \
     "$1/usr/lib/firefox-devel" \
-    "$1/usr/share/idl" \
-    "$1/usr/lib/firefox/browser/features/fxmonitor@mozilla.org.xpi" \
-    "$1/usr/lib/firefox/browser/features/screenshots@mozilla.org.xpi" \
-    "$1/usr/lib/firefox/browser/features/webcompat-reporter@mozilla.org.xpi" \
-    "$1/usr/lib/firefox/browser/features/webcompat@mozilla.org.xpi" \
-    "$1/usr/lib/firefox/browser/features/doh-rollout@mozilla.org.xpi"
+    "$1/usr/share/idl"
