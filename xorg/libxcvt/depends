@@ -1,5 +1,5 @@
 libXau
-muon make
+meson   make
 pkgconf make
 python  make
 samurai make
