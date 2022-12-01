@@ -1,5 +1,5 @@
 libX11  make
-muon    make
+meson   make
 pkgconf make
 python  make
 samurai make
