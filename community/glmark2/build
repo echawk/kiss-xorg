@@ -2,11 +2,10 @@
 
 export DESTDIR="$1"
 
-muon setup \
+meson setup \
     -Dprefix=/usr \
-    -Dpkg_config_path=/usr/lib/pkgconfig \
     -Dflavors=x11-gl,x11-glesv2 \
     output
 
 ninja -C output
-muon -C output install
+ninja -C output install
