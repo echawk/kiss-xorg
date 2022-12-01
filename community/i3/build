@@ -2,12 +2,14 @@
 
 export DESTDIR="$1"
 
-# Remove the libstartup-notification dependency.
-patch -p0 < i3-no-libstartup-notification.patch
+# Remove the libstartup-notification & bash dependency.
+for p in *.patch; do
+  patch -p1 < $p
+done
 
-muon setup \
+meson setup \
     -Dprefix=/usr \
     output
 
 ninja -C output
-muon  -C output install
+ninja -C output install
