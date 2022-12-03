@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+# skip terminfo which conflicts with nsurses
+sed '/tic /d' Makefile > _
+mv -f _ Makefile
+
+make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+make PREFIX=/usr DESTDIR="$1" install
