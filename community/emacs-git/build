@@ -12,6 +12,9 @@ export CFLAGS="$CFLAGS -no-pie"
 
 kiss list libgccjit && conf="--with-native-compilation"
 
+# Tree Sitter Check.
+pkg-config --exists tree-sitter && conf="${conf:-} --with-tree-sitter"
+
 autoreconf -vif
 
 ./configure \
