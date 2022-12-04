@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # Give Xorg setgid to /dev/input.
 chown :input "$KISS_ROOT/usr/bin/Xorg"
