@@ -17,6 +17,8 @@ pkg-config --exists tree-sitter && conf="${conf:-} --with-tree-sitter"
 
 autoreconf -vif
 
+# Intended behavior.
+# shellcheck disable=2086
 ./configure \
     ${conf:-} \
     --prefix=/usr \
