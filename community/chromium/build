@@ -4,6 +4,9 @@ export DESTDIR="$1"
 
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
+# This change was made upstream.
+rm chromium-108-LabToLCH-include.patch
+
 # Glob includes the libstdc++ patchset aswell.
 for patch in chromium-*.patch; do
     patch -p1 < "$patch"
@@ -113,12 +116,13 @@ conf="
     blink_enable_generated_code_formatting=false
     blink_symbol_level=0
     clang_use_chrome_plugins=false
+    clang_base_path=\"/usr\"
     custom_toolchain=\"//build/toolchain/linux/unbundle:default\"
+    host_toolchain=\"//build/toolchain/linux/unbundle:default\"
     enable_vr=false
     enable_widevine=false
     fatal_linker_warnings=false
     ffmpeg_branding=\"Chrome\"
-    host_toolchain=\"//build/toolchain/linux/unbundle:default\"
     is_cfi=false
     is_clang=${clang:-false}
     is_debug=false
@@ -135,7 +139,6 @@ conf="
     use_atk=false
     use_bluez=false
     use_cups=false
-    use_qt=false
     use_custom_libcxx=false
     use_dbus=false
     use_gnome_keyring=false
@@ -144,9 +147,10 @@ conf="
     use_libpci=false
     use_lld=false
     use_pulseaudio=false
+    use_qt=false
     use_sysroot=false
+    use_system_libwayland=false
     use_system_wayland_scanner=false
-    use_system_libwayland_server=false
     use_thin_lto=false
     use_cfi_icall=false
     use_vaapi=true
