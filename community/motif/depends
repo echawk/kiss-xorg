@@ -1,0 +1,12 @@
+fontconfig
+freetype-harfbuzz
+libICE
+libSM
+libX11
+libXext
+libXft
+libXmu
+libXt
+libjpeg-turbo
+libpng
+xbitmaps

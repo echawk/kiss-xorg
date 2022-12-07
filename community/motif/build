@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+./configure \
+    --prefix=/usr \
+    --enable-silent-rules \
+    --disable-dependency-tracking \
+    --enable-xft \
+    --enable-jpeg \
+    --enable-png
+
+make
+make install
