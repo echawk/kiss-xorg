@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+sed "/ADD_SUBDIRECTORY(test)/d" CMakeLists.txt > _
+mv -f _ CMakeLists.txt
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
+
+cmake --build   build
+cmake --install build
