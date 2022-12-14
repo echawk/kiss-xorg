@@ -1,0 +1,17 @@
+alsa-lib
+atk
+autoconf make
+automake make
+cairo
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+glib
+glu
+gtk+2
+libX11
+libpcap
+mesa
+pango
+sdl2
+zziplib

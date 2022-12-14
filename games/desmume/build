@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cd desmume/src/frontend/posix
+
+autoreconf -vif
+./configure \
+    --prefix=/usr
+
+make
+make install
