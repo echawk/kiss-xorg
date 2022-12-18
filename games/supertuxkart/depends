@@ -11,5 +11,6 @@ libvorbis
 mesa
 openal-soft
 openssl
+python make
 sdl2
 sqlite
