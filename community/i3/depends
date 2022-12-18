@@ -1,10 +1,10 @@
-bash make
 cairo
 glib
 libev
 libxcb
 libxkbcommon
-muon make
+meson   make
+pkgconf make
 pango
 samurai make
 xcb-util

@@ -1,13 +1,1 @@
-#!/bin/sh -e
-
-export DESTDIR="$1"
-
-muon setup \
-    -Dprefix=/usr \
-    -Dpkg_config_path=/usr/lib/pkgconfig \
-    -Ddbus=false \
-    -Dregex=false \
-    output
-
-ninja -C output
-muon -C output install
+../picom/build

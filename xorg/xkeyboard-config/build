@@ -11,7 +11,7 @@ mv -f _ rules/meson.build
 sed -e "/subdir('po')/d" -e "/i18n/d" meson.build > _
 mv -f _ meson.build
 
-muon setup \
+meson setup \
     -Dprefix=/usr \
     -Dcompat-rules=true \
     -Dxorg-rules-symlinks=true \
@@ -19,4 +19,4 @@ muon setup \
     output
 
 ninja -C output
-muon -C output install
+ninja -C output install

@@ -1,9 +1,11 @@
+libX11
 libconfig
 libev
-muon    make
+libxcb
+meson   make 
 pixman
-pkgconf make
-samurai make
-uthash  make
+pkgconf make 
+samurai make 
+uthash  make 
 xcb-util-image
 xcb-util-renderutil
