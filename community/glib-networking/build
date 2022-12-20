@@ -18,8 +18,8 @@ meson setup \
     -Dsysconfdir=/etc \
     -Dlocalstatedir=/var \
     -Dlibproxy=disabled \
-    -Dopenssl=${OPENSSL:-disabled} \
-    -Dgnutls=${GNUTLS:-disabled} \
+    -Dopenssl="${OPENSSL:-disabled}" \
+    -Dgnutls="${GNUTLS:-disabled}" \
     output
 
 ninja -C output
