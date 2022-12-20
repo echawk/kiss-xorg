@@ -23,7 +23,7 @@ meson setup \
     -Dbuildtype=plain \
     -Dgtk_doc=false \
     -Dintrospection="${intro:-false}" \
-    -Dvapi=${vapi:-false} \
+    -Dvapi="${vapi:-false}" \
     -Dpython3=false \
     output
 
