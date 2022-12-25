@@ -7,7 +7,7 @@ sed "/subdir('tests')/d" tls/meson.build > _
 mv -f _ tls/meson.build
 
 # Check if we have openssl, and use it if we have it.
-if pkg-config --exists openssl; then
+if openssl version | grep OpenSSL; then
     OPENSSL=enabled
 else
     GNUTLS=enabled
