@@ -1,6 +1,11 @@
 #!/bin/sh -e
 
-sed "/subdirectory(po)/d" CMakeLists.txt > _
+# Remove gettext dependency.
+sed "/subdirectory(po)/d;/find_package(Gettext/d" CMakeLists.txt > _
+mv -f _ CMakeLists.txt
+
+# The desktop file requires gettext, so we don't build it.
+sed "/subdirectory(desktop)/d" CMakeLists.txt > _
 mv -f _ CMakeLists.txt
 
 cmake -B build \
