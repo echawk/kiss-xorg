@@ -4,8 +4,9 @@ libev
 libxcb
 libxkbcommon
 meson   make
-pkgconf make
 pango
+pcre2
+pkgconf make
 samurai make
 xcb-util
 xcb-util-cursor
