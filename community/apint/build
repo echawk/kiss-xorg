@@ -1,0 +1,21 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+# Bundle libsaveas since nothing else uses this.
+cd libsaveas
+mkdir -p tmp
+make DESTDIR="$PWD/tmp"
+make DESTDIR="$PWD/tmp" PREFIX=/usr install
+cd "$OLDPWD"
+
+# Ensure that we can use the bundled libsaveas.
+sed "/^INCS/s~$~ -I$PWD/libsaveas/tmp/usr/include/ ~" config.mk > _
+mv -f _ config.mk
+sed "/^LDFLAGS/s~$~ -L$PWD/libsaveas/tmp/usr/lib/~" config.mk > _
+mv -f _ config.mk
+sed "/^CFLAGS/s/$/ -static/" config.mk > _
+mv -f _ config.mk
+
+make
+make PREFIX=/usr install
