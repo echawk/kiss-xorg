@@ -1,0 +1,5 @@
+fontconfig
+imlib2
+libX11
+libXft
+libXinerama
