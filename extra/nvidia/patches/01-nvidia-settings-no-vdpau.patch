@@ -1,0 +1,88 @@
+From cdeed2590d1f4c13af30dcf6bc9914ca9f83695f Mon Sep 17 00:00:00 2001
+From: wael <wael@wael.cc>
+Date: Tue, 10 Jan 2023 16:15:14 +0000
+Subject: [PATCH 1/2] remove dependency on libvdpau
+
+---
+ src/gtk+-2.x/ctkbanner.c | 2 --
+ src/gtk+-2.x/ctkwindow.c | 8 --------
+ src/src.mk               | 3 ---
+ 3 files changed, 13 deletions(-)
+
+diff --git a/src/gtk+-2.x/ctkbanner.c b/src/gtk+-2.x/ctkbanner.c
+index b43af03..52076cf 100644
+--- a/src/gtk+-2.x/ctkbanner.c
++++ b/src/gtk+-2.x/ctkbanner.c
+@@ -52,7 +52,6 @@
+ #include "slimm.png.h"
+ #include "solaris.png.h"
+ #include "thermal.png.h"
+-#include "vdpau.png.h"
+ #include "x.png.h"
+ #include "xvideo.png.h"
+ #include "svp_3dvp.png.h"
+@@ -427,7 +426,6 @@ static GdkPixbuf* select_artwork(BannerArtworkType artwork,
+         { BANNER_ARTWORK_SLIMM,          FALSE, 16,      PNG(slimm)               },
+         { BANNER_ARTWORK_SOLARIS,        TRUE,  16,      PNG(solaris)             },
+         { BANNER_ARTWORK_THERMAL,        FALSE, 16,      PNG(thermal)             },
+-        { BANNER_ARTWORK_VDPAU,          FALSE, 16,      PNG(vdpau)               },
+         { BANNER_ARTWORK_X,              FALSE, 16,      PNG(x)                   },
+         { BANNER_ARTWORK_XVIDEO,         FALSE, 16,      PNG(xvideo)              },
+         { BANNER_ARTWORK_SVP,            FALSE, 16,      PNG(svp_3dvp)            },
+diff --git a/src/gtk+-2.x/ctkwindow.c b/src/gtk+-2.x/ctkwindow.c
+index 9bd4a35..d6a7bf0 100644
+--- a/src/gtk+-2.x/ctkwindow.c
++++ b/src/gtk+-2.x/ctkwindow.c
+@@ -56,7 +56,6 @@
+ #include "ctkserver.h"
+ #include "ctkecc.h"
+ #include "ctkgridlicense.h"
+-#include "ctkvdpau.h"
+ 
+ #include "ctkappprofile.h"
+ 
+@@ -836,13 +835,6 @@ GtkWidget *ctk_window_new(ParsedAttribute *p, ConfigProperties *conf,
+         }
+ 
+ 
+-        /* VDPAU Information */
+-        child = ctk_vdpau_new(screen_target, ctk_config, ctk_event);
+-        if (child) {
+-            help = ctk_vdpau_create_help(tag_table, CTK_VDPAU(child));
+-            add_page(child, help, ctk_window, &iter, NULL, "VDPAU Information",
+-                     NULL, NULL, NULL);
+-        }
+     }
+ 
+     /* add the per-gpu entries into the tree model */
+diff --git a/src/src.mk b/src/src.mk
+index f68373e..7593c1b 100644
+--- a/src/src.mk
++++ b/src/src.mk
+@@ -75,7 +75,6 @@ IMAGE_FILES += image_data/slimm.png
+ IMAGE_FILES += image_data/solaris.png
+ IMAGE_FILES += image_data/svp_3dvp.png
+ IMAGE_FILES += image_data/thermal.png
+-IMAGE_FILES += image_data/vdpau.png
+ IMAGE_FILES += image_data/x.png
+ IMAGE_FILES += image_data/xvideo.png
+ 
+@@ -172,7 +171,6 @@ GTK_SRC += gtk+-2.x/ctkapcprofilemodel.c
+ GTK_SRC += gtk+-2.x/ctkapcrulemodel.c
+ GTK_SRC += gtk+-2.x/ctkcolorcontrols.c
+ GTK_SRC += gtk+-2.x/ctk3dvisionpro.c
+-GTK_SRC += gtk+-2.x/ctkvdpau.c
+ GTK_SRC += gtk+-2.x/ctkgridlicense.c
+ GTK_SRC += gtk+-2.x/ctkglwidget.c
+ GTK_SRC += gtk+-2.x/ctkglstereo.c
+@@ -220,7 +218,6 @@ GTK_EXTRA_DIST += gtk+-2.x/ctkapcprofilemodel.h
+ GTK_EXTRA_DIST += gtk+-2.x/ctkapcrulemodel.h
+ GTK_EXTRA_DIST += gtk+-2.x/ctkcolorcontrols.h
+ GTK_EXTRA_DIST += gtk+-2.x/ctk3dvisionpro.h
+-GTK_EXTRA_DIST += gtk+-2.x/ctkvdpau.h
+ GTK_EXTRA_DIST += gtk+-2.x/ctkgridlicense.h
+ GTK_EXTRA_DIST += gtk+-2.x/ctkglwidget.h
+ GTK_EXTRA_DIST += gtk+-2.x/ctkglstereo.h
+-- 
+2.39.0
+

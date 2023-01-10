@@ -1,0 +1,49 @@
+From 1e2c2b0adf2d364242fa5f4756c20836bcc77402 Mon Sep 17 00:00:00 2001
+From: wael <wael@wael.cc>
+Date: Tue, 10 Jan 2023 16:16:49 +0000
+Subject: [PATCH] remove dependency on dbus
+
+---
+ src/gtk+-2.x/ctkwindow.c | 13 -------------
+ src/src.mk               |  1 -
+ 2 files changed, 14 deletions(-)
+
+diff --git a/src/gtk+-2.x/ctkwindow.c b/src/gtk+-2.x/ctkwindow.c
+index d6a7bf0..2ff4508 100644
+--- a/src/gtk+-2.x/ctkwindow.c
++++ b/src/gtk+-2.x/ctkwindow.c
+@@ -990,19 +990,6 @@ GtkWidget *ctk_window_new(ParsedAttribute *p, ConfigProperties *conf,
+                  NULL, NULL, NULL);
+     }
+ 
+-    /* Manage GRID License Information */
+-    for (node = system->targets[GPU_TARGET]; node; node = node->next) {
+-        widget = ctk_manage_grid_license_new(node->t, ctk_config);
+-        if (widget) {
+-            help = ctk_manage_grid_license_create_help(tag_table,
+-                                                       CTK_MANAGE_GRID_LICENSE(widget));
+-            add_page(widget, help, ctk_window, NULL, NULL, "Manage License",
+-                     NULL, ctk_manage_grid_license_start_timer,
+-                     ctk_manage_grid_license_stop_timer);
+-            break; /* only add the page once */
+-        }
+-    }
+-
+     /* nvidia-settings configuration */
+ 
+     add_page(GTK_WIDGET(ctk_window->ctk_config),
+diff --git a/src/src.mk b/src/src.mk
+index 7593c1b..c1ae318 100644
+--- a/src/src.mk
++++ b/src/src.mk
+@@ -171,7 +171,6 @@ GTK_SRC += gtk+-2.x/ctkapcprofilemodel.c
+ GTK_SRC += gtk+-2.x/ctkapcrulemodel.c
+ GTK_SRC += gtk+-2.x/ctkcolorcontrols.c
+ GTK_SRC += gtk+-2.x/ctk3dvisionpro.c
+-GTK_SRC += gtk+-2.x/ctkgridlicense.c
+ GTK_SRC += gtk+-2.x/ctkglwidget.c
+ GTK_SRC += gtk+-2.x/ctkglstereo.c
+ GTK_SRC += gtk+-2.x/opengl_loading.c
+-- 
+2.39.0
+
