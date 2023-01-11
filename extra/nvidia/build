@@ -1,0 +1,108 @@
+#!/bin/sh -e
+# https://download.nvidia.com/XFree86/Linux-x86_64/525.78.01/README/installedcomponents.html
+
+: "${KERNEL_UNAME:=$(uname -r)}"
+
+sh "NVIDIA-Linux-x86_64-${2}-no-compat32.run" --extract-only
+cd "NVIDIA-Linux-x86_64-${2}-no-compat32"
+
+mkdir -p \
+    "$1/usr/bin" \
+    "$1/usr/lib/gbm" \
+    "$1/usr/lib/xorg/modules/drivers" \
+    "$1/usr/lib/xorg/modules/extensions" \
+    "$1/usr/share/nvidia" \
+    "$1/usr/share/man/man1" \
+    "$1/usr/share/vulkan/icd.d" \
+    "$1/usr/share/vulkan/implicit_layer.d" \
+    "$1/usr/share/glvnd/egl_vendor.d" \
+    "$1/usr/share/egl/egl_external_platform.d"
+
+bins="
+cuda-mps-control cuda-mps-server modprobe smi debugdump bug-report.sh
+persistenced settings
+"
+
+libs="
+libEGL_nvidia       libGLX_nvidia
+libGLESv1_CM_nvidia libGLESv2_nvidia
+libnvidia-eglcore   libnvidia-glcore    libnvidia-glsi
+libnvidia-cfg       libnvidia-compiler  libnvidia-glvkspirv
+libnvidia-rtcore    libnvidia-allocator libnvidia-tls
+libnvidia-ml
+libcuda             libnvidia-nvvm      libnvidia-ptxjitcompiler
+libnvcuvid          libnvidia-encode    libnvidia-fbc
+libnvoptix
+"
+
+# X driver
+cp nvidia_drv.so "$1/usr/lib/xorg/modules/drivers/nvidia_drv.so"
+
+# X GLX Extensions
+cp "libglxserver_nvidia.so.$2" "$1/usr/lib/xorg/modules/extensions/libglxserver_nvidia.so.$2"
+ln -s "libglxserver_nvidia.so.$2" "$1/usr/lib/xorg/modules/extensions/libglxserver_nvidia.so"
+
+# GBM
+ln -s "../libnvidia-allocator.so.$2" "$1/usr/lib/gbm/nvidia-drm_gbm.so"
+cp 15_nvidia_gbm.json "$1/usr/share/egl/egl_external_platform.d/"
+cp 10_nvidia.json "$1/usr/share/glvnd/egl_vendor.d/"
+cp libnvidia-egl-gbm.so.1.1.0 "$1/usr/lib/"
+
+# Vulkan ICD & layer configuration
+cp nvidia_icd.json "$1/usr/share/vulkan/icd.d/"
+cp nvidia_layers.json "$1/usr/share/vulkan/implicit_layer.d/"
+
+# Firmware
+mkdir -p "$1/usr/lib/firmware/nvidia/$2"
+cp firmware/*.bin "$1/usr/lib/firmware/nvidia/$2/"
+
+cp "nvidia-application-profiles-$2-rc" \
+   "nvidia-application-profiles-$2-key-documentation" \
+   "$1/usr/share/nvidia/"
+
+# Rebuild the nvidia GTK3 library required by nvidia-settings,
+# this is to prevent the dangling libraries needed by libnvidia-gtk3
+(
+    cd ../nvidia-settings-src
+
+	for p in ../*nvidia-settings*.patch; do
+		patch -p1 < "$p"
+	done
+
+	cd src
+
+	# Makefile does not provide a way to compile 
+	# it directly, so we 'install' it; which depends on it
+	make PREFIX=/usr BUILD_GTK3LIB=1 NVIDIA_GTKLIB_install
+)
+
+for bin in $bins; do
+    cp "nvidia-${bin}" "$1/usr/bin/"
+
+    [ -f "nvidia-${bin}.1.gz" ] || continue
+    cp "nvidia-${bin}.1.gz" "$1/usr/share/man/man1/"
+done
+
+chmod 4755 "$1/usr/bin/nvidia-modprobe"
+
+for lib in $libs; do
+    cp "${lib}.so.$2" "$1/usr/lib/"
+done
+
+# SONAME links
+for lib in "$1"/usr/lib/*.so*; do
+    soname="${lib%/*}/$(readelf -d "$lib" | awk -F'[][]' '/SONAME/ {print $2}')"
+    base=${soname%%.so*}
+    [ -e "$soname" ] || ln -sf "${lib##*/}" "${soname}"
+    [ -e "$base" ] || ln -sf "${soname##*/}" "${base}.so"
+done
+
+# kernel modules
+cd kernel
+
+make modules
+make INSTALL_MOD_PATH="$1/usr" INSTALL_MOD_STRIP=1 modules_install
+
+for file in modules.symbols modules.dep modules.alias; do
+    rm -f "$1/usr/lib/modules/"*"/$file"
+done
