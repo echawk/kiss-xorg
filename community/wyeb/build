@@ -1,6 +1,9 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
+if pkgconf --exist libsoup-3.0; then
+	sed 's/4.0/4.1/' makefile > _
+	mv -f _ makefile
+fi
 
 make PREFIX=/usr
 make PREFIX=/usr install
