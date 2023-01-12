@@ -1,1 +1,3 @@
 https://github.com/wxWidgets/wxWidgets/releases/download/vVERSION/wxWidgets-VERSION.tar.bz2
+patches/musl-locale-l.patch
+patches/musl-no-langinfo-h.patch

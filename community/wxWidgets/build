@@ -1,26 +1,38 @@
 #!/bin/sh -e
 
-./configure \
-    --prefix=/usr \
-    --libdir=/usr/lib \
-    --with-gtk=3 \
-    --with-libjpeg=sys \
-    --with-libpng=sys \
-    --with-libtiff=sys \
-    --with-libxpm=sys \
-    --with-opengl \
-    --with-sdl \
-    --enable-aui \
-    --enable-graphics_ctx \
-    --enable-mediactrl \
-    --enable-shared \
-    --enable-unicode \
-    --disable-webview \
-    --disable-precomp-headers \
-    --disable-rpath \
-    --without-libmspack
+export DESTDIR="$1"
 
-make
-make DESTDIR="$1" install
+for p in *.patch; do
+    patch -p1 < "$p"
+done
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DwxBUILD_PRECOMP=OFF \
+    -DwxBUILD_TESTS=OFF \
+    -DwxBUILD_TOOLKIT=gtk3 \
+    -DwxUSE_EXPAT=sys \
+    -DwxUSE_WEBVIEW=OFF \
+    -DwxUSE_GLCANVAS_EGL=OFF \
+    -DwxUSE_GTKPRINT=OFF \
+    -DwxUSE_LIBMSPACK=OFF \
+    -DwxUSE_LIBJPEG=sys \
+    -DwxUSE_LIBLZMA=sys \
+    -DwxUSE_LIBPNG=sys \
+    -DwxUSE_LIBTIFF=sys \
+    -DwxUSE_LIBXPM=sys \
+    -DwxUSE_OPENGL=ON \
+    -DwxUSE_PRIVATE_FONTS=ON \
+    -DwxUSE_MEDIACTRL=ON \
+    -DwxUSE_GRAPHICS_CONTEXT=ON \
+    -DwxUSE_UNICODE=ON \
+    -DwxUSE_AUI=ON \
+    -DwxUSE_LIBSDL=ON \
+    -DwxUSE_REGEX=sys \
+    -DwxUSE_ZLIB=sys
+
+cmake --build   build
+cmake --install build
 
 ln -s wx-config "$1/usr/bin/wx-config-gtk3"
