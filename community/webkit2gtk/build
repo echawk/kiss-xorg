@@ -4,6 +4,9 @@ export DESTDIR="$1"
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
+# Use libsoup3, if available.
+kiss list libsoup3 && libsoup=OFF
+
 # Enable streaming related options if gstreamer is installed.
 kiss list gst-plugins-base && streaming=ON
 
@@ -74,7 +77,7 @@ cmake -B build \
     -DENABLE_MINIBROWSER=OFF \
     -DENABLE_SPELLCHECK=OFF \
     -DUSE_GSTREAMER_GL=OFF \
-    -DUSE_SOUP2=ON \
+    -DUSE_SOUP2="${libsoup:-ON}" \
     -DUSE_LIBHYPHEN=OFF \
     -DUSE_LIBNOTIFY=OFF \
     -DUSE_LIBSECRET=OFF \
