@@ -87,6 +87,7 @@ cmake -B build \
     -DENABLE_WEB_AUDIO="${streaming:-OFF}" \
     -DENABLE_GAMEPAD=OFF \
     -DENABLE_JOURNALD_LOG=OFF \
+    -DUSE_LCMS=OFF \
     -Wno-dev
 
 cmake --build build
