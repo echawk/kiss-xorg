@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+if pkgconf --exists libsoup-3.0; then
+	sed 's/4.0/4.1/g' config.mk > _
+	mv -f _ config.mk
+fi
+
 patch -p1 < no-gcr.patch
 
 make
