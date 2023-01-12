@@ -1,13 +1,16 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
+# use libsoup3 if available
+if pkgconf --exists libsoup-3.0; then
+	patch -p1 < 727.patch
+else
 cmd="shell pkg-config --libs webkit2gtk-webextension-4.0"
 # Fix LDFLAGS, courtesy of Arch Linux
 sed -E \
     "s~^EXTLDFLAGS.*~EXTLDFLAGS  = \$($cmd) -shared~" \
     config.mk > _
 mv -f _ config.mk
+fi
 
 # Chnage the follow hints from numbers to letters on the home row
 sed -E \
