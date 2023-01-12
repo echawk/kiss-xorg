@@ -4,6 +4,6 @@ freetype-harfbuzz
 gdk-pixbuf
 glib
 gtk+3
-libsoup
+libsoup3
 pango
 webkit2gtk
