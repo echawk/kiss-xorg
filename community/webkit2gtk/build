@@ -4,7 +4,7 @@ export DESTDIR="$1"
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
-# Use libsoup3, if available.
+# Use libsoup3, if available. This changes the webkit version from 4.0 to 4.1.
 pkg-config --exists libsoup-3.0 && libsoup=OFF
 
 # Enable streaming related options if gstreamer is installed.
