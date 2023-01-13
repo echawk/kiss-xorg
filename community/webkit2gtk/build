@@ -5,16 +5,16 @@ export DESTDIR="$1"
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
 # Use libsoup3, if available.
-kiss list libsoup3 && libsoup=OFF
+pkg-config --exists libsoup-3.0 && libsoup=OFF
 
 # Enable streaming related options if gstreamer is installed.
-kiss list gst-plugins-base && streaming=ON
+pkg-config --exists gstreamer-play-1.0 && streaming=ON
 
 # Enable the use of openjpeg if the package is installed.
-kiss list openjpeg2 && jpeg=ON
+pkg-config --exists libopenjp2 && jpeg=ON
 
 # Enable WEB_CRYPTO if libtasn1 is installed.
-kiss list libtasn1 && tasn=ON
+pkg-config --exists libtasn1 && tasn=ON
 
 # Use clang if installed, decreases compilation time by 25%.
 if command -v clang; then
