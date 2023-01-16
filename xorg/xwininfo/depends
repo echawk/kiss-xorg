@@ -1,0 +1,4 @@
+libX11
+libxcb
+pkgconf          make
+xorg-util-macros make
