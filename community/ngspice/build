@@ -1,0 +1,39 @@
+#!/bin/sh -e
+
+sed -e "s/@PKGVER@/$2/" ngspice.pc > _
+mv -f _ ngspice.pc
+
+./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    --infodir=/usr/share/info \
+    --with-readline=yes \
+    --enable-xspice \
+    --enable-cider \
+    --with-ngshared
+
+make
+
+./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    --infodir=/usr/share/info \
+    --with-readline=yes \
+    --enable-xspice \
+    --enable-cider
+
+make
+make DESTDIR="$1" install
+
+mkdir -p \
+    "$1/usr/lib/" \
+    "$1/usr/include/ngspice" \
+    "$1/usr/lib/pkgconfig"
+
+cp ngspice.pc                        "$1/usr/lib/pkgconfig/ngspice.pc"
+cp src/include/ngspice/sharedspice.h "$1/usr/include/ngspice/sharedspice.h"
+
+sharedlib="$(find src/.libs/ -type f -name "libngspice.so.0.0.*")"
+cp "$sharedlib"                           "$1/usr/lib/$(basename "$sharedlib")"
+ln -s "$(basename "$sharedlib")"          "$1/usr/lib/libngspice.so.0"
+ln -s "$(basename "$sharedlib")"          "$1/usr/lib/libngspice.so"
