@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+export CPPFLAGS=-D_GNU_SOURCE
+
+./configure \
+    --prefix=/usr
+
+make
+make install
