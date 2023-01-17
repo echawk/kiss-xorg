@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+sed "/BRL-CAD Geometry Models/d" db/nist/CMakeLists.txt > _
+mv -f _ db/nist/CMakeLists.txt
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/opt/brlcad \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_STATIC_LIBS=OFF \
+    -DBRLCAD_ENABLE_QT=OFF \
+    -DBRLCAD_ENABLE_OSG=OFF \
+    -DBRLCAD_ENABLE_RTGL=OFF \
+    -DBRLCAD_ENABLE_OPENGL=ON \
+    -DBRLCAD_ENABLE_STRICT=OFF \
+    -DBRLCAD_ENABLE_EXTRADOCS=OFF \
+    -DBRLCAD_ENABLE_COMPILER_WARNINGS=OFF \
+    -DBRLCAD_FLAGS_OPTIMIZATION=ON \
+    -DBRLCAD_FLAGS_DEBUG=OFF \
+    -DBRLCAD_INSTALL_EXAMPLE_GEOMETRY=OFF \
+    -DBRLCAD_BUNDLED_LIBS=BUNDLED \
+    -Wno-dev
+
+cmake --build    build
+cmake --installl build
+
+# Ensure that the brlcad binary is in PATH.
+mkdir -p "$1/etc/profile.d/"
+cat << EOF > "$1/etc/profile.d/brlcad.sh"
+export PATH="\$PATH:/opt/brlcad/bin"
+EOF
