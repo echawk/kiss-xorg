@@ -1,0 +1,17 @@
+atk
+cairo
+cmake make
+curl
+freetype-harfbuzz
+gdk-pixbuf
+glew
+glib
+glu
+gtk+3
+mesa
+ngspice
+pango
+pixman
+python
+swig make
+wxWidgets
