@@ -1,0 +1,11 @@
+cairo
+fontconfig
+freetype-harfbuzz
+ghostscript
+libICE
+libSM
+libX11
+libXpm
+libXt
+tcl
+tk
