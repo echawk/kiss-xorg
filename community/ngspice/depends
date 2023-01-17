@@ -1,0 +1,14 @@
+fftw
+fontconfig
+freetype-harfbuzz
+libICE
+libSM
+libX11
+libXaw
+libXext
+libXft
+libXmu
+libXrender
+libXt
+ncurses
+readline
