@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+mkdir -p "$1/usr/include"
+cp -r glm "$1/usr/include/"
+
+mkdir -p "$1/usr/lib/pkgconfig"
+cat > "$1/usr/lib/pkgconfig/glm.pc" <<- EOF
+prefix=/usr
+includedir=/usr/include
+
+Name: GLM
+Description: OpenGL Mathematics
+Version: $2
+Cflags: -I/usr/include
+EOF
