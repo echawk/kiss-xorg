@@ -11,7 +11,8 @@ TMPDIR="$1/tmp"
     --localstatedir=/var \
     --without-xmlto \
     --disable-specs \
-    --disable-static
+    --disable-static \
+    --disable-open-zfile
 
 # Needed to remove the gettext requirement from this package.
 for d in sxpm cxpm; do
