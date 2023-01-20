@@ -1,5 +1,5 @@
 libXau
-pkgconf make
-python  make
+pkgconf          make
+python           make
 xcb-proto
-xorg-util-macros
+xorg-util-macros make
