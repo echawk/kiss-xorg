@@ -1,7 +1,6 @@
 libXau
-meson   make
-pkgconf make
-python  make
-samurai make
+meson            make
+pkgconf          make
+python           make
 xcb-proto
-xorg-util-macros
+xorg-util-macros make
