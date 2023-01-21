@@ -1,0 +1,7 @@
+atk
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gnutls
+gtk+2
+pango

@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+./build.sh \
+    --prefix=/usr \
+    --disable-nls
+
+make install INSTALL_PREFIX="$1/"
