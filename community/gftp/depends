@@ -1,0 +1,13 @@
+atk
+autoconf make
+automake make
+cairo
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+2
+ncurses
+openssl
+pango
+readline

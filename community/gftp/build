@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+# Remove gettext dependency.
+sed "s/po//g" Makefile.am > _
+mv -f _ Makefile.am
+sed -e "/po\/Makefile/d" \
+    -e "/AM_GNU_GETTEXT/d" configure.ac > _
+mv -f _ configure.ac
+rm -rf po/
+
+./autogen.sh
+./configure \
+    --prefix=/usr
+
+make
+make install
