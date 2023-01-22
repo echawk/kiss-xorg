@@ -3,6 +3,7 @@ bison   make
 cairo
 freetype-harfbuzz
 gdk-pixbuf
+gettext-tiny make
 glib
 goffice
 gtk+3

@@ -15,52 +15,37 @@ for patch in *.patch; do
 done
 
 # Fix the configure script because it likes to double check for intltool.
-sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure >_
+sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure > _
 mv -f _ configure
 
-sed "s/as_fn_error \$? \"itstool.*/echo fixed/" configure >_
+sed "s/as_fn_error \$? \"itstool.*/echo fixed/" configure > _
 mv -f _ configure
 
 chmod +x configure
 
-#rm -rf po
-#rm -rf po-functions
-
-for f in plugins/fn-*/Makefile.*; do
-    sed 's@LC_ALL=C $(INTLTOOL_MERGE) -x -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po@cp@g' "$f" >_
-    mv -f _ "$f"
-done
-for f in schemas/Makefile.*; do
-    sed 's/@INTLTOOL_XML_NOMERGE_RULE@/%xml : %xml.in ; cp $< $@/g' "$f" >_
-    mv -f _ "$f"
-done
-for f in plugins/*/Makefile.* component/Makefile.*; do
-    sed 's/@INTLTOOL_XML_RULE@/%xml : %xml.in ; cp $< $@/g' "$f" >_
-    mv -f _ "$f"
-done
 for f in doc/Makefile.*; do
-    sed '/@YELP_HELP_RULES@/d' "$f" >_
-    mv -f _ "$f"
-done
-for f in schemas/*.xml*; do
-    sed 's/_//g' "$f" >_
+    sed '/@YELP_HELP_RULES@/d' "$f" > _
     mv -f _ "$f"
 done
 
-kiss list gobject-introspection && gi=en
+# Full list of plugins.
+# shellcheck disable=2034
+plugins="$(find plugins/ -maxdepth 1 -type d |
+      grep -v '/$' |
+      xargs -I{} basename {} |
+      tr '\n' ' ')"
 
 ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
+    --enable-plugins="excel excelplugins lotus-123 openoffice sc" \
     --disable-gtk-doc \
     --disable-maintainer-mode \
     --disable-static \
     --without-psiconv \
-    --without-python \
     --with-zlib \
     --without-gda \
-    --"${gi:-dis}"able-introspection \
     --without-perl \
     --disable-nls \
     --disable-schemas-compile
