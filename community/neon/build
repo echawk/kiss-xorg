@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 # Disale documentation.
 sed -e '/^docs:/s/docs-*//' \
     -e '/^install-yes:/s/install-docs//' Makefile.in > _
@@ -12,9 +11,7 @@ mv -f _ Makefile.in
 
 ./configure \
     --prefix=/usr \
-    --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
     --with-expat \
-    --with-ssl=openssl \
     --enable-threadsafe-ssl=posix \
     --enable-shared \
     --disable-static
