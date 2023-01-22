@@ -1,6 +1,7 @@
 autoconf make
 automake make
 cairo
+gettext-tiny make
 glib
 gtk+3
 libgsf
