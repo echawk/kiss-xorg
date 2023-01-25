@@ -65,15 +65,17 @@ cp "nvidia-application-profiles-$2-rc" \
 (
     cd ../nvidia-settings-src
 
-	for p in ../*nvidia-settings*.patch; do
-		patch -p1 < "$p"
-	done
+    for p in ../*nvidia-settings*.patch; do
+        patch -p1 < "$p"
+    done
 
-	cd src
+    cd src
 
 	# Makefile does not provide a way to compile 
 	# it directly, so we 'install' it; which depends on it
-	make PREFIX=/usr BUILD_GTK3LIB=1 NVIDIA_GTKLIB_install
+    make PREFIX=/usr BUILD_GTK3LIB=1 \
+         EXTRA_CFLAGS='-Wno-deprecated-declarations' \
+         NVIDIA_GTKLIB_install
 )
 
 for bin in $bins; do
@@ -103,6 +105,4 @@ cd kernel
 make modules
 make INSTALL_MOD_PATH="$1/usr" INSTALL_MOD_STRIP=1 modules_install
 
-for file in modules.symbols modules.dep modules.alias; do
-    rm -f "$1/usr/lib/modules/"*"/$file"
-done
+rm -f "$1/usr/lib/modules/"*"/modules."*
