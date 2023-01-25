@@ -1,0 +1,16 @@
+#!/bin/sh
+
+curl -sLO "https://raw.githubusercontent.com/ehawkvu/kiss-personal/master/bin/kiss-lint"
+chmod +x kiss-lint
+
+pkgs="$(du ./*/*/ \
+    | grep -v meta \
+    | awk '{print $2}' \
+    | cut -d'/' -f1-3 \
+    | sort -u)"
+
+# shellcheck disable=2086
+KISS_LINT_SHELLCHECK=0 "$PWD/kiss-lint" $pkgs
+rval=$?
+rm -v -- kiss-lint
+exit $rval
