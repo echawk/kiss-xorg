@@ -1,6 +1,8 @@
 fontconfig
+imagemagick
 libX11
 libXcursor
 libXext
 libXft
 libXpm
+libXrender
