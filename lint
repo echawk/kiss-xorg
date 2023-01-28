@@ -10,7 +10,9 @@ pkgs="$(du ./*/*/ \
     | sort -u)"
 
 # shellcheck disable=2086
-KISS_LINT_SHELLCHECK=0 "$PWD/kiss-lint" $pkgs
-rval=$?
-rm -v -- kiss-lint
+f="$(mktemp)"
+KISS_LINT_SHELLCHECK=0 "$PWD/kiss-lint" $pkgs > "$f"
+cat "$f"
+rval="$(grep ERROR "$f" | wc -l)"
+rm -v -- kiss-lint "$f"
 exit $rval
