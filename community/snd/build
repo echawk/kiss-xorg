@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --with-alsa \
+    --with-gl \
+    --with-gmp \
+    --with-motif
+
+make
+make install
