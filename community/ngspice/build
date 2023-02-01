@@ -3,6 +3,8 @@
 sed -e "s/@PKGVER@/$2/" ngspice.pc > _
 mv -f _ ngspice.pc
 
+autoreconf -vif
+
 ./configure \
     --prefix=/usr \
     --mandir=/usr/share/man \
