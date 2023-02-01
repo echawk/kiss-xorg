@@ -1,0 +1,65 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+
+# Build autoconf 2.13 for browser's sole use.
+(
+    cd autoconf2.13
+
+    ./configure \
+        --prefix="$PWD/../junk" \
+        --program-suffix=-2.13
+
+    make
+    make install
+)
+
+if ! command -v yasm; then (
+    cd yasm
+
+    ./configure \
+        --prefix=/
+
+    make
+    make DESTDIR="$PWD/../junk" install
+); fi
+
+for f in zip unzip; do
+    if ! kiss list "$f"; then (
+        cd "$f"
+
+        make \
+            CC="$CC $CFLAGS $CXXFLAGS" \
+            -f unix/Makefile generic
+
+        make \
+            prefix="$PWD/../junk" \
+            -f unix/Makefile install
+    ); fi
+done
+
+export PATH="$PWD/junk/bin:$PATH"
+
+sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in > .mozconfig
+
+mv -f UXP/* platform/
+
+#for patch in *.patch; do
+#    patch -p1 < "$patch"
+#done
+
+export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/browser"
+
+# Apparently `mach` is now a *bash* script, yet it's marked as /bin/sh.
+# So we just delete the offending code.
+printf '#!/bin/sh\n./platform/mach $@' > ./mach
+
+./mach build
+./mach stage
+
+mkdir -p "$1/usr/bin"
+mkdir -p "$1/usr/lib"
+
+cp -r objdir/dist/palemoon "$1/usr/lib/browser"
+ln -s ../lib/browser/palemoon "$1/usr/bin/browser"

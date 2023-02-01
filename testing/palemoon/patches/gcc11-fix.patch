@@ -1,0 +1,39 @@
+diff --git a/platform/gfx/2d/BaseRect.h b/platform/gfx/2d/BaseRect.h
+index 57d01ba09..ea8caf755 100644
+--- a/platform/gfx/2d/BaseRect.h
++++ b/platform/gfx/2d/BaseRect.h
+@@ -15,6 +15,8 @@
+ #include "mozilla/TypeTraits.h"
+ #include "Types.h"
+ 
++#include <limits>
++
+ namespace mozilla {
+ namespace gfx {
+ 
+diff --git a/platform/gfx/2d/Matrix.h b/platform/gfx/2d/Matrix.h
+index d6835c8e6..b38a1d227 100644
+--- a/platform/gfx/2d/Matrix.h
++++ b/platform/gfx/2d/Matrix.h
+@@ -17,6 +17,8 @@
+ #include "mozilla/DebugOnly.h"
+ #include "mozilla/FloatingPoint.h"
+ 
++#include <limits>
++
+ namespace mozilla {
+ namespace gfx {
+ 
+diff --git a/platform/netwerk/base/nsURLParsers.h b/platform/netwerk/base/nsURLParsers.h
+index 34de99a37..5f41f0159 100644
+--- a/platform/netwerk/base/nsURLParsers.h
++++ b/platform/netwerk/base/nsURLParsers.h
+@@ -9,6 +9,8 @@
+ #include "nsIURLParser.h"
+ #include "mozilla/Attributes.h"
+ 
++#include <limits>
++
+ //----------------------------------------------------------------------------
+ // base class for url parsers
+ //----------------------------------------------------------------------------
