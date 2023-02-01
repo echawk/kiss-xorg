@@ -4,8 +4,21 @@ export DESTDIR="$1"
 
 # Check for gettext. Looking to remove completely.
 command -v xgettext
+# Below will allow the build to continue without gettext.
+# sed \
+#     -e "/subdir('po/d" \
+#     -e "/subdir('desktop')/d" \
+#     meson.build > _
+# mv -f _ meson.build
+# sed \
+#     -e "/subdir('tags')/d" \
+#     -e "/subdir('tips')/d" \
+#     data/meson.build > _
+# mv -f _ data/meson.build
+# sed "/subdir('goat/d" extensions/meson.build > _
+# mv -f _ extensions/meson.build
 
-sed "/DEFAULT_ICON_THEME/s/Symbolic/Color/" app/config/gimpguiconfig.h >_
+sed "/DEFAULT_ICON_THEME/s/Symbolic/Color/" app/config/gimpguiconfig.h > _
 mv -f _ app/config/gimpguiconfig.h
 
 # If this sed isn't ran, the vector icons will still be built.
