@@ -1,9 +1,9 @@
 #!/bin/sh -e
 
 # switch webkit version to 4.1, if libsoup3 were used to build webkit
-if pkg-config --exist webki2gtk-4.1; then
-	sed 's/4.0/4.1/' makefile > _
-	mv -f _ makefile
+if pkg-config --exist webkit2gtk-4.1; then
+    sed 's/4.0/4.1/' makefile > _
+    mv -f _ makefile
 fi
 
 make PREFIX=/usr
