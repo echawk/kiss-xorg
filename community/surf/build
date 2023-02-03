@@ -1,12 +1,12 @@
 #!/bin/sh -e
 
+patch -p1 < no-gcr.patch
+
 # switch webkit version to 4.1, if libsoup3 were used to build webkit
 if pkg-config --exists webkit2gtk-4.1; then
-	sed 's/4.0/4.1/g' config.mk > _
-	mv -f _ config.mk
+    sed 's/4.0/4.1/g' config.mk > _
+    mv -f _ config.mk
 fi
-
-patch -p1 < no-gcr.patch
 
 make
 make PREFIX=/usr install
