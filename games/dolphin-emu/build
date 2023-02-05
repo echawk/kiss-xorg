@@ -2,7 +2,7 @@
 
 export DESTDIR="$1"
 
-git submodule update --init
+git submodule update --init --recursive
 
 export CFLAGS="$CFLAGS -w"
 export CXXFLAGS="$CXXFLAGS -w"
