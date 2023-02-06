@@ -51,6 +51,18 @@ Then rebuild:
 
 `$ kiss b`
 
+### gdk-pixbuf
+
+`$ kiss fork gdk-pixbuf`
+
+Then:
+
+`$ sed -i -E "s/(\. output)/-Dintrospection=enabled \1/" build`
+
+Then rebuild:
+
+`$ kiss b`
+
 ### gtk+3
 
 First install librsvg:
@@ -67,18 +79,6 @@ You will need to run the following sed command:
 
 This will give you the 'gtk-encode-symbolic-svg' executable as well as enabling
 gobject.
-
-Then rebuild:
-
-`$ kiss b`
-
-### gdk-pixbuf
-
-`$ kiss fork gdk-pixbuf`
-
-Then:
-
-`$ sed -i -E "s/(\. output)/-Dintrospection=enabled \1/" build`
 
 Then rebuild:
 

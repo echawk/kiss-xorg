@@ -2,22 +2,21 @@
 
 export DESTDIR="$1"
 
-# Check for gettext. Looking to remove completely.
-command -v xgettext
 # Below will allow the build to continue without gettext.
-# sed \
-#     -e "/subdir('po/d" \
-#     -e "/subdir('desktop')/d" \
-#     meson.build > _
-# mv -f _ meson.build
-# sed \
-#     -e "/subdir('tags')/d" \
-#     -e "/subdir('tips')/d" \
-#     data/meson.build > _
-# mv -f _ data/meson.build
-# sed "/subdir('goat/d" extensions/meson.build > _
-# mv -f _ extensions/meson.build
+sed \
+    -e "/subdir('po/d" \
+    -e "/subdir('desktop')/d" \
+    meson.build > _
+mv -f _ meson.build
+sed \
+    -e "/subdir('tags')/d" \
+    -e "/subdir('tips')/d" \
+    data/meson.build > _
+mv -f _ data/meson.build
+sed "/subdir('goat/d" extensions/meson.build > _
+mv -f _ extensions/meson.build
 
+# Change icons to Color, since the Symbolic icons cause build failures.
 sed "/DEFAULT_ICON_THEME/s/Symbolic/Color/" app/config/gimpguiconfig.h > _
 mv -f _ app/config/gimpguiconfig.h
 
@@ -25,10 +24,9 @@ mv -f _ app/config/gimpguiconfig.h
 sed "/have_vector_icons/s/not//" icons/Symbolic/meson.build > _
 mv -f _ icons/Symbolic/meson.build
 
+# Correct the version of mypaint-brushes.
 sed "s/mypaint-brushes-1.0/mypaint-brushes-2.0/" meson.build > _
 mv -f _ meson.build
-
-# TODO: remove translations.
 
 meson setup \
     -Dprefix=/usr \
