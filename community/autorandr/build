@@ -1,4 +1,7 @@
 #!/bin/sh -e
 
+sed '/desktop-file-edit/d' Makefile > _
+mv -f _ Makefile
+
 make
 make DESTDIR="$1" PREFIX=/usr install
