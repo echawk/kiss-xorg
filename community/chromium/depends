@@ -7,12 +7,14 @@ fontconfig
 glib
 gperf              make
 gtk+3
+hwdata
 libXcomposite
 libXdamage
 libXi
 libXrandr
 libXtst
 libdrm
+libffi
 libexif
 libgcrypt
 libjpeg-turbo
