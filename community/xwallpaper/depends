@@ -1,4 +1,4 @@
-autoconf make
+automake make
 libjpeg-turbo
 libpng
 libxcb
