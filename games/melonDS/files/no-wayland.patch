@@ -1,0 +1,47 @@
+diff --git a/src/frontend/duckstation/gl/context.cpp b/src/frontend/duckstation/gl/context.cpp
+index 9f21cd6..fa92f44 100644
+--- a/src/frontend/duckstation/gl/context.cpp
++++ b/src/frontend/duckstation/gl/context.cpp
+@@ -15,7 +15,6 @@ Log_SetChannel(GL::Context);
+ #elif defined(__APPLE__)
+ #include "context_agl.h"
+ #else
+-#include "context_egl_wayland.h"
+ #include "context_egl_x11.h"
+ #include "context_glx.h"
+ #endif
+@@ -80,8 +79,6 @@ std::unique_ptr<GL::Context> Context::Create(const WindowInfo& wi, const Version
+       context = ContextGLX::Create(wi, versions_to_try, num_versions_to_try);
+   }
+
+-  if (wi.type == WindowInfo::Type::Wayland)
+-    context = ContextEGLWayland::Create(wi, versions_to_try, num_versions_to_try);
+ #endif
+
+   if (!context)
+diff --git a/src/frontend/duckstation/gl/context_egl_wayland.cpp b/src/frontend/duckstation/gl/context_egl_wayland.cpp
+index 16532e8..9387186 100644
+--- a/src/frontend/duckstation/gl/context_egl_wayland.cpp
++++ b/src/frontend/duckstation/gl/context_egl_wayland.cpp
+@@ -1,3 +1,4 @@
++/*
+ #include "context_egl_wayland.h"
+ #include "../log.h"
+ #include <dlfcn.h>
+@@ -84,3 +85,4 @@ bool ContextEGLWayland::LoadModule()
+   return true;
+ }
+ } // namespace GL
++*/
+diff --git a/src/frontend/qt_sdl/CMakeLists.txt b/src/frontend/qt_sdl/CMakeLists.txt
+index c74ec47..ad8597a 100644
+--- a/src/frontend/qt_sdl/CMakeLists.txt
++++ b/src/frontend/qt_sdl/CMakeLists.txt
+@@ -113,7 +113,6 @@ else()
+
+     find_package(X11 REQUIRED)
+     find_package(EGL REQUIRED)
+-    find_package(Wayland REQUIRED Client)
+
+     target_sources(melonDS PRIVATE
+         ../duckstation/gl/context_egl.cpp
