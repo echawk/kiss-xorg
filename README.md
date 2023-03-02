@@ -45,15 +45,16 @@ KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
 
 ## What's that extra file? (esources)
 
-Packages in this repo have an additional file, not directly specified by kiss,
-that being the `esources` file. This file is meant to side step the use
-of VERSION markers in `sources` which is a somewhat contentious topic.
+Since VERSION markers have officially been removed in upstream kiss (as of
+this PR: https://codeberg.org/kiss-community/kiss/pulls/121 ), `esources` is
+a way to continue using the previously valid version markers.
 
 This does require having access to an additional command, namely
 `kiss-echecksum` which is available from my personal repo
 [here](https://raw.githubusercontent.com/ehawkvu/kiss-personal/master/bin/kiss-echecksum).
-If there is interest, I would not mind trying to upstream this utility to the
-`contrib/` folder for kiss.
+
+If there is sufficient interest, and no purity spiraling from upstream, I would
+not mind trying to contribute this utility to the `contrib/` folder for kiss.
 
 Bumping versions then has this workflow:
 
