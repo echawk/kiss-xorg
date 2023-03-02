@@ -1,2 +1,2 @@
-https://x.org/archive/individual/xserver/xorg-server-VERSION.tar.xz
+https://x.org/archive/individual/xserver/xorg-server-21.1.7.tar.xz
 patches/rootless_modesetting.patch

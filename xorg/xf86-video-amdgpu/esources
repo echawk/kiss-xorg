@@ -1,0 +1,3 @@
+https://x.org/releases/individual/driver/xf86-video-amdgpu-VERSION.tar.xz
+patches/rootless_modesetting.patch
+patches/cursor.patch

@@ -1,0 +1,3 @@
+https://x.org/releases/individual/driver/xf86-video-nouveau-VERSION.tar.bz2
+patches/rootless_modesetting.patch
+patches/fix-xorg-21.1.diff
