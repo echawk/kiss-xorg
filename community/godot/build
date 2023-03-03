@@ -48,7 +48,7 @@ esac
 # shellcheck disable=2086
 python scons/scripts/scons.py "${MAKEFLAGS:--j$JOBS}" \
     platform=x11 \
-    target=release_debug \
+    target=editor \
     execinfo=yes \
     pulseaudio=no \
     use_lto=yes \
@@ -58,5 +58,5 @@ python scons/scripts/scons.py "${MAKEFLAGS:--j$JOBS}" \
     $conf
 
 mkdir -p "$1/usr/bin"
-cp bin/godot.x11.opt.tools.64 "$1/usr/bin/godot"
+cp bin/godot.linuxbsd.editor.x86_64 "$1/usr/bin/godot"
 chmod +x "$1/usr/bin/godot"
