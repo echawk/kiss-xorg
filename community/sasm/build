@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 qmake PREFIX=/usr
 make
 make INSTALL_ROOT="$1" install

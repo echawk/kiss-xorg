@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 # Ensure no rpath.
 sed 's@-Wl,-rpath,\.\./lib@@' Makefile > _
 mv -f _ Makefile

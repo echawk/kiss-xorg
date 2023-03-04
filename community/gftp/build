@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 # Remove gettext dependency.
 sed "s/po//g" Makefile.am > _
 mv -f _ Makefile.am

@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 pkg-config --exists gobject-introspection-1.0 && gi=en
 
 meson setup \

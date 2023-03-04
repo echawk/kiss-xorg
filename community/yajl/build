@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 sed "/ADD_SUBDIRECTORY(test)/d" CMakeLists.txt > _
 mv -f _ CMakeLists.txt
 

@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 sed -e 's|.8.4|.8.6|' installer/file84.tcl > installer/file86.tcl
 ls installer/file86.tcl
 sed -e 's|.8.4|.8.6|' lib/tcl84.tcl > lib/tcl86.tcl

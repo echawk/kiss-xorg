@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 # No options to disable this via meson.
 : > docs/meson.build
 : > po/meson.build

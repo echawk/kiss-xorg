@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 patch -p1 < bdfedit-1.3.diff
 
 install -Dm755 bdfedit "$1/usr/bin/bdfedit"

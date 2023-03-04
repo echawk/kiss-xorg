@@ -1,2 +1,4 @@
 #!/bin/sh -e
+
+export DESTDIR="$1"
 make install

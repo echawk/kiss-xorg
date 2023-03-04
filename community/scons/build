@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 python setup.py build
 python setup.py install \
     --skip-build \

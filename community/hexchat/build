@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 : > po/meson.build
 
 command -v openssl && openssl=true
