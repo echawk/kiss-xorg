@@ -1,4 +1,6 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 ${CC:-cc} -o xrectsel xrectsel.c strtonum.c -lX11
 install -Dt "$1/usr/bin" xrectsel
