@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+export DESTDIR="$1"
+
 unzip "xonotic-$2.zip?no-extract"
 
 sed -e "s;^\(CPUOPTIMIZATIONS\)?=\(.*\);\1=${CFLAGS} \2;" \
