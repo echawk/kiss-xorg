@@ -30,6 +30,7 @@ autoreconf -vif
     --without-gconf \
     --without-gsettings \
     --without-rsvg \
+    --without-compress-install \
     --with-xpm=no \
     --with-tiff=no \
     --with-gnutls=yes
