@@ -1,0 +1,11 @@
+glib
+libICE
+libSM
+libX11
+libXau
+libXext
+libXinerama
+libXrandr
+libXrender
+libxml2
+pango

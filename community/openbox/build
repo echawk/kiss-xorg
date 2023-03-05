@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+patch -p1 < openbox-3.6.2-rounded-corners.patch
+patch -p1 < openbox-3.6.2-fix-out-of-bounds.patch
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/openbox \
+    --disable-nls \
+    --disable-librsvg \
+    --disable-imlib2 \
+    --disable-session-management
+
+make
+make -j1 install
