@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
-export DESTDIR="$1"
-
 # shellcheck disable=2016
+
+export DESTDIR="$1"
 
 # Enable X11 if possible.
 if pkg-config --exists x11; then
