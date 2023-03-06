@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure > _
+mv -f _ configure
+sed "s/as_fn_error \$? \"itstool.*/echo fixed/" configure > _
+mv -f _ configure
+sed -E "s/(ac_perl_modules_failed=)1/\10/" configure > _
+mv -f _ configure
+chmod +x configure
+
+./configure \
+    --prefix=/usr \
+    --localstatedir=/var \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --disable-gtk-doc \
+    --disable-gtk2 \
+    --disable-nls
+
+make
+make install

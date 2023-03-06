@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+# Don't build tests.
+sed "/subdir('tests')/d" meson.build > _
+mv -f _ meson.build
+
+pkg-config --exists gobject-introspection-1.0 && gi=en
+
+meson setup \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dmandir=/usr/share/man \
+    -Dintrospection="${gi:-dis}abled" \
+    output
+
+ninja -C output
+ninja -C output install

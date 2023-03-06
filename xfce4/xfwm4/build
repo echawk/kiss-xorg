@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+export DESTDIR="$1"
+
+# Fix the configure script because it likes to double check for intltool.
+sed "s/as_fn_error \$? \"XML::Parser.*/echo fixed/" configure > _
+mv -f _ configure
+sed "s/as_fn_error \$? \"itstool.*/echo fixed/" configure > _
+mv -f _ configure
+chmod +x configure
+
+./configure \
+    --prefix=/usr \
+    --localstatedir=/var \
+    --sysconfdir=/etc \
+    --mandir=/usr/share/man \
+    --disable-nls
+
+make
+make install

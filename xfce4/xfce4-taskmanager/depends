@@ -1,0 +1,16 @@
+atk
+cairo
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+3
+libICE
+libSM
+libX11
+libXmu
+libXt
+libwnck
+libxfce4ui
+libxfce4util
+pango
+xfconf

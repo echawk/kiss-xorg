@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+dep_file="$(echo "$0" | rev | cut -d'/' -f2- | rev)/depends"
+
+if [ -e "$dep_file" ]; then
+    cat << EOF
+If you want to uninstall xfce4, remove the following packages:
+
+EOF
+    cat "$dep_file"
+fi
