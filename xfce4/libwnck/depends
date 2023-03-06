@@ -26,4 +26,5 @@ mesa
 meson make
 pango
 pixman
+pkgconf make
 samurai make

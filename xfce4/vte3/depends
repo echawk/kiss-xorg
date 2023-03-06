@@ -30,4 +30,5 @@ meson make
 pango
 pcre2
 pixman
+pkgconf make
 samurai make
