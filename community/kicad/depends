@@ -2,6 +2,7 @@ atk
 cairo
 cmake make
 curl
+fontconfig
 freetype-harfbuzz
 gdk-pixbuf
 glew
@@ -10,8 +11,10 @@ glu
 gtk+3
 mesa
 ngspice
+opencascade
 pango
 pixman
 python
 swig make
+unixodbc
 wxWidgets

@@ -6,17 +6,18 @@ cmake -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DKICAD_USE_OCE=OFF \
-    -DKICAD_USE_OCC=OFF \
     -DKICAD_SCRIPTING=ON \
     -DKICAD_SCRIPTING_PYTHON3=OFF \
     -DKICAD_SCRIPTING_MODULES=OFF \
     -DKICAD_SCRIPTING_WXPYTHON=OFF \
     -DKICAD_SCRIPTING_ACTION_MENU=OFF \
     -DKICAD_SCRIPTING_WXPYTHON_PHOENIX=OFF \
+    -DKICAD_BUILD_QA_TESTS=OFF \
+    -DKICAD_BUILD_I18N=OFF \
     -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-gtk3 \
     -DwxWidgets_INCLUDE_DIRS=/usr/include \
     -DBUILD_GITHUB_PLUGIN=ON
 
+cmake --build   build --target common/pcb_lexer.h
 cmake --build   build
 cmake --install build
