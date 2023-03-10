@@ -12,6 +12,7 @@ sed -E "/boolean/s/'(true|false)'/\1/" meson_options.txt > _
 mv -f _ meson_options.txt
 
 meson setup \
+    -Dwarning_level=2 \
     -Dprefix='/usr' \
     -Dlocalstatedir='/var' \
     -Dsystemd_logind=false \
