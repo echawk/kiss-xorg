@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+for p in *.patch; do
+    patch -p1 < "$p"
+done
+
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_GL2PS=OFF \
+    -DUSE_FREEIMAGE=OFF \
+    -DUSE_FFMPEG=OFF \
+    -DUSE_VTK=OFF \
+    -DUSE_TBB=OFF
+
+cmake --build   build
+cmake --install build

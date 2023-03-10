@@ -1,0 +1,5 @@
+https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags/V7_6_3.tar.gz
+patches/cmake_fix_install_dir.patch
+patches/no_backtrace.patch
+patches/no_feenableexcept.patch
+patches/no_mallinfo.patch
