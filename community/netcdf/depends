@@ -1,0 +1,4 @@
+cmake make
+curl
+hdf5
+libzip

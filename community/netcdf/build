@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_BUILD_TYPE=None \
+    -DENABLE_CDF5=ON \
+    -DENABLE_DAP_LONG_TESTS=OFF \
+    -DENABLE_EXAMPLE_TESTS=OFF \
+    -DENABLE_EXTRA_TESTS=OFF \
+    -DENABLE_FAILING_TESTS=OFF \
+    -DENABLE_FILTER_TESTING=OFF \
+    -DENABLE_LARGE_FILE_TESTS=OFF
+
+cmake --build   build
+cmake --install build
