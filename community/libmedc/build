@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+for p in *.patch; do
+    patch -p1 < "$p"
+done
+
+cmake -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DMEDFILE_BUILD_TESTS=OFF \
+    -DMEDFILE_BUILD_PYTHON=ON \
+    -Wno-dev
+
+cmake --build   build
+cmake --install build
