@@ -1,0 +1,7 @@
+cmake make
+curl
+hdf5
+libexecinfo
+libglvnd
+libzip
+netcdf
