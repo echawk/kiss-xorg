@@ -2,8 +2,6 @@
 
 export DESTDIR="$1"
 
-cd hdf5-*
-
 ./configure \
     --prefix=/usr
 
