@@ -1,3 +1,3 @@
-https://www.vtk.org/files/release/9.2/VTK-9.2.5.tar.gz
+https://www.vtk.org/files/release/9.2/VTK-9.2.6.tar.gz
 patches/disable-tests.patch
 patches/unistd.patch
