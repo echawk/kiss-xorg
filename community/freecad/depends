@@ -1,0 +1,15 @@
+boost
+cmake make
+fontconfig
+freetype-harfbuzz
+hdf5
+libX11
+libexecinfo
+libglvnd
+mesa
+opencascade
+openmpi
+python
+qt5
+vtk
+xerces-c

@@ -1,0 +1,4 @@
+https://github.com/FreeCAD/FreeCAD/archive/0.20.2/freecad-0.20.2.tar.gz
+patches/153-limits.h-for-musl.patch
+patches/154-revert-gui-tmp-redirect-stderr.patch
+patches/python3.11-fix.patch
