@@ -1,4 +1,6 @@
 cmake make
 curl
 hdf5
+libexecinfo
+libxml2
 libzip
