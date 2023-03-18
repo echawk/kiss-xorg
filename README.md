@@ -28,6 +28,7 @@ Feel free to create Issues and Pull Requests for outdated software!
 * `community/` - contains useful software that depends on X
 	* currently working on saving some of the software that was dropped from [kiss-community/community](https://github.com/kiss-community/community)
 * `games/` - contains video games
+* `xfce4/` - contains the XFCE4 desktop environment
 
 ## Usage
 
