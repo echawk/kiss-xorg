@@ -42,15 +42,6 @@ mv -f _ Source/cmake/WebKitCompilerFlags.cmake
 # Reduce memory usage.
 export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
 
-# Have webkit play nicer with ccache (taken from Void).
-for f in Source/WebCore/bindings/scripts/CodeGenerator.pm \
-    Source/WebCore/bindings/scripts/CodeGeneratorJS.pm \
-    Source/WebCore/css/makeprop.pl \
-    Source/cmake/tools/scripts/version-stamp.pl; do
-    sed -e '/foreach my.*(keys/s/(keys/(sort keys/' "$f" > _
-    mv -f _ "$f"
-done
-
 # If using mold as system linker, switch since mold cannot link all of webkit (yet).
 if [ "$(kiss owns /usr/bin/ld)" = mold ]; then
     for linker in ld.bfd ld.lld ld.gold; do
@@ -85,11 +76,13 @@ cmake -B build \
     -DUSE_SYSTEMD=OFF \
     -DUSE_WOFF2=OFF \
     -DUSE_WPE_RENDERER=OFF \
+    -DUSE_AVIF=OFF \
     -DENABLE_WEB_CRYPTO="${tasn:-OFF}" \
     -DENABLE_VIDEO="${streaming:-OFF}" \
     -DENABLE_WEB_AUDIO="${streaming:-OFF}" \
     -DENABLE_GAMEPAD=OFF \
     -DENABLE_JOURNALD_LOG=OFF \
+    -DENABLE_WAYLAND_TARGET=OFF \
     -DUSE_LCMS=OFF \
     -Wno-dev
 
