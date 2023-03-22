@@ -44,10 +44,11 @@ export PATH="$PWD/junk/bin:$PATH"
 sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in > .mozconfig
 
 mv -f UXP/* platform/
+touch platform/.gdbinit
 
-#for patch in *.patch; do
-#    patch -p1 < "$patch"
-#done
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
 
 export LDFLAGS="$LDFLAGS -Wl,-rpath=/usr/lib/browser"
 
