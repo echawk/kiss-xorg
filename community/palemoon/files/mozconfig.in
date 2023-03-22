@@ -1,27 +1,20 @@
-# Based on https://developer.palemoon.org/build/linux
-
-# Set object directory (%SRCDIR% will substituted in build script)
 mk_add_options MOZ_OBJDIR="%SRCDIR%/objdir"
 
-# Clear this if not a 64bit build
-_BUILD_64=1
 
-# Set GTK Version to 2 or 3
-_GTK_VERSION=3
+ac_add_options --enable-official-branding
+export MOZILLA_OFFICIAL=1
+export MOZ_PKG_SPECIAL=gtk3
 
-# Build options
 ac_add_options --enable-application=palemoon
 ac_add_options --enable-optimize="%CFLAGS%"
-ac_add_options --enable-default-toolkit=cairo-gtk$_GTK_VERSION
+ac_add_options --enable-default-toolkit=cairo-gtk3
 ac_add_options --enable-strip
 ac_add_options --enable-devtools
 ac_add_options --with-pthreads
-mk_add_options AUTOCLOBBER=1
 
-# Enable stuff
+
 ac_add_options --enable-alsa
 
-# Disable stuff
 ac_add_options --disable-eme
 ac_add_options --disable-webrtc
 ac_add_options --disable-gamepad
@@ -38,16 +31,6 @@ ac_add_options --disable-jemalloc
 ac_add_options --disable-crashreporter
 ac_add_options --disable-parental-controls
 ac_add_options --disable-maintenance-service
-
-# Please see https://www.palemoon.org/redist.shtml for restrictions when using the official branding.
 ac_add_options --disable-official-branding
-export MOZILLA_OFFICIAL=1
 
-# Processor architecure specific build options
-if [ -n "$_BUILD_64" ]; then
-  ac_add_options --x-libraries=/usr/lib64
-else
-  ac_add_options --x-libraries=/usr/lib
-fi
-
-export MOZ_PKG_SPECIAL=gtk$_GTK_VERSION
+ac_add_options --x-libraries=/usr/lib
