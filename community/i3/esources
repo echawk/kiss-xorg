@@ -1,3 +1,2 @@
 https://github.com/i3/i3/archive/VERSION.tar.gz
 patches/i3-no-libstartup-notification.patch
-patches/no-bash.patch

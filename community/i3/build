@@ -2,7 +2,7 @@
 
 export DESTDIR="$1"
 
-# Remove the libstartup-notification & bash dependency.
+# Remove the libstartup-notification.
 for p in *.patch; do
   patch -p1 < "$p"
 done
