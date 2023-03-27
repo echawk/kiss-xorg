@@ -20,6 +20,7 @@ meson setup \
     -Dlibproxy=disabled \
     -Dopenssl="${OPENSSL:-disabled}" \
     -Dgnutls="${GNUTLS:-disabled}" \
+    -Dgnome_proxy=disabled \
     output
 
 ninja -C output
