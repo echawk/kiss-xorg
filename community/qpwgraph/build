@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCONFIG_WAYLAND=0 \
+    -DCONFIG_QT6=0
+
+cmake --build   build
+cmake --install build

@@ -1,0 +1,5 @@
+alsa-lib
+cmake make
+pipewire
+qt5
+qt5-svg
