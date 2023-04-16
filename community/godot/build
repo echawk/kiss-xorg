@@ -61,7 +61,7 @@ mkdir -p "$1/usr/bin"
 cp bin/godot.linuxbsd.editor.x86_64 "$1/usr/bin/godot"
 chmod +x "$1/usr/bin/godot"
 
-cat <<EOF > $1/usr/bin/godot-opengl
+cat <<EOF > "$1/usr/bin/godot-opengl"
 #!/bin/sh
 godot --rendering-driver opengl3
 EOF
