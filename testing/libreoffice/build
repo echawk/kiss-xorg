@@ -2,90 +2,80 @@
 
 export DESTDIR="$1"
 
+mkdir -p path
+ln -s /usr/bin/true path/docbook2x-man
+export PATH="$PWD/path:$PATH"
 
-export CXXFLAGS="$CXXFLAGS -DGLM_ENABLE_EXPERIMENTAL -DU_USING_ICU_NAMESPACE=1"
-
-# Libreoffice needs `cp` from GNU coreutils.
-if ! [ "$(kiss owns /usr/bin/cp)" = coreutils ]; then
-    kiss alternatives coreutils /usr/bin/cp
-fi
-
-mv skia-freetype2.11.diff external/skia/"skia-freetype2.11.patch"
-
-for patch in *.patch; do
-    patch -p1 < "$patch"
-done
+# the build includes execinfo in some places, but patching it is quite hard
+# due to self-patching build system
+cat > include/execinfo.h <<-EOF
+/* nothing */
+EOF
 
 NOCONFIGURE=1 ./autogen.sh
 
-# Add support for musl in configure script.
-sed 's;linux-gnu\*;linux-gnu*|linux-musl*;g' configure > _
-mv -f _ configure
-chmod +x configure
+# https://bugs.documentfoundation.org/show_bug.cgi?id=78174
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64812
+# gcc with -Os will produce "undefined reference to non-virtual thunk to XXX"
+# errors. workaround by forcing -O2.
+# also this thing is huge and O2 makes more sense.
+#export CFLAGS="-O2 $CFLAGS"
+#export CPPFLAGS="-O2 $CFLAGS"
+#export CXXFLAGS="-O2 $CFLAGS"
+
+export CC=clang
+export CXX=clang++
+
+# force c++17 here since otherwise it's not set for abseil conftest
+export CXXFLAGS="$CXXFLAGS -std=c++17"
 
 ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
-    --sbindir=/usr/bin \
-    --bindir=/usr/bin \
     --mandir=/usr/share/man \
     --infodir=/usr/share/info \
-    --with-vendor='KISS Linux' \
-    --with-lang="" \
-    --with-tls=openssl \
-    --without-fonts \
-    --without-java \
-    --without-junit \
-    --without-krb5 \
-    --without-gssapi \
-    --without-system-dicts \
-    --disable-avahi \
-    --disable-cups \
-    --disable-coinmp \
-    --disable-dbus \
+    --localstatedir=/var \
     --disable-dependency-tracking \
-    --disable-firebird-sdbc \
-    --disable-kf5 \
-    --disable-ldap \
-    --disable-librelogo \
-    --disable-lpsolve \
-    --disable-mariadb-sdbc \
+    --disable-fetch-external \
     --disable-online-update \
-    --disable-postgresql-sdbc \
-    --disable-python \
+    --enable-python=system \
+    --enable-release-build \
+    --enable-split-app-modules \
+    --with-external-dict-dir=/usr/share/hunspell \
+    --with-external-hyph-dir=/usr/share/hyphen \
+    --with-external-tar="$PWD" \
+    --with-lang="" \
+    --with-system-dicts \
+    --with-system-libs \
+    --with-system-zxing \
+    --with-tls=nss \
+    --with-vendor="KISS Linux" \
+    --without-fonts \
+    --without-junit \
+    --without-myspell-dicts \
+    --without-system-dragonbox \
+    --without-system-jars \
+    --without-system-libcmis \
+    --without-system-libfixmath \
+    --without-system-sane \
+    --without-system-zxing \
+    --without-doxygen \
+    --without-docbook \
+    --disable-coinmp \
+    --disable-firebird-sdbc \
+    --disable-lpsolve \
+    --enable-gtk3 \
+    --disable-gtk3-kde5 \
+    --disable-gtk4 \
+    --disable-kf5 \
+    --disable-odk \
     --disable-qt5 \
     --disable-qt6 \
-    --disable-report-builder \
     --disable-skia \
-    --enable-gtk3 \
-    --enable-openssl \
-    --enable-release-build \
-    --with-system-bzip2 \
-    --with-system-boost \
-    --with-system-cairo \
-    --with-system-curl \
-    --with-system-expat \
-    --with-system-epoxy \
-    --with-system-harfbuzz \
-    --with-system-icu \
-    --with-system-graphite \
-    --with-system-gpgme \
-    --with-system-jpeg \
-    --with-system-libxml \
-    --with-system-libpng \
-    --with-system-lcms2 \
-    --with-system-libatomic-ops \
-    --with-system-neon \
-    --with-system-nss \
-    --with-system-openssl \
-    --with-system-poppler \
-    --with-system-zlib
+    --without-java
 
-# Disable slowcheck target.
-sed "/gb_Top_MODULE_CHECK_TARGETS /s/ slowcheck//" Makefile > _
-mv -f _ Makefile
+make build
+# build libreofficekit
+cd libreofficekit && make
 
-make build-nocheck
-make PREFIXDIR=/usr distro-pack-install
-
-rm -rf -- "$1/usr/lib32"
+make distro-pack-install

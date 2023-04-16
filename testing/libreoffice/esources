@@ -1,6 +1,6 @@
-https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-7.5.2.1.tar.xz
-https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-dictionaries-7.5.2.1.tar.xz
-https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-translations-7.5.2.1.tar.xz
+https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-VERSION.tar.xz
+https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-dictionaries-VERSION.tar.xz
+https://download.documentfoundation.org/libreoffice/src/7.5.2/libreoffice-translations-VERSION.tar.xz
 # grep _TARBALL download.lst
 https://dev-www.libreoffice.org/src/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 https://dev-www.libreoffice.org/src/3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip
