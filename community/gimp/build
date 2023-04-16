@@ -28,6 +28,10 @@ mv -f _ icons/Symbolic/meson.build
 sed "s/mypaint-brushes-1.0/mypaint-brushes-2.0/" meson.build > _
 mv -f _ meson.build
 
+# Change 'babl' to 'babl-0.1' since the name of the pc file changed.
+sed "/dependency('babl'/s/'babl'/'babl-0.1'/" meson.build > _
+mv -f _ meson.build
+
 meson setup \
     -Dprefix=/usr \
     -Dcheck-update=no \
