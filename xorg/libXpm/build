@@ -15,10 +15,7 @@ TMPDIR="$1/tmp"
     --disable-open-zfile
 
 # Needed to remove the gettext requirement from this package.
-for d in sxpm cxpm; do
-    sed "/^all-am:/s/\$(DATA)//" "$d/Makefile" > _
-    mv -f _ "$d/Makefile"
-done
+find . -type f -name Makefile | xargs -I{} sed -i '/^all-am/s/$(DATA)//' {}
 
 make
 make install
