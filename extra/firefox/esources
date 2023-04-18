@@ -1,6 +1,4 @@
 https://ftp.mozilla.org/pub/firefox/releases/VERSION/source/firefox-VERSION.source.tar.xz
-patches/0001-Bug-1819374-Squashed-ffmpeg-6.0-update.patch
-patches/0002-Bug-1820416-Use-correct-FFVPX-headers-from-ffmpeg-6..patch
 patches/fix-linux-header.patch
 patches/musl-sandbox.patch
 patches/no-atk.patch
