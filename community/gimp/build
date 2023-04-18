@@ -37,6 +37,8 @@ meson setup \
     -Dcheck-update=no \
     -Dmng=disabled \
     -Dwmf=disabled \
+    -Dopenexr=disabled \
+    -Dheadless-tests=disabled \
     -Dgi-docgen=disabled \
     -Dg-ir-doc=false \
     -Dvector-icons=false \
