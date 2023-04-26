@@ -1,0 +1,10 @@
+atk
+cairo
+fontconfig
+freetype-harfbuzz
+gdk-pixbuf
+glib
+go make
+gtk+3
+mpd
+pango
