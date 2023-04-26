@@ -42,14 +42,19 @@ meson setup \
     -Dgi-docgen=disabled \
     -Dg-ir-doc=false \
     -Dvector-icons=false \
-    -Djavascript=false \
-    -Dpython=false \
-    -Dlua=false \
-    -Dvala-plugins=disabled \
+    -Djavascript=disabled \
+    -Dpython=disabled \
+    -Dlua=disabled \
+    -Dvala=disabled \
     output
 
 ninja -C output
 ninja -C output install
+
+for size in 16x16 32x32 48x48 64x64 256x256 scalable; do
+    mkdir -p "$1/usr/share/icons/hicolor/$size/apps/"
+    cp desktop/$size/gimp.* "$1/usr/share/icons/hicolor/$size/apps/"
+done
 
 rm -rf "$1/usr/share/gtk-doc"
 find "$1" -name '*.la' -type f -exec rm -rf {} +
