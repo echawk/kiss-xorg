@@ -2,6 +2,8 @@
 
 export DESTDIR="$1"
 
+patch -p1 < openssl.patch
+
 aclocal
 automake --add-missing
 autoreconf -fi
