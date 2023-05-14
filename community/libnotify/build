@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+meson setup \
+    -Dprefix=/usr \
+    -Dman=false \
+    -Ddocbook_docs=disabled \
+    -Dgtk_doc=false \
+    -Dtests=false \
+    -Dintrospection=disabled \
+    output
+
+ninja -C output
+ninja -C output install
