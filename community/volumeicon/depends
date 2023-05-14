@@ -1,0 +1,9 @@
+alsa-lib
+atk
+cairo
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+3
+libX11
+pango
