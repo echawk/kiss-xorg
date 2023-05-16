@@ -29,6 +29,7 @@ Feel free to create Issues and Pull Requests for outdated software!
 	* currently working on saving some of the software that was dropped from [kiss-community/community](https://github.com/kiss-community/community)
 * `games/` - contains video games
 * `xfce4/` - contains the XFCE4 desktop environment
+* `kde1/` - contains the KDE desktop, version 1
 
 ## Usage
 
