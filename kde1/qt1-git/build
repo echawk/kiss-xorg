@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+patch -p1 < mesa-fix.patch
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_QT1_TUTORIAL=OFF \
+    -DBUILD_QT1_EXAMPLES=OFF
+
+cmake --build   build
+cmake --install build

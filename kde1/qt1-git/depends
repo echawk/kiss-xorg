@@ -1,0 +1,6 @@
+byacc make
+cmake make
+libX11
+libXext
+libXmu
+mesa

@@ -1,0 +1,2 @@
+git+https://invent.kde.org/historical/qt1.git
+patches/mesa-fix.patch

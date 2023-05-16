@@ -1,0 +1,66 @@
+diff --git a/extensions/opengl/src/qgl.cpp b/extensions/opengl/src/qgl.cpp
+index 8d94b7e..38e414c 100644
+--- a/extensions/opengl/src/qgl.cpp
++++ b/extensions/opengl/src/qgl.cpp
+@@ -1131,17 +1131,9 @@ bool QGLContext::chooseContext( const QGLContext* shareContext )
+     glFormat.setDirectRendering( glXIsDirect( paintDevice->x11Display(), 
+ 					      (GLXContext)cx ) );
+     if ( deviceIsPixmap() ) {
+-#ifdef GLX_MESA_pixmap_colormap
+-	gpm = glXCreateGLXPixmapMESA( paintDevice->x11Display(),
+-				      (XVisualInfo *)vi,
+-				      paintDevice->handle(),
+-				      choose_cmap( paintDevice->x11Display(),
+-						   (XVisualInfo *)vi ) );
+-#else
+ 	gpm = (Q_UINT32)glXCreateGLXPixmap( paintDevice->x11Display(),
+ 					    (XVisualInfo *)vi,
+ 					    paintDevice->handle() );
+-#endif
+ 	if ( !gpm )
+ 	    return FALSE;
+     }
+@@ -1524,14 +1516,7 @@ QGLWidget::QGLWidget( const QGLFormat &format, QWidget *parent,
+ 
+ QGLWidget::~QGLWidget()
+ {
+-#if defined(GLX_MESA_release_buffers)
+-    bool doRelease = ( glcx && glcx->windowCreated() );
+-#endif
+     delete glcx;
+-#if defined(GLX_MESA_release_buffers)
+-    if ( doRelease )
+-	glXReleaseBuffersMESA( dpy, winId() );
+-#endif
+ }
+ 
+ 
+@@ -1774,10 +1759,6 @@ void QGLWidget::setContext( QGLContext *context,
+ 	cmw[0] = w;
+     }
+ 
+-#if defined(GLX_MESA_release_buffers)
+-    if ( oldcx && oldcx->windowCreated() )
+-	glXReleaseBuffersMESA( dpy, winId() );
+-#endif
+     create( w );
+ 
+     XSetWMColormapWindows( dpy, topLevelWidget()->winId(), cmw, count );
+@@ -1911,17 +1892,9 @@ QPixmap QGLWidget::renderPixmap( int w, int h, bool useContext )
+     if ( useContext && isValid() && 
+ 	 ( ((XVisualInfo*)glcx->vi)->depth == pm.depth() ) ) {
+ 	GLXPixmap glPm;
+-#ifdef GLX_MESA_pixmap_colormap
+-	glPm = glXCreateGLXPixmapMESA( x11Display(),
+-				       (XVisualInfo*)glcx->vi,
+-				       (Pixmap)pm.handle(),
+-				       choose_cmap( pm.x11Display(),
+-						    (XVisualInfo*)glcx->vi ) );
+-#else
+ 	glPm = (Q_UINT32)glXCreateGLXPixmap( x11Display(),
+ 					    (XVisualInfo*)glcx->vi,
+ 					    (Pixmap)pm.handle() );
+-#endif
+ 	if ( !glXMakeCurrent( x11Display(), glPm, (GLXContext)glcx->cx ) ) {
+ 	    glXDestroyGLXPixmap( x11Display(), glPm );
+ 	    if ( !format().directRendering() )	// may be problem; try without
