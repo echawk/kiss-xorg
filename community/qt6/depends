@@ -1,0 +1,26 @@
+brotli
+cmake make
+cups
+double-conversion
+fontconfig
+freetype-harfbuzz
+libICE
+libSM
+libX11
+libdrm
+libexecinfo
+libglvnd
+libjpeg-turbo
+libpng
+libxcb
+libxkbcommon
+mesa
+mtdev
+pcre2
+sqlite
+xcb-util-cursor
+xcb-util-image
+xcb-util-keysyms
+xcb-util-renderutil
+xcb-util-wm
+zstd

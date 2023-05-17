@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DINSTALL_DOCDIR=share/doc/qt6 \
+    -DINSTALL_ARCHDATADIR=lib/qt6 \
+    -DINSTALL_DATADIR=share/qt6 \
+    -DINSTALL_INCLUDEDIR=include/qt6 \
+    -DINSTALL_EXAMPLESDIR=share/doc/qt6/examples \
+    -DBUILD_WITH_PCH=OFF \
+    -DQT_BUILD_EXAMPLES_BY_DEFAULT=OFF \
+    -DQT_BUILD_TESTS_BY_DEFAULT=OFF \
+    -DFEATURE_accessibility=OFF \
+    -DFEATURE_dbus=OFF \
+    -DFEATURE_egl=ON \
+    -DFEATURE_egl_x11=ON \
+    -DFEATURE_glib=OFF \
+    -DFEATURE_gtk3=OFF \
+    -DFEATURE_icu=OFF \
+    -DFEATURE_libudev=OFF \
+    -DFEATURE_openssl=OFF \
+    -DQT_FEATURE_system_sqlite=ON
+
+cmake --build   build
+cmake --install build
