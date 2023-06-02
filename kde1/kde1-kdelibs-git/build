@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+sed "/add_subdirectory(po)/d" CMakeLists.txt > _
+mv -f _ CMakeLists.txt
+sed "/libintl.cpp/d" kdecore/CMakeLists.txt > _
+mv -f _ kdecore/CMakeLists.txt
+
+# FIXME: doesn't build on musl atm.
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr
+
+cmake --build   build
+cmake --install build
