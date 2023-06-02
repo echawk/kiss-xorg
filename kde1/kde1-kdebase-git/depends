@@ -1,0 +1,9 @@
+cmake make
+glu
+kde1-kdelibs
+libjpeg
+libtiff
+libxpm
+perl
+pulseaudio
+qt1
