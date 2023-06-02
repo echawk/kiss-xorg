@@ -1,8 +1,13 @@
 cmake make
 glu
 kde1-kdelibs-git
-tiff
+libICE
+libSM
+libX11
+libXext
 libXpm
+ncurses
 perl
 pulseaudio
 qt1-git
+tiff
