@@ -1,9 +1,8 @@
 cmake make
 glu
-kde1-kdelibs
-libjpeg
-libtiff
-libxpm
+kde1-kdelibs-git
+tiff
+libXpm
 perl
 pulseaudio
-qt1
+qt1-git
