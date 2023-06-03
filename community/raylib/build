@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_EXAMPLES=OFF \
+    -DUSE_EXTERNAL_GLFW=ON \
+    -DPLATFORM=Desktop \
+    -DWITH_PIC=ON
+
+cmake --build   build
+cmake --install build
