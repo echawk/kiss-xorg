@@ -5,6 +5,15 @@ export DESTDIR="$1"
 # Make sure `gunzip` is available.
 mkdir -p path
 ln -s /usr/bin/pigz "$PWD/path/gunzip"
+# If `makeinfo` isn't available, fake it.
+if ! command -v makeinfo; then
+cat <<EOF > "$PWD/path/makeinfo"
+#!/bin/sh
+echo "texi2any (GNU texinfo) 9.99.9"
+true
+EOF
+chmod +x "$PWD/path/makeinfo"
+fi
 export PATH="$PWD/path:$PATH"
 
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
