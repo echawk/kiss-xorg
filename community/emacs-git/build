@@ -17,6 +17,11 @@ pkg-config --exists tree-sitter && conf="${conf:-} --with-tree-sitter"
 
 autoreconf -vif
 
+# librsvg check.
+if ! pkg-config --exists librsvg-2.0; then
+    svg="out"
+fi
+
 # Intended behavior.
 # shellcheck disable=2086
 ./configure \
@@ -29,7 +34,7 @@ autoreconf -vif
     --without-dbus \
     --without-gconf \
     --without-gsettings \
-    --without-rsvg \
+    --with${svg:-}-rsvg \
     --without-compress-install \
     --with-xpm=no \
     --with-tiff=no \
