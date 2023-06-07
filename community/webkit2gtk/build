@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+patch -p1 < Fix-build-of-SourceBrush.cpp.patch
+
 export DESTDIR="$1"
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
@@ -39,11 +41,13 @@ sed 's/ln -n -s -f/ln -sf/g' Source/WebKit/PlatformGTKDeprecated.cmake  > _
 mv -f _ Source/WebKit/PlatformGTKDeprecated.cmake
 
 # Remove gettext requirement.
-sed -e 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c > _
+sed 's/ngettext/printf/g' Tools/MiniBrowser/gtk/BrowserDownloadsBar.c > _
 mv -f _ Tools/MiniBrowser/gtk/BrowserDownloadsBar.c
-
-sed -e '/po_files \*\.po/d' -e '/^GETTEXT_C/d' \
-    Source/WebCore/platform/gtk/po/CMakeLists.txt > _
+sed '/po_files \*\.po/d' Source/WebCore/platform/gtk/po/CMakeLists.txt > _
+mv -f _ Source/WebCore/platform/gtk/po/CMakeLists.txt
+sed '/if.*GETTEXT_FOUND/,/^endif/d' Source/WebCore/platform/gtk/po/CMakeLists.txt > _
+mv -f _ Source/WebCore/platform/gtk/po/CMakeLists.txt
+sed '/^GETTEXT_C/d' Source/WebCore/platform/gtk/po/CMakeLists.txt > _
 mv -f _ Source/WebCore/platform/gtk/po/CMakeLists.txt
 
 # Fix clang build.
