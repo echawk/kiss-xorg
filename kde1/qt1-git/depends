@@ -1,5 +1,6 @@
 byacc make
 cmake make
+glu
 libX11
 libXext
 libXmu
