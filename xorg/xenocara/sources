@@ -1,0 +1,3 @@
+git+https://github.com/openbsd/xenocara
+patches/remove-forced-openbsd-getdtablecount-function-support.patch
+patches/remove-forced-openbsd-mmap-flag-support.patch

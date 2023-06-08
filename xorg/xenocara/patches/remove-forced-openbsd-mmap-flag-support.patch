@@ -1,0 +1,22 @@
+diff --git a/Xext/shm.c b/Xext/shm.c
+index a95c91c..fe42a66 100644
+--- a/Xext/shm.c
++++ b/Xext/shm.c
+@@ -1161,7 +1161,7 @@ ProcShmAttachFd(ClientPtr client)
+     shmdesc->is_fd = TRUE;
+     shmdesc->addr = mmap(NULL, statb.st_size,
+                          stuff->readOnly ? PROT_READ : PROT_READ|PROT_WRITE,
+-                         MAP_SHARED|__MAP_NOFAULT,
++                         MAP_SHARED,
+                          fd, 0);
+ 
+     close(fd);
+@@ -1254,7 +1254,7 @@ ProcShmCreateSegment(ClientPtr client)
+     shmdesc->is_fd = TRUE;
+     shmdesc->addr = mmap(NULL, stuff->size,
+                          stuff->readOnly ? PROT_READ : PROT_READ|PROT_WRITE,
+-                         MAP_SHARED|__MAP_NOFAULT,
++                         MAP_SHARED,
+                          fd, 0);
+ 
+     if (shmdesc->addr == ((char *) -1)) {

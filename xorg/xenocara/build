@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+cd xserver
+
+for p in ../*.patch; do
+	patch -p1 < "$p"
+done
+
+# Fix permissions which we need to run configure, and installation
+chmod +x configure install-sh
+
+./configure \
+	--prefix=/usr \
+	--sysconfdir=/etc \
+	--localstatedir=/var \
+	--disable-xwayland \
+	--enable-xorg \
+	--enable-xvfb \
+	--enable-kdrive \
+	--enable-dri \
+	--without-systemd-daemon
+
+make
+make DESTDIR="$1" install
