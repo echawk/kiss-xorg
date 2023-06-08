@@ -1,5 +1,11 @@
 #!/bin/sh -e
 
+# Avoid issues with undefined symbols
+# https://bugs.archlinux.org/task/54845 / https://bugs.archlinux.org/task/55102
+export CFLAGS="$CFLAGS -fno-plt"
+export CXXFLAGS="$CXXFLAGS -fno-plt"
+export LDFLAGS="$LDFLAGS -z,now"
+
 cd xserver
 
 for p in ../*.patch; do
