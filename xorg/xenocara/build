@@ -26,6 +26,7 @@ chmod +x configure install-sh
 	--enable-dri \
 	--enable-dri2 \
 	--enable-dri3 \
+	--enable-libdrm \
 	--without-systemd-daemon
 
 make
