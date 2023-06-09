@@ -1,0 +1,36 @@
+#!/bin/sh -e
+
+# Avoid issues with undefined symbols
+# https://bugs.archlinux.org/task/54845 / https://bugs.archlinux.org/task/55102
+export CFLAGS="$CFLAGS -fno-plt"
+export CXXFLAGS="$CXXFLAGS -fno-plt"
+export LDFLAGS="$LDFLAGS -z,now"
+
+cd xserver
+
+for p in ../*.patch; do
+	patch -p1 < "$p"
+done
+
+# Fix permissions which we need to run configure, and installation
+chmod +x configure install-sh
+
+./configure \
+	--prefix=/usr \
+	--sysconfdir=/etc \
+	--localstatedir=/var \
+	--disable-xwayland \
+	--disable-xephyr \
+	--disable-unit-tests \
+	--disable-xnest \
+	--enable-xorg \
+	--enable-xvfb \
+	--enable-kdrive \
+	--enable-dri \
+	--enable-dri2 \
+	--enable-dri3 \
+	--enable-libdrm \
+	--without-systemd-daemon
+
+make
+make DESTDIR="$1" install

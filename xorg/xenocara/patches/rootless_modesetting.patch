@@ -1,0 +1,13 @@
+--- a/hw/xfree86/drivers/modesetting/driver.c
++++ b/hw/xfree86/drivers/modesetting/driver.c
+@@ -1745,6 +1745,10 @@ SetMaster(ScrnInfoPtr pScrn)
+     if (ms->fd_passed)
+         return TRUE;
+ 
++   ret = drmIsMaster(ms->fd);
++    if (ret)
++      return TRUE;
++
+     ret = drmSetMaster(ms->fd);
+     if (ret)
+         xf86DrvMsg(pScrn->scrnIndex, X_ERROR, "drmSetMaster failed: %s\n",

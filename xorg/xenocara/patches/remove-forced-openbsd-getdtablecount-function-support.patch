@@ -1,0 +1,16 @@
+diff --git a/os/connection.c b/os/connection.c
+index 4153930a..3c6d619c 100644
+--- a/os/connection.c
++++ b/os/connection.c
+@@ -692,9 +692,11 @@ EstablishNewConnections(ClientPtr clientUnused, void *closure)
+     if ((trans_conn = lookup_trans_conn(curconn)) == NULL)
+         return TRUE;
+ 
++#ifdef __OpenBSD__
+     if ((getdtablecount() + FdReserve) >= getdtablesize())
+         Backoff = TRUE;
+     else
++#endif
+         Backoff = FALSE;
+ 
+     if ((new_trans_conn = _XSERVTransAccept(trans_conn, &status)) == NULL)
