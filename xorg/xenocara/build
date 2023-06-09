@@ -20,6 +20,7 @@ chmod +x configure install-sh
 	--sysconfdir=/etc \
 	--localstatedir=/var \
 	--disable-xwayland \
+	--disable-xephyr \
 	--enable-xorg \
 	--enable-xvfb \
 	--enable-kdrive \
