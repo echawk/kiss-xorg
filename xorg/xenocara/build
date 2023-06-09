@@ -24,6 +24,8 @@ chmod +x configure install-sh
 	--enable-xvfb \
 	--enable-kdrive \
 	--enable-dri \
+	--enable-dri2 \
+	--enable-dri3 \
 	--without-systemd-daemon
 
 make
