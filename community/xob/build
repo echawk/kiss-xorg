@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+make prefix="/usr" sysconfdir="/etc"
+make prefix="/usr" sysconfdir="/etc" install
