@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+# shellcheck disable=2086
+${CC:-cc} $CFLAGS -lX11 x11up.c -o x11up
+
+mkdir -p "$1/usr/bin/"
+mv x11up "$1/usr/bin/"
