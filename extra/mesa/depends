@@ -17,5 +17,6 @@ m4            make
 meson         make
 pkgconf       make
 python-mako   make
+xkbcomp
 xorgproto
 zlib
