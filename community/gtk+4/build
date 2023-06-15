@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+pkg-config --exists gobject-introspection-1.0 && gir=enabled
+
+#pkg-config --exists wayland-server && wayland_backend=true
+
+meson setup \
+    -Dprefix=/usr \
+    -Dgtk_doc=false \
+    -Dwayland-backend="${wayland_backend:-false}" \
+    -Dwin32-backend=false \
+    -Dintrospection="${gir:-disabled}" \
+    -Dmedia-gstreamer=disabled \
+    -Dprint-cups=disabled \
+    -Df16c=disabled \
+    -Ddemos=false \
+    -Dbuild-tests=false \
+    -Dbuild-testsuite=false \
+    -Dbuild-examples=false \
+    -Dvulkan=disabled \
+    output
+
+ninja -C output
+ninja -C output install

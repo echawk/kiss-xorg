@@ -1,0 +1,30 @@
+atk
+cairo
+fontconfig
+freetype-harfbuzz
+fribidi
+gdk-pixbuf
+glib
+graphene
+libX11
+libXcomposite
+libXcursor
+libXdamage
+libXext
+libXfixes
+libXi
+libXinerama
+libXrandr
+libepoxy
+libjpeg-turbo
+libpng
+libxkbcommon
+meson make
+pango
+perl   make
+pkgconf make
+python make
+readline make
+samurai make
+shared-mime-info
+tiff
