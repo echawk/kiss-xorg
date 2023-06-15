@@ -1,0 +1,27 @@
+#!/bin/sh -ex
+
+export DESTDIR="$1"
+
+patch -p1 < fix-W_EXITCODE.patch
+
+pkg-config --exists gnutls && GNUTLS=true
+
+command -v vala && VAPI=true
+
+pkg-config --exists gobject-introspection-1.0 && gi=true
+
+meson setup \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dmandir=/usr/share/man \
+    -Ddocs=false \
+    -Dgir="${gi:-false}" \
+    -Dfribidi=false \
+    -Dicu=false \
+    -Dvapi="${VAPI:-false}" \
+    -Dgnutls="${GNUTLS:-false}" \
+    -D_systemd=false \
+    output
+
+ninja -C output
+ninja -C output install
