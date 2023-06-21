@@ -2,6 +2,12 @@
 
 export DESTDIR="$1"
 
+# pread64/pwrite64 is deprecated, and might error out on undefined references when linking
+sed -e 's/pread64/pread/' \
+	-e 's/pwrite64/pwrite/' \
+	src/linux_sysfs.c > _
+mv -f  _ src/linux_sysfs.c
+
 ./configure \
     --prefix=/usr
 
