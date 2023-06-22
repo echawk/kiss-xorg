@@ -1,0 +1,12 @@
+atk
+cairo
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+3
+libsoup3
+lua-filesystem
+luajit
+pango
+sqlite
+webkit2gtk
