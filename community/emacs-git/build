@@ -7,12 +7,12 @@ mkdir -p path
 ln -s /usr/bin/pigz "$PWD/path/gunzip"
 # If `makeinfo` isn't available, fake it.
 if ! command -v makeinfo; then
-cat <<EOF > "$PWD/path/makeinfo"
+    cat << EOF > "$PWD/path/makeinfo"
 #!/bin/sh
 echo "texi2any (GNU texinfo) 9.99.9"
 true
 EOF
-chmod +x "$PWD/path/makeinfo"
+    chmod +x "$PWD/path/makeinfo"
 fi
 export PATH="$PWD/path:$PATH"
 
@@ -38,15 +38,15 @@ fi
     --prefix=/usr \
     --with-modules \
     --with-xft \
-    --with-x-toolkit=athena \
+    --with-x-toolkit=gtk3 \
     --without-toolkit-scroll-bars \
     --without-dbus \
     --without-gconf \
     --without-gsettings \
     --with${svg:-}-rsvg \
     --without-compress-install \
-    --with-xpm=no \
-    --with-tiff=no \
+    --without-xpm \
+    --without-tiff \
     --with-gnutls=yes
 
 mkdir -p "$1/usr/share/emacs/site-lisp"
