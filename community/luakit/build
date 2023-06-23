@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make PREFIX=/usr USE_LUAJIT=1
+make DESTDIR="$1" PREFIX=/usr install

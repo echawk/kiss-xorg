@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+gzip -dc lua*.apk | tar -xf -
+cp -fr usr/ "$1/"
