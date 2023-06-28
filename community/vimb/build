@@ -2,12 +2,6 @@
 
 export DESTDIR="$1"
 
-# Fix LDFLAGS, courtesy of Arch Linux
-sed -E \
-    "s~^EXTLDFLAGS.*~EXTLDFLAGS  = \$($cmd) -shared~" \
-    config.mk > _
-mv -f _ config.mk
-
 # Chnage the follow hints from numbers to letters on the home row
 sed -E \
     "s~(setting_add\(c, \"hint-keys\", TYPE_CHAR, &\")0123456789~\1asdfghjkl~" \
