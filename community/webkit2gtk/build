@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
-patch -p1 < Fix-build-of-SourceBrush.cpp.patch
-
 export DESTDIR="$1"
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
