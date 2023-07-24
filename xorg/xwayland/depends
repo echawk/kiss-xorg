@@ -11,5 +11,6 @@ openssl
 pixman
 wayland
 wayland-protocols make
+xkbcomp
 xorgproto make
 xtrans make
