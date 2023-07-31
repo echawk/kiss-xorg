@@ -13,19 +13,35 @@ fi
 
 kiss list libgccjit && conf="--with-native-compilation"
 
+# Tree Sitter Check.
+pkg-config --exists tree-sitter && conf="${conf:-} --with-tree-sitter"
+
+# librsvg check.
+if ! pkg-config --exists librsvg-2.0; then
+    svg="out"
+fi
+
+# check for X11
+if pkg-config --exists x11; then
+    # x11 variant.
+    conf="${conf:-} --with-x --with-x-toolkit=gtk3"
+elif pkg-config --exists wayland-client; then
+    # pgtk variant.
+    conf="${conf:-} --with-pgtk"
+fi
+
 ./configure \
     ${conf:-} \
     --prefix=/usr \
     --with-modules \
-    --with-xft \
-    --with-x-toolkit=athena \
     --without-toolkit-scroll-bars \
     --without-dbus \
     --without-gconf \
     --without-gsettings \
-    --without-rsvg \
-    --with-xpm=no \
-    --with-tiff=no \
+    --with${svg}-rsvg \
+    --without-compress-install \
+    --without-xpm \
+    --without-tiff \
     --with-gnutls=yes
 
 mkdir -p "$1/usr/share/emacs/site-lisp"

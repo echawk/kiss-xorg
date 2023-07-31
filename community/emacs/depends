@@ -1,7 +1,8 @@
 giflib
 gnutls
+gtk+3
 libjpeg-turbo
 libpng
-libxaw3d
 libxml2
 ncurses
+pkgconf make
