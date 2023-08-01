@@ -30,6 +30,8 @@ elif pkg-config --exists wayland-client; then
     conf="${conf:-} --with-pgtk"
 fi
 
+# Intended behavior.
+# shellcheck disable=2086
 ./configure \
     ${conf:-} \
     --prefix=/usr \
