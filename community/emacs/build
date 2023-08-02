@@ -52,6 +52,7 @@ esac
     --without-compress-install \
     --without-xpm \
     --without-tiff \
+    --without-gif \
     --with-gnutls=yes
 
 mkdir -p "$1/usr/share/emacs/site-lisp"
