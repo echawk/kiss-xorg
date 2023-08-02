@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
 # Also, override any user provided CFLAGS, as they can also cause seg faults.
 export CFLAGS="-no-pie"
@@ -21,14 +20,23 @@ if ! pkg-config --exists librsvg-2.0; then
     svg="out"
 fi
 
-# check for X11
-if pkg-config --exists x11; then
-    # x11 variant.
-    conf="${conf:-} --with-x --with-x-toolkit=gtk3"
-elif pkg-config --exists wayland-client; then
-    # pgtk variant.
-    conf="${conf:-} --with-pgtk"
-fi
+# Determine whether we are the -nox package or not...
+pkgname="$(basename "$(dirname "$0")")"
+case $pkgname in
+    *-nox)
+        conf="--without-x --without-sound"
+        ;;
+    *)
+        # check for X11
+        if pkg-config --exists x11; then
+            # x11 variant.
+            conf="${conf:-} --with-x --with-x-toolkit=gtk3"
+        elif pkg-config --exists wayland-client; then
+            # pgtk variant.
+            conf="${conf:-} --with-pgtk"
+        fi
+        ;;
+esac
 
 # Intended behavior.
 # shellcheck disable=2086
@@ -64,7 +72,7 @@ case "$(uname -m)" in
     x86_64) _arch=linux64 ;;
     i*86) _arch=linux32 ;;
 esac
-setarch $_arch -R make
+setarch "$_arch" -R make
 make install
 
 rm -rf "$1/usr/lib/systemd"
