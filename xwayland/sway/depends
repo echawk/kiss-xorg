@@ -1,0 +1,18 @@
+cairo
+json-c
+libevdev
+libinput
+libseat
+libxcb
+libxkbcommon
+linux-headers make
+mesa
+meson make
+pango
+pcre2
+pixman
+pkgconf make
+wayland
+wayland-protocols make
+wlroots
+xcb-util-wm
