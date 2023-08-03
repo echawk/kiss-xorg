@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+meson setup \
+    -Dprefix=/usr \
+    -Ddefault_library=both \
+    -Dxwayland=enabled \
+    -Dexamples=false \
+    -Dxcb-errors=disabled \
+    -Drenderers=gles2 \
+    build
+
+ninja -C build
+ninja -C build install
