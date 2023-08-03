@@ -3,6 +3,7 @@ libXext
 libXfont2
 libdrm
 libepoxy
+libxcvt
 libxkbfile
 libxshmfence
 mesa
