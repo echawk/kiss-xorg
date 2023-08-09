@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+cat <<EOF
+
+NOTE: In order to function, sway must be launched either
+      with 'seatd-launch [args] sway [args]' or under a
+      running seatd daemon.
+
+NOTE: You must set XDG_RUNTIME_DIR in your shellrc
+      or .profile for things to work. This directory
+      must exist and must be writable by your user.
+
+      export XDG_RUNTIME_DIR=/run/user/\$(id -u)
+
+EOF

@@ -27,9 +27,11 @@ Feel free to create Issues and Pull Requests for outdated software!
 	* NOTE: You will still need the upstream extra repo!
 * `community/` - contains useful software that depends on X
 	* currently working on saving some of the software that was dropped from [kiss-community/community](https://github.com/kiss-community/community)
+* `xwayland/` - contains Xwayland overrides for sway, wlroots & mesa.
 * `games/` - contains video games
 * `xfce4/` - contains the XFCE4 desktop environment
 * `kde1/` - contains the KDE desktop, version 1
+
 
 ## Usage
 
@@ -43,6 +45,16 @@ KISS_PATH="${KISS_PATH}:/path/to/kiss-xorg/extra"
 KISS_PATH="${KISS_PATH}:/path/to/kiss-xorg/xorg"
 KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
 ...
+```
+
+If using primarily for Xwayland:
+```sh
+KISS_PATH="/path/to/repo/core"
+KISS_PATH="${KISS_PATH}:/path/to/kiss-xorg/xwayland"
+KISS_PATH="${KISS_PATH}:/path/to/repo/extra"
+KISS_PATH="${KISS_PATH}:/path/to/repo/wayland"
+KISS_PATH="${KISS_PATH}:/path/to/kiss-xorg/extra"
+KISS_PATH="${KISS_PATH}:/path/to/kiss-xorg/xorg"
 ```
 
 ## What's that extra file? (esources)
