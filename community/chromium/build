@@ -4,6 +4,8 @@ export DESTDIR="$1"
 
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
+rm chromium-116-url_load_stats-include.patch
+
 # Glob includes the libstdc++ patchset aswell.
 for patch in chromium-*.patch; do
     patch -p1 < "$patch"
