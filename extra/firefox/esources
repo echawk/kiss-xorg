@@ -1,5 +1,7 @@
 https://ftp.mozilla.org/pub/firefox/releases/VERSION/source/firefox-VERSION.source.tar.xz
+patches/fix-bundled-ffmpeg-binutils.patch
 patches/fix-overalignment.patch
+patches/fix-vaapi.patch
 patches/musl-sandbox.patch
 patches/no-atk.patch
 patches/no-dbus.patch
