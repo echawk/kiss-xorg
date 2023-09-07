@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+pkg-config --exists gobject-introspection-1.0 && gobject=enabled
+
+meson setup \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dlocalstatedir=/var \
+    -Dbuildtype=plain \
+    -Dintrospection="${gobject:-disabled}" \
+    -Dinstalled_tests=false \
+    -Dtests=false \
+    output
+
+ninja -C output
+ninja -C output install
