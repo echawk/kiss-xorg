@@ -1,4 +1,0 @@
-https://us.download.nvidia.com/XFree86/Linux-x86_64/VERSION/NVIDIA-Linux-x86_64-VERSION-no-compat32.run
-https://github.com/NVIDIA/nvidia-settings/archive/VERSION.tar.gz nvidia-settings-src
-patches/01-nvidia-settings-no-vdpau.patch
-patches/02-nvidia-settings-no-dbus.patch
