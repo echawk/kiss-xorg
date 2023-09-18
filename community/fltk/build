@@ -2,10 +2,12 @@
 
 export DESTDIR="$1"
 
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DFLTK_BUILD_TEST=OFF \
+    -DFLTK_BUILD_EXAMPLES=OFF \
+    -DOPTION_BUILD_SHARED_LIBS=ON
 
-./configure \
-    --prefix=/usr \
-    --bindir=/usr/bin
-
-make
-make install
+cmake --build   build
+cmake --install build

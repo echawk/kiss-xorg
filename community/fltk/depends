@@ -1,3 +1,4 @@
+cmake make
 expat
 fontconfig
 freetype-harfbuzz
