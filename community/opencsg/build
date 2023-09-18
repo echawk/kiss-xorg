@@ -6,7 +6,7 @@ export DESTDIR="$1"
 sed 's@-Wl,-rpath,\.\./lib@@' Makefile > _
 mv -f _ Makefile
 
-make -j1 CC="$CC" CXX="$CXX" LINK="$CXX"
+make -j1 CC="$CC" CXX="$CXX" LINK="$CXX" QMAKE="qmake"
 
 for folder in src example; do
     sed -e 's/\/usr\/local\//\/usr\//g' -i "$folder/Makefile"
