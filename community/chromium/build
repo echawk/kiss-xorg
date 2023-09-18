@@ -4,8 +4,6 @@ export DESTDIR="$1"
 
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
-rm chromium-116-url_load_stats-include.patch
-
 # Glob includes the libstdc++ patchset aswell.
 for patch in chromium-*.patch; do
     patch -p1 < "$patch"
@@ -113,13 +111,6 @@ esac
 kiss list pipewire && pipewire=true
 
 conf="
-    angle_enable_null=true
-    angle_enable_swiftshader=false
-    enable_swiftshader=true
-    enable_swiftshader_vulkan=false
-    rtc_use_x11=true
-    rtc_use_x11_extensions=true
-    use_xkbcommon=false
     blink_enable_generated_code_formatting=false
     blink_symbol_level=0
     build_with_tflite_lib=false
@@ -129,7 +120,6 @@ conf="
     custom_toolchain=\"//build/toolchain/linux/unbundle:default\"
     disable_fieldtrial_testing_config=true
     enable_hangout_services_extension=false
-    enable_js_type_check=false
     enable_mdns=false
     enable_mse_mpeg2ts_stream_parser=true
     enable_nacl=false
@@ -161,7 +151,6 @@ conf="
     safe_browsing_mode=0
     symbol_level=0
     treat_warnings_as_errors=false
-    use_allocator=\"none\"
     use_atk=false
     use_bluez=false
     use_cfi_icall=false
