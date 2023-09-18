@@ -1,0 +1,23 @@
+cmake make
+ffmpeg
+fltk
+fontconfig
+gmp
+gnutls
+libICE
+libSM
+libX11
+libXcursor
+libXdamage
+libXext
+libXfixes
+libXft
+libXi
+libXinerama
+libXrandr
+libXrender
+libXtst
+libjpeg-turbo
+nettle
+pam
+pixman
