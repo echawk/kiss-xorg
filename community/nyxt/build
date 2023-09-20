@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+: > nostrip
+
+tar xvf nyxt-*
+
+# We have to mess w/ LD_PRELOAD because the build is picky when using musl.
+# The specific error is: "initial-exec TLS resolves to dynamic definition"
+
+webkitlib="$(find /usr/lib/ -maxdepth 1 -name "libwebkit2gtk-*.0")"
+
+LD_PRELOAD="$webkitlib:/usr/lib/libfixposix.so.4" make all
+
+mkdir -p "$1/usr/bin/"
+cat > "$1/usr/bin/nyxt" << EOF
+#!/bin/sh
+LD_PRELOAD="$webkitlib:/usr/lib/libfixposix.so.4" /opt/nyxt/nyxt
+EOF
+chmod +x "$1/usr/bin/nyxt"
+
+mkdir -p "$1/opt/nyxt/"
+cp nyxt "$1/opt/nyxt/"
