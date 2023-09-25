@@ -1,6 +1,5 @@
 autoconf make
 automake make
-giflib
 gnutls
 gtk+3
 libjpeg-turbo

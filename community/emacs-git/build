@@ -5,6 +5,7 @@ export DESTDIR="$1"
 # Make sure `gunzip` is available.
 mkdir -p path
 ln -s /usr/bin/pigz "$PWD/path/gunzip"
+
 # If `makeinfo` isn't available, fake it.
 if ! command -v makeinfo; then
     cat << EOF > "$PWD/path/makeinfo"
@@ -19,7 +20,10 @@ export PATH="$PWD/path:$PATH"
 # Enable '-no-pie' as it can fix a seg fault in `temacs`.
 export CFLAGS="$CFLAGS -no-pie"
 
-kiss list libgccjit && conf="--with-native-compilation"
+# libgccjit check.
+case $("$CC" -print-file-name=libgccjit.so) in */*)
+    conf="--with-native-compilation"
+esac
 
 # Tree Sitter Check.
 pkg-config --exists tree-sitter && conf="${conf:-} --with-tree-sitter"
@@ -31,22 +35,28 @@ if ! pkg-config --exists librsvg-2.0; then
     svg="out"
 fi
 
+if pkg-config --exists x11; then
+    # x11 variant.
+    conf="${conf:-} --with-x --with-x-toolkit=gtk3"
+elif pkg-config --exists wayland-client; then
+    # pgtk variant.
+    conf="${conf:-} --with-pgtk"
+fi
+
 # Intended behavior.
 # shellcheck disable=2086
 ./configure \
     ${conf:-} \
     --prefix=/usr \
     --with-modules \
-    --with-xft \
-    --with-x-toolkit=gtk3 \
-    --without-toolkit-scroll-bars \
     --without-dbus \
     --without-gconf \
     --without-gsettings \
-    --with${svg:-}-rsvg \
+    --with${svg}-rsvg \
     --without-compress-install \
     --without-xpm \
     --without-tiff \
+    --without-gif \
     --with-gnutls=yes
 
 mkdir -p "$1/usr/share/emacs/site-lisp"
@@ -67,7 +77,7 @@ case "$(uname -m)" in
     x86_64) _arch=linux64 ;;
     i*86) _arch=linux32 ;;
 esac
-setarch $_arch -R make
+setarch "$_arch" -R make
 make install
 
 rm -rf "$1/usr/lib/systemd"
