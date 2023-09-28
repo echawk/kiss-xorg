@@ -3,7 +3,14 @@
 : > nostrip
 
 # Check for quicklisp:
-if  sbcl --noinform --eval "#+quicklisp (print \"quicklisp\")" --eval "(quit)" | grep "quicklisp"; then
+cat > check-quicklisp.lisp <<EOF
+#+QUICKLISP
+(print "quicklisp")
+
+(quit)
+EOF
+if  sbcl --noinform --load check-quicklisp.lisp | grep "quicklisp"; then
+    rm -- check-quicklisp.lisp
     # Install the deps via quicklisp
     sbcl --noinform \
         --eval "(ql:quickload :clx)" \
