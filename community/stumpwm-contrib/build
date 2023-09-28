@@ -1,0 +1,7 @@
+#!/bin/sh -ex
+
+mkdir -p "$1/usr/share/stumpwm/contrib"
+
+for d in ./*/; do
+    cp -r "$d" "$1/usr/share/stumpwm/contrib"
+done
