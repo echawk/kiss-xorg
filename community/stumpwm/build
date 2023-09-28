@@ -22,9 +22,8 @@ else
 You need to install quicklisp:
 
 $ curl -LO https://beta.quicklisp.org/quicklisp.lisp
-$ sbcl --load quicklisp.lisp
-$ sbcl --eval "(quicklisp-quickstart:install)" --eval "(quit)"
-$ sbcl --eval "(ql:add-to-init-file)" --eval "(quit)"
+$ sbcl --noinform --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(quit)"
+$ sbcl --noinform --load ~/quicklisp/setup.lisp --eval "(ql:add-to-init-file)" --eval "(quit)"
 
 Then rebuild and install this package.
 EOF
