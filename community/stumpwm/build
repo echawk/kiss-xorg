@@ -1,0 +1,37 @@
+#!/bin/sh -e
+
+: > nostrip
+
+# Check for quicklisp:
+if  sbcl --noinform --eval "#+quicklisp (print \"quicklisp\")" --eval "(quit)" | grep "quicklisp"; then
+    # Install the deps via quicklisp
+    sbcl --noinform \
+        --eval "(ql:quickload :clx)" \
+        --eval "(ql:quickload :cl-ppcre)" \
+        --eval "(ql:quickload :alexandria)" \
+        --eval "(quit)"
+else
+    cat << EOF
+You need to install quicklisp:
+
+$ curl -LO https://beta.quicklisp.org/quicklisp.lisp
+$ sbcl --load quicklisp.lisp
+$ sbcl --eval "(quicklisp-quickstart:install)" --eval "(quit)"
+$ sbcl --eval "(ql:add-to-init-file)" --eval "(quit)"
+
+Then rebuild and install this package.
+EOF
+    exit 1
+fi
+
+autoreconf -vif
+./configure \
+    --prefix=/usr \
+    --with-lisp=sbcl \
+    --with-module-dir=/usr/share/stumpwm/contrib
+
+make -j1 destdir="$1"
+make -j1 destdir="$1" install
+
+mkdir -p "$1/usr/share/doc/stumpwm"
+cp sample-stumpwmrc.lisp "$1/usr/share/doc/stumpwm"
