@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+git submodule update --init
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_DOC=FALSE \
+    -DBUILD_TESTS=FALSE \
+    -DENABLE_I3=FALSE \
+    -DENABLE_ALSA=TRUE \
+    -DENABLE_PULSEAUDIO=FALSE
+
+cmake --build   build
+cmake --install build
