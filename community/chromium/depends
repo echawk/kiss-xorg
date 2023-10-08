@@ -1,4 +1,5 @@
 alsa-lib
+atk
 bison              make
 bzip2
 ffmpeg
@@ -14,8 +15,8 @@ libXi
 libXrandr
 libXtst
 libdrm
-libffi
 libexif
+libffi
 libgcrypt
 libjpeg-turbo
 libva              make
