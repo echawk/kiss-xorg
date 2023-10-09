@@ -4,12 +4,14 @@ export DESTDIR="$1"
 
 : > tests/meson.build
 
+pkg-config --exists gobject-introspection-1.0 && gi=true
+
 meson setup \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
     -Dmandir=/usr/share/man \
     -Ddocs=false \
-    -Dintrospection=false \
+    -Dintrospection="${gi:-false}" \
     output
 
 ninja -C output
