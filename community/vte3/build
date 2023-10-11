@@ -21,6 +21,7 @@ meson setup \
     -Dvapi="${VAPI:-false}" \
     -Dgnutls="${GNUTLS:-false}" \
     -D_systemd=false \
+    -Dgtk4=false \
     output
 
 ninja -C output
