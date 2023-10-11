@@ -5,9 +5,10 @@ export DESTDIR="$1"
 mk() {
     cmake -B build \
         -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
         -DJSONCPP_WITH_TESTS=OFF \
         -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
-        -DJSONCPP_WITH_CMAKE_PACKAGE=OFF \
+        -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
         -DJSONCPP_WITH_PKGCONFIG_SUPPORT=OFF \
         "$@"
 
