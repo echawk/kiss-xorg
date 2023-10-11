@@ -4,8 +4,6 @@ freetype-harfbuzz
 gdk-pixbuf
 glib
 glu
-gst-plugins-base
-gstreamer
 gtk+3
 libSM
 libX11

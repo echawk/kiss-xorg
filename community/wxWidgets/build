@@ -21,7 +21,6 @@ cmake -B build \
     -DwxUSE_LIBLZMA=sys \
     -DwxUSE_LIBPNG=sys \
     -DwxUSE_LIBTIFF=sys \
-    -DwxUSE_LIBXPM=sys \
     -DwxUSE_OPENGL=ON \
     -DwxUSE_PRIVATE_FONTS=ON \
     -DwxUSE_MEDIACTRL=ON \
