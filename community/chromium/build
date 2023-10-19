@@ -2,6 +2,34 @@
 
 export DESTDIR="$1"
 
+# FIXME: would like to ulitmately remove this ugly, ugly hack.
+# Check to make sure that gtk+3 is built with atk support
+cat > gtk-atk-test.c <<EOF
+#include <gtk/gtk.h>
+
+int main () {
+#ifdef GTK_ACCESSIBLE
+  return 0;
+#else
+  return 1;
+#endif
+}
+EOF
+"${CC:-cc}" $(pkg-config --cflags gtk+-3.0) gtk-atk-test.c -o gtk-atk-test
+if ! ./gtk-atk-test; then
+cat <<EOF
+You need to rebuild gtk+3 with atk support!
+
+If you are using the version of gtk+3 shipped with kiss-xorg run the following:
+
+$ kiss b gtk+3
+
+And it will automatically pick up the atk dependency.
+EOF
+    exit 1
+fi
+rm -v -- gtk-atk-test.c
+
 printf "NOTE: It is HIGHLY recommended to build this package with sane build flags and 'ccache' enabled!\n"
 
 # Glob includes the libstdc++ patchset aswell.
@@ -157,7 +185,6 @@ conf="
     use_cups=false
     use_custom_libcxx=false
     use_dbus=false
-    use_gnome_keyring=false
     use_gold=false
     use_kerberos=false
     use_libpci=false
