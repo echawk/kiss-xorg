@@ -39,17 +39,9 @@ Then rebuild:
 
 ### atk
 
-`$ kiss fork atk`
+Just perform a rebuild:
 
-Then run:
-
-`$ sed -i -E "s/(introspection=)false/\1true" build`
-
-To enable gobject-introspection.
-
-Then rebuild:
-
-`$ kiss b`
+`$ kiss b atk`
 
 ### gdk-pixbuf
 
