@@ -15,6 +15,7 @@ int main () {
 #endif
 }
 EOF
+# shellcheck disable=2046
 "${CC:-cc}" $(pkg-config --cflags gtk+-3.0) gtk-atk-test.c -o gtk-atk-test
 if ! ./gtk-atk-test; then
 cat <<EOF
