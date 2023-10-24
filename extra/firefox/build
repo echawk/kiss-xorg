@@ -9,6 +9,9 @@ done
 sed '/UNZIP/d' toolkit/moz.configure > _
 mv -f _ toolkit/moz.configure
 
+sed 's/\("files":{\)[^}]*/\1/' third_party/rust/packed_simd_2/.cargo-checksum.json > _
+mv -f _ third_party/rust/packed_simd_2/.cargo-checksum.json
+
 # Remove upper limit on psutil for those encountering build errors when using
 # python-psutil from community.
 sed 's/psutil>=5\.4\.2,<=5\.8\.0/psutil>=5\.4\.2/g' python/sites/mach.txt > _
