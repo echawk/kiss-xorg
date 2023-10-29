@@ -1,6 +1,9 @@
 #!/bin/sh -e
 
-sed -i "/directory(test)/d" CMakeLists.txt
+export DESTDIR="$1"
+
+sed "/directory(test)/d" CMakeLists.txt > _
+mv -f _ CMakeLists.txt
 
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
