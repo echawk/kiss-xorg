@@ -1,43 +1,40 @@
-#!/bin/sh -e
+#!/usr/bin/sbcl --script
+;; -*- mode: lisp -*-
 
-: > nostrip
+;; Yes, this is a hack, but there really isn't any other way to do
+;; this in a *nice* way.
+;; It's a known problem in the CL world.
+(load (merge-pathnames (car (directory "~/")) ".sbclrc"))
 
-# Check for quicklisp:
-cat > check-quicklisp.lisp <<EOF
-#+QUICKLISP
-(print "quicklisp")
+(setq *dest-dir* (nth 1 sb-ext:*posix-argv*))
+(setq *version* (nth 2 sb-ext:*posix-argv*))
 
-(quit)
-EOF
-if  sbcl --noinform --load check-quicklisp.lisp | grep "quicklisp"; then
-    rm -- check-quicklisp.lisp
-    # Install the deps via quicklisp
-    sbcl --noinform \
-        --eval "(ql:quickload :clx)" \
-        --eval "(ql:quickload :cl-ppcre)" \
-        --eval "(ql:quickload :alexandria)" \
-        --eval "(quit)"
-else
-    cat << EOF
-You need to install quicklisp:
+#-QUICKLISP
+(progn
+  (print
+   "You need to install quicklisp:
 
 $ curl -LO https://beta.quicklisp.org/quicklisp.lisp
-$ sbcl --noinform --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(quit)"
-$ sbcl --noinform --load ~/quicklisp/setup.lisp --eval "(ql:add-to-init-file)" --eval "(quit)"
+$ sbcl --noinform --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(quit)'
+$ sbcl --noinform --load ~/quicklisp/setup.lisp --eval '(ql:add-to-init-file)' --eval '(quit)'
 
-Then rebuild and install this package.
-EOF
-    exit 1
-fi
+Then build and install this package.")
+  (exit 1))
 
-autoreconf -vif
-./configure \
-    --prefix=/usr \
-    --with-lisp=sbcl \
-    --with-module-dir=/usr/share/stumpwm/contrib
+(ql:quickload '(:clx :cl-ppcre :alexandria))
 
-make -j1 destdir="$1"
-make -j1 destdir="$1" install
+(let ((cmds
+       `(("touch nostrip")
+         ("autoreconf -vif")
+         ("./configure"
+          " --prefix=/usr"
+          " --with-lisp=sbcl"
+          " --with-module-dir=/usr/share/stumpwm/contrib")
 
-mkdir -p "$1/usr/share/doc/stumpwm"
-cp sample-stumpwmrc.lisp "$1/usr/share/doc/stumpwm"
+         ("make -j1 destdir='" ,*dest-dir* "'")
+         ("make -j1 destdir='" ,*dest-dir* "' install")
+
+         ("mkdir -p " ,*dest-dir* "/usr/share/doc/stumpwm")
+         ("cp sample-stumpwmrc.lisp " ,*dest-dir* "/usr/share/doc/stumpwm"))))
+  (dolist (cmd (mapcar (lambda (lst) (format nil "~{~a~}" lst)) cmds))
+    (uiop:run-program cmd)))
