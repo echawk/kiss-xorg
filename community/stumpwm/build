@@ -1,6 +1,8 @@
 #!/usr/bin/sbcl --script
 ;; -*- mode: lisp -*-
 
+(declaim (sb-ext:muffle-conditions cl:warning))
+
 ;; Yes, this is a hack, but there really isn't any other way to do
 ;; this in a *nice* way.
 ;; It's a known problem in the CL world.
@@ -37,4 +39,4 @@ Then build and install this package.")
          ("mkdir -p " ,*dest-dir* "/usr/share/doc/stumpwm")
          ("cp sample-stumpwmrc.lisp " ,*dest-dir* "/usr/share/doc/stumpwm"))))
   (dolist (cmd (mapcar (lambda (lst) (format nil "~{~a~}" lst)) cmds))
-    (uiop:run-program cmd)))
+    (print (uiop:run-program cmd :output *standard-output*))))
