@@ -11,5 +11,7 @@ jobs:
       - name: Run Shellcheck.
         run: |
           shopt -s nullglob
-          shellcheck */*/build */*/post-install
+          find . -type f -name 'build' | xargs grep "^#!.*sh" | cut -d':' -f1 | xargs shellcheck
+          find . -type f -name 'post-install' | xargs grep "^#!.*sh" | cut -d':' -f1 | xargs shellcheck
+
 
