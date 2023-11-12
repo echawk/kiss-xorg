@@ -72,11 +72,6 @@ export CFLAGS="$CFLAGS -Wno-builtin-macro-redefined"
 export CXXFLAGS="$CXXFLAGS -Wno-builtin-macro-redefined"
 export CPPFLAGS="$CPPFLAGS -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__="
 
-export CC="${CC:-cc}"
-export CXX="${CXX:-c++}"
-export AR="${AR:-ar}"
-export NM="${NM:-nm}"
-
 # Allow building against system libraries in official builds.
 sed 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
     tools/generate_shim_headers/generate_shim_headers.py > _
