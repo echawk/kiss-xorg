@@ -1,1 +1,2 @@
 https://cairographics.org/releases/cairo-1.18.0.tar.xz
+patches/remove-malloc-stats.patch
