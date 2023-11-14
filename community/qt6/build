@@ -2,6 +2,10 @@
 
 export DESTDIR="$1"
 
+for patch in *.patch; do
+    patch -p1 < "$patch"
+done
+
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DINSTALL_DOCDIR=share/doc/qt6 \
