@@ -1,3 +1,6 @@
-https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.3/wxWidgets-3.2.3.tar.bz2
+https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4.tar.bz2
 patches/musl-locale-l.patch
 patches/musl-no-langinfo-h.patch
+patches/invalid-header-syntax.patch
+patches/largefile.patch
+patches/no-glvnd.patch
