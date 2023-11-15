@@ -64,7 +64,7 @@ mv -f _ Source/cmake/WebKitCompilerFlags.cmake
 export LDFLAGS="$LDFLAGS -Wl,--no-keep-memory"
 
 # If using mold as system linker, switch since mold cannot link all of webkit (yet).
-if [ "$(kiss owns /usr/bin/ld)" = mold ]; then
+if ld --version | grep mold; then
     for linker in ld.bfd ld.lld ld.gold; do
         if command -v "$linker"; then
             ln -s "/usr/bin/$linker" ld
@@ -108,6 +108,8 @@ cmake -B build \
     -DENABLE_GAMEPAD=OFF \
     -DENABLE_JOURNALD_LOG=OFF \
     -DENABLE_WAYLAND_TARGET=OFF \
+    -DENABLE_JIT=ON \
+    -DENABLE_C_LOOP=OFF \
     -DUSE_LCMS=OFF \
     -Wno-dev
 
