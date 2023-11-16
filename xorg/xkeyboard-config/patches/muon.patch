@@ -1,0 +1,26 @@
+From 0691a09076b760d86f4cc5890f91f69025d1783e Mon Sep 17 00:00:00 2001
+From: sewn <sewn@disroot.org>
+Date: Thu, 16 Nov 2023 21:27:08 +0300
+Subject: [PATCH] meson: use builtin install_symlink
+
+---
+ rules/meson.build | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/rules/meson.build b/rules/meson.build
+index 48fd0c60..41645f95 100644
+--- a/rules/meson.build
++++ b/rules/meson.build
+@@ -167,8 +167,7 @@ endforeach
+ 
+ if get_option('xorg-rules-symlinks')
+ 	foreach suffix: ['', '.lst', '.xml']
+-		meson.add_install_script('sh', '-c',
+-			'ln -s base@0@ $DESTDIR@1@/xorg@0@'.format(suffix, dir_xkb_rules))
++		install_symlink('xorg'+suffix, pointing_to: 'base'+suffix, install_dir: dir_xkb_rules)
+ 	endforeach
+ endif
+ # Copy the DTD to the build directory, the man page generation expects it in
+-- 
+2.42.1
+

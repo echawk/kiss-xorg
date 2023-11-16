@@ -2,6 +2,8 @@
 
 export DESTDIR="$1"
 
+patch -p1 < muon.patch
+
 # Swap to shell script instead of perl script
 # for conversion of rules files. See files/xml2lst.
 sed 's/xml2lst\.pl/xml2lst/' rules/meson.build > _
@@ -11,7 +13,7 @@ mv -f _ rules/meson.build
 sed -e "/subdir('po')/d" -e "/i18n/d" meson.build > _
 mv -f _ meson.build
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
     -Dcompat-rules=true \
     -Dxorg-rules-symlinks=true \
@@ -19,4 +21,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install
