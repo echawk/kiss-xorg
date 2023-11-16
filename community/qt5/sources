@@ -1,2 +1,6 @@
-https://invent.kde.org/qt/qt/qtbase/-/archive/v5.15.8-lts-lgpl/qtbase-v5.15.8-lts-lgpl.tar.gz
+https://invent.kde.org/qt/qt/qtbase/-/archive/v5.15.10-lts-lgpl/qtbase-v5.15.10-lts-lgpl.tar.gz
 files/qt.conf
+patches/fix-build-with-xkbcommon-160.patch
+patches/lfs64.patch
+patches/egl-x11.patch
+patches/qt5-base-nostrip.patch
