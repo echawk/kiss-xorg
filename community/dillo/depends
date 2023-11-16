@@ -1,5 +1,0 @@
-autoconf make
-automake make
-fltk
-libXft
-libXinerama
