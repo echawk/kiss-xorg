@@ -30,6 +30,7 @@ mv -f _ src/corelib/codecs/qiconvcodec.cpp
     -examplesdir /usr/share/doc/qt/examples \
     -nomake examples \
     -nomake tests \
+    -opengl \
     -optimized-qmake \
     -no-libudev \
     -no-separate-debug-info \
