@@ -1,1 +1,2 @@
 https://archive.mesa3d.org/mesa-23.2.1.tar.xz
+patches/no-llvm-rtti-check.patch

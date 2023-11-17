@@ -12,11 +12,12 @@ mv -f _ meson.build
 # and enables it if present. ie: install glvnd, rebuild mesa.
 pkg-config --exists libglvnd || glvnd_enabled=false
 
-meson setup \
+# LLVM _must_ be built with LLVM_ENABLE_RTTI enabled, this patch
+# removes the check for it due to it's requirement for CMake
+patch -p1 < no-llvm-rtti-check.patch
+
+muon setup \
     -Dprefix=/usr \
-    -Dsysconfdir=/etc \
-    -Dmandir=/usr/share/man \
-    -Dlocalstatedir=/var \
     -Dbuildtype=release \
     -Dglx-read-only-text=true \
     -Dplatforms=x11 \
@@ -30,4 +31,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install
