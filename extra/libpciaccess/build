@@ -4,9 +4,9 @@ patch -p1 < lfs64.patch
 
 export DESTDIR="$1"
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install
