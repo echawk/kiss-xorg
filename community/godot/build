@@ -19,7 +19,6 @@ export PATH="$PWD/junk/bin:$PATH"
 
 syslibs="
 freetype-harfbuzz
-glslang
 graphite
 icu
 libogg
@@ -29,7 +28,6 @@ libtheora
 libvorbis
 libvpx
 libwebp
-openexr
 pcre2
 zlib
 zstd
