@@ -11,17 +11,14 @@ mv -f _ meson.build
 # the below CFLAGS.
 export CFLAGS="$CFLAGS -Wno-unused-command-line-argument"
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
-    -Dsysconfdir=/etc \
-    -Dmandir=/usr/share/man \
     -Dlibexecdir=/usr/lib \
     -Ddebug-gui=false \
     -Ddocumentation=false \
     -Dtests=false \
     -Dlibwacom=false \
-    -Dpkg_config_path=/usr/lib/pkgconfig \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install

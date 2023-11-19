@@ -17,8 +17,7 @@ libxkbfile
 libxshmfence
 linux-headers make
 mesa
-meson make
+muon          make
 pixman
-pkgconf make
 xkeyboard-config
-xtrans make
+xtrans        make

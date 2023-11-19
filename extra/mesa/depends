@@ -14,8 +14,7 @@ libxshmfence
 linux-headers make
 llvm
 m4            make
-meson         make
-pkgconf       make
+muon          make
 python-mako   make
 xkbcomp
 xorgproto

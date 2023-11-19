@@ -2,17 +2,25 @@
 
 export DESTDIR="$1"
 
-meson setup \
-    -Dprefix=/usr \
-    -Dmandir=/usr/share/man \
-    -Dalsa=enabled \
-    -Dlibmpv=true \
-    -Dwayland=disabled \
-    -Dx11=enabled \
-    output
+opts="\
+-Dprefix=/usr \
+-Dalsa=enabled \
+-Dlibmpv=true \
+-Dwayland=disabled \
+-Dx11=enabled \
+"
 
-ninja -C output
-ninja -C output install
+# muon does not support meson.build_options
+sed "s|meson.build_options()|'$opts'|g" meson.build > _
+mv _ meson.build
+
+# shellcheck disable=SC2086
+muon setup \
+    $opts \
+    build
+
+ninja -C build
+muon  -C build install
 
 rm -rf \
     "$1/usr/share/zsh" \

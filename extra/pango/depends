@@ -2,8 +2,7 @@ cairo
 fontconfig
 freetype-harfbuzz
 glib
+libX11
 libXft
 libXrender
-meson   make
-pkgconf make
-samurai make
+muon make

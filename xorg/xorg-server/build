@@ -4,17 +4,17 @@ export DESTDIR="$1"
 
 patch -p1 < rootless_modesetting.patch
 
+# Merged upstream
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/955
+patch -p1 < muon.patch
+
 # Disable tests.
 : > test/meson.build
 
-# Make meson_options.txt muon compatible.
-sed -E "/boolean/s/'(true|false)'/\1/" meson_options.txt > _
-mv -f _ meson_options.txt
-
-meson setup \
+muon setup \
     -Dwarning_level=2 \
-    -Dprefix='/usr' \
-    -Dlocalstatedir='/var' \
+    -Dprefix=/usr \
+    -Dlocalstatedir=/var \
     -Dsystemd_logind=false \
     -Dglx=true \
     -Ddri1=true \
@@ -29,4 +29,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install

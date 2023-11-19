@@ -1,0 +1,12 @@
+diff --git a/src/meson.build b/src/meson.build
+index 81ad125e4..188377af7 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -792,6 +792,7 @@ endif
+ have_gobject = conf.get('HAVE_GOBJECT', 0) == 1
+ 
+ cmake_config = configuration_data()
++cmake_config.set('default_library', get_option('default_library'))
+ cmake_config.set('libdir', get_option('prefix') / get_option('libdir'))
+ cmake_config.set('includedir', get_option('prefix') / get_option('includedir'))
+ cmake_config.set('HB_LIBTOOL_VERSION_INFO', hb_libtool_version_info)

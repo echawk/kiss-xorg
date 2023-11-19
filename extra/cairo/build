@@ -4,7 +4,7 @@ export DESTDIR="$1"
 
 patch -p1 < remove-malloc-stats.patch
 
-meson setup \
+muon setup \
     -Dprefix=/usr \
     -Dtee=enabled \
     -Dxcb=enabled \
@@ -14,4 +14,4 @@ meson setup \
     output
 
 ninja -C output
-ninja -C output install
+muon  -C output install

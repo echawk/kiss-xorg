@@ -1,4 +1,3 @@
 libva
-mesa    make
-meson   make
-pkgconf make
+mesa make
+muon make

@@ -1,0 +1,71 @@
+From ca96a96d9f1c054a2215eac3837c7d7ba286f12b Mon Sep 17 00:00:00 2001
+From: sewn <sewn@disroot.org>
+Date: Thu, 16 Nov 2023 10:23:59 +0300
+Subject: [PATCH] meson: use proper type for bools
+
+---
+ meson_options.txt | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/meson_options.txt b/meson_options.txt
+index f9d558c..fd6d019 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -11,7 +11,7 @@ option('enable-gir',
+ )
+ option('enable-vapi',
+   type: 'boolean',
+-  value: 'true', 
++  value: true, 
+   description: 'Vala .vapi generation - depends on introspection'
+ )
+ option('gi-docgen',
+@@ -23,38 +23,38 @@ option('gi-docgen',
+ # Compiler extensions
+ option('enable-mmx',
+   type: 'boolean', 
+-  value: 'true', 
++  value: true, 
+   description: 'MMX support - disables all compiler extensons'
+ )
+ option('enable-sse',
+   type: 'boolean',
+-  value: 'true',
++  value: true,
+   description: 'SSE support - depends on MMX'
+ )
+ option('enable-sse2',
+   type: 'boolean',
+-  value: 'true',
++  value: true,
+   description: 'SSE2 support - depends on SSE'
+ )
+ option('enable-sse4_1',
+   type: 'boolean',
+-  value: 'true',
++  value: true,
+   description: 'SSE4.1 support - depends on SSE2'
+ )
+ option('enable-avx2',
+   type: 'boolean',
+-  value: 'true',
++  value: true,
+   description: 'AVX2 support - depends on SSE4.1'
+ )
+ option('enable-f16c',
+   type: 'boolean',
+-  value: 'true',
++  value: true,
+   description: 'Hardware half-float support - depends on SSE'
+ )
+ 
+ # Optional dependencies
+ option('with-lcms',
+   type: 'boolean',
+-  value: 'true', 
++  value: true, 
+   description: 'build with lcms'
+ )
+-- 
+2.42.1
+

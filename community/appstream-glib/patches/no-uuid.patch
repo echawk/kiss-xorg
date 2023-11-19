@@ -12,12 +12,12 @@ index 872d30d..60abcf6 100644
  Libs: -L${libdir} -lappstream-glib
  Cflags: -I${includedir}/libappstream-glib
 diff --git a/libappstream-glib/as-utils.c b/libappstream-glib/as-utils.c
-index 007a86b..35fd9d0 100644
+index d9b0f56..301a632 100644
 --- a/libappstream-glib/as-utils.c
 +++ b/libappstream-glib/as-utils.c
-@@ -23,13 +23,6 @@
+@@ -22,13 +22,6 @@
+ #include <archive_entry.h>
  #include <archive.h>
- #include <libsoup/soup.h>
  #include <stdlib.h>
 -#ifndef _WIN32
 -#ifdef __APPLE__
@@ -29,7 +29,7 @@ index 007a86b..35fd9d0 100644
  
  #ifdef HAVE_RPM
  #include <rpm/rpmlib.h>
-@@ -1531,53 +1524,7 @@ as_utils_guid_from_data (const gchar *namespace_id,
+@@ -1530,53 +1523,7 @@ as_utils_guid_from_data (const gchar *namespace_id,
  			 gsize data_len,
  			 GError **error)
  {
@@ -83,7 +83,7 @@ index 007a86b..35fd9d0 100644
  }
  
  /**
-@@ -1593,20 +1540,7 @@ as_utils_guid_from_data (const gchar *namespace_id,
+@@ -1592,20 +1539,7 @@ as_utils_guid_from_data (const gchar *namespace_id,
  gboolean
  as_utils_guid_is_valid (const gchar *guid)
  {
@@ -105,7 +105,7 @@ index 007a86b..35fd9d0 100644
  
  /**
 diff --git a/libappstream-glib/meson.build b/libappstream-glib/meson.build
-index 715123d..f5beaae 100644
+index 886f6c6..c124532 100644
 --- a/libappstream-glib/meson.build
 +++ b/libappstream-glib/meson.build
 @@ -16,7 +16,7 @@ if platform_win32
@@ -117,7 +117,7 @@ index 715123d..f5beaae 100644
  endif
  
  if get_option('dep11')
-@@ -158,9 +158,6 @@ pkg_req_private = [
+@@ -160,9 +160,6 @@ pkg_req_private = [
    'libarchive'
  ]
  
@@ -128,14 +128,14 @@ index 715123d..f5beaae 100644
  pkgg.generate(
    version : as_version,
 diff --git a/meson.build b/meson.build
-index 331dd7a..5ca8750 100644
+index 45a1115..50de37b 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -69,7 +69,6 @@ elif platform_osx
+@@ -71,7 +71,6 @@ elif platform_osx
    giounix = dependency('gio-unix-2.0', version : glib_ver)
  else
    giounix = dependency('gio-unix-2.0', version : glib_ver)
 -  uuid = dependency('uuid')
  endif
  libarchive = dependency('libarchive')
- soup = dependency('libsoup-2.4', version : '>= 2.51.92')
+ libcurl = dependency('libcurl', version : '>= 7.56.0')

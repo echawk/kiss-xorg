@@ -7,7 +7,7 @@ libxcvt
 libxkbfile
 libxshmfence
 mesa
-meson make
+muon make
 openssl
 pixman
 wayland

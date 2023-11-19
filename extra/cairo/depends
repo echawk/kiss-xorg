@@ -4,8 +4,8 @@ glib
 libXext
 libXrender
 libpng
+libxcb
 mesa
-meson make
+muon make
 pixman
-pkgconf make
 zlib
