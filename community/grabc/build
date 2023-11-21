@@ -4,5 +4,5 @@ export DESTDIR="$1"
 
 
 make
-
-install -Dm755 grabc "$1/usr/bin/grabc"
+mkdir -p "$1/usr/bin/"
+cp grabc "$1/usr/bin/"
