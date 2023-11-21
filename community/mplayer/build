@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-
 if ! command -v yasm; then (
     cd yasm
     ./configure \
@@ -24,4 +23,5 @@ export PATH="$PWD/junk/bin:$PATH"
 make
 make install
 
-install -Dm0644 etc/example.conf "$1/etc/mplayer/mplayer.conf"
+mkdir -p "$1/etc/mplayer/"
+cp etc/example.conf "$1/etc/mplayer/mplayer.conf"
