@@ -5,7 +5,11 @@ export DESTDIR="$1"
 
 cargo build --release
 
-install -Dm755 target/release/alacritty "$1/usr/bin/alacritty"
+mkdir -p \
+    "$1/usr/bin/" \
+    "$1/usr/share/man/man1/" \
+    "$1/usr/share/doc/alacritty/example/"
 
-install -Dm644 extra/alacritty.man "$1/usr/share/man/man1/alacritty.1"
-install -Dm644 alacritty.yml "$1/usr/share/doc/alacritty/example/alacritty.yml"
+cp target/release/alacritty "$1/usr/bin/"
+cp extra/alacritty.man "$1/usr/share/man/man1/alacritty.1"
+cp alacritty.yml "$1/usr/share/doc/alacritty/example/alacritty.yml"
