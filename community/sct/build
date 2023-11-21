@@ -2,8 +2,8 @@
 
 export DESTDIR="$1"
 
-
 cc -std=c99 -O2 -I /usr/X11R6/include -o sct sct.c \
-    -L /usr/X11R6/lib -lm -lX11 -lXrandr
+    -lm -lX11 -lXrandr
 
-install -Dm755 sct "$1/usr/bin/sct"
+mkdir -p "$1/usr/bin/"
+cp sct "$1/usr/bin/sct"
