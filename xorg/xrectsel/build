@@ -3,4 +3,5 @@
 export DESTDIR="$1"
 
 ${CC:-cc} -o xrectsel xrectsel.c strtonum.c -lX11
-install -Dt "$1/usr/bin" xrectsel
+mkdir -p "$1/usr/bin/"
+cp xrectsel "$1/usr/bin/"
