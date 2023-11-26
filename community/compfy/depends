@@ -1,0 +1,10 @@
+libX11
+libconfig
+libev
+libxcb
+mesa
+meson make
+pcre2
+pixman
+xcb-util-image
+xcb-util-renderutil
