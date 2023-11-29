@@ -86,4 +86,4 @@ distro/fork | tested? | notes
 [glasnost](https://glasnost.org) | Y | clang is a dep of some packages, so a dummy package is needed
 [wyverkiss](https://github.com/wyvertux) | Y | need to fork some packages for gmake & bison
 [noir](https://github.com/noirlinux/main) | N |
-[carbslinux](https://carbslinux.org/) | n/a | carbs ships with Xorg already
+[carbslinux](https://carbslinux.org/) | n/a |
