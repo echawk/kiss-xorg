@@ -8,6 +8,7 @@ done
 
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
     -DINSTALL_DOCDIR=share/doc/qt6 \
     -DINSTALL_ARCHDATADIR=lib/qt6 \
     -DINSTALL_DATADIR=share/qt6 \

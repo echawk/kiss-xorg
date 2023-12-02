@@ -1,3 +1,2 @@
-https://download.qt.io/official_releases/qt/6.5/6.5.3/submodules/qtbase-everywhere-src-6.5.3.tar.xz
+https://download.qt.io/official_releases/qt/6.6/6.6.1/submodules/qtbase-everywhere-src-6.6.1.tar.xz
 patches/0001-lfs64.patch
-patches/0002-fix-build-with-xkbcommon-160.patch
