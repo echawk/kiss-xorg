@@ -1,8 +1,0 @@
-libX11
-libXft
-libXpm
-libXrender
-libpng
-musl-fts
-uthash
-xrandr
