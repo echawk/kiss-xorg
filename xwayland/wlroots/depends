@@ -13,3 +13,4 @@ pixman
 wayland
 wayland-protocols make
 xcb-util-wm
+xwayland
