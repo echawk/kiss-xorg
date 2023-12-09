@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-go build -o ymuse
-
-mkdir -p "$1/usr/bin/"
-cp ymuse "$1/usr/bin/"
