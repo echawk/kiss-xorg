@@ -2,6 +2,8 @@
 
 export DESTDIR="$1"
 
+pkg-config --exists gobject-introspection-1.0 && gir=enabled
+
 build_freetype() (
     cd freetype
 
@@ -24,9 +26,9 @@ build_harfbuzz() (
         -Dprefix=/usr \
         -Dpkg_config_path="$DESTDIR/usr/lib/pkgconfig" \
         -Ddefault_library=both \
-        -Dglib=disabled \
+        -Dglib="${gir:-disabled}" \
         -Dfreetype=enabled \
-        -Dgobject=disabled \
+        -Dgobject="${gir:-disabled}" \
         -Dcairo=disabled \
         -Dicu=disabled \
         -Dbenchmark=disabled \
