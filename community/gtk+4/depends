@@ -1,8 +1,6 @@
-atk
 cairo
 fontconfig
 freetype-harfbuzz
-fribidi
 gdk-pixbuf
 glib
 graphene
@@ -19,12 +17,7 @@ libepoxy
 libjpeg-turbo
 libpng
 libxkbcommon
-meson make
+meson   make
 pango
-perl   make
 pkgconf make
-python make
-readline make
-samurai make
-shared-mime-info
 tiff

@@ -1,0 +1,76 @@
+diff --git a/gdk/gdk.c b/gdk/gdk.c
+index 65c9da23bb..edfb81147c 100644
+--- a/gdk/gdk.c
++++ b/gdk/gdk.c
+@@ -41,8 +41,6 @@
+ #include <stdio.h>
+ #include <ctype.h>
+ 
+-#include <fribidi.h>
+-
+ 
+ /**
+  * GDK_WINDOWING_X11:
+@@ -374,17 +372,6 @@ gdk_should_use_portal (void)
+ PangoDirection
+ gdk_unichar_direction (gunichar ch)
+ {
+-  FriBidiCharType fribidi_ch_type;
+-
+-  G_STATIC_ASSERT (sizeof (FriBidiChar) == sizeof (gunichar));
+-
+-  fribidi_ch_type = fribidi_get_bidi_type (ch);
+-
+-  if (!FRIBIDI_IS_STRONG (fribidi_ch_type))
+-    return PANGO_DIRECTION_NEUTRAL;
+-  else if (FRIBIDI_IS_RTL (fribidi_ch_type))
+-    return PANGO_DIRECTION_RTL;
+-  else
+     return PANGO_DIRECTION_LTR;
+ }
+ 
+diff --git a/gdk/meson.build b/gdk/meson.build
+index 6b2f50950d..099932edea 100644
+--- a/gdk/meson.build
++++ b/gdk/meson.build
+@@ -198,7 +198,6 @@ gdk_deps = [
+   pixbuf_dep,
+   cairo_dep,
+   pango_dep,
+-  fribidi_dep,
+   cairogobj_dep,
+   glib_dep,
+   gobject_dep,
+diff --git a/gtk/meson.build b/gtk/meson.build
+index 19bc221277..069ebc5abb 100644
+--- a/gtk/meson.build
++++ b/gtk/meson.build
+@@ -1008,7 +1008,6 @@ gtk_deps = [
+   platform_gio_dep,
+   pangocairo_dep,
+   harfbuzz_dep,
+-  fribidi_dep,
+   cairogobj_dep,
+   fontconfig_dep,
+   pixbuf_dep,
+diff --git a/meson.build b/meson.build
+index b7717e18c9..d938bf8824 100644
+--- a/meson.build
++++ b/meson.build
+@@ -15,7 +15,6 @@ glib_req           = '>= 2.76.0'
+ introspection_req  = '>= 1.76.0' # keep this in sync with glib
+ pango_req          = '>= 1.50.0' # keep this in sync with .gitlab-ci/test-msys.sh
+ harfbuzz_req       = '>= 2.6.0'
+-fribidi_req        = '>= 1.0.6'
+ cairo_req          = '>= 1.14.0'
+ gdk_pixbuf_req     = '>= 2.30.0'
+ wayland_proto_req  = '>= 1.31'
+@@ -374,8 +373,6 @@ cairo_dep      = dependency('cairo', version: cairo_req,
+                             default_options: ['zlib=enabled', 'tests=disabled'])
+ cairogobj_dep  = dependency('cairo-gobject', version: cairo_req)
+ pango_dep      = dependency('pango', version: pango_req)
+-fribidi_dep    = dependency('fribidi', version: fribidi_req,
+-                            default_options: ['docs=false'])
+ harfbuzz_dep   = dependency('harfbuzz', version: harfbuzz_req,
+                             default_options: ['coretext=enabled'])
+ 
