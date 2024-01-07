@@ -5,11 +5,6 @@ export DESTDIR="$1"
 
 cargo build --release
 
-mkdir -p \
-    "$1/usr/bin/" \
-    "$1/usr/share/man/man1/" \
-    "$1/usr/share/doc/alacritty/example/"
+mkdir -p "$1/usr/bin/"
 
 cp target/release/alacritty "$1/usr/bin/"
-cp extra/alacritty.man "$1/usr/share/man/man1/alacritty.1"
-cp alacritty.yml "$1/usr/share/doc/alacritty/example/alacritty.yml"
