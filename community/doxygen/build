@@ -2,6 +2,8 @@
 
 export DESTDIR="$1"
 
+patch -p1 < remove-usage-of-fstat64.patch
+
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Dbuild_doc:BOOL=OFF \
