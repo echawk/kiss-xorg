@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+patch -p1 < no-fribidi.patch
+
+pkg-config --exists gobject-introspection-1.0 && gir=enabled
+
+meson setup \
+    -Dprefix=/usr \
+    -Dvapi=false \
+    -Dtests=false \
+    -Dexamples=false \
+    -Dintrospection="${gir:-disabled}" \
+    build
+
+ninja -C build
+ninja -C build install

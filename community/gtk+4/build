@@ -2,14 +2,23 @@
 
 export DESTDIR="$1"
 
-pkg-config --exists gobject-introspection-1.0 && gir=enabled
+patch -p1 < no-fribidi.patch
 
-#pkg-config --exists wayland-server && wayland_backend=true
+pkg-config --exists gobject-introspection-1.0 && {
+    gir=enabled
+
+    # If introspection is enabled, harfbuzz must be built
+    # with introspection support due to hb-glib.h header.
+    pkg-config --exists harfbuzz-gobject || {
+        echo 'rebuild freetype-harfbuzz for gobject'
+        exit 1
+    }
+}
 
 meson setup \
     -Dprefix=/usr \
     -Dgtk_doc=false \
-    -Dwayland-backend="${wayland_backend:-false}" \
+    -Dwayland-backend=false \
     -Dwin32-backend=false \
     -Dintrospection="${gir:-disabled}" \
     -Dmedia-gstreamer=disabled \
