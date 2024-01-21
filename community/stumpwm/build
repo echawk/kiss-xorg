@@ -3,10 +3,14 @@
 
 (declaim (sb-ext:muffle-conditions cl:warning))
 
+(require :uiop)
+
 ;; Yes, this is a hack, but there really isn't any other way to do
 ;; this in a *nice* way.
 ;; It's a known problem in the CL world.
-(load (merge-pathnames (car (directory "~/")) ".sbclrc"))
+(let ((sbclrc (merge-pathnames (car (directory "~/")) ".sbclrc")))
+  (if (uiop:file-exists-p sbclrc)
+      (load sbclrc)))
 
 (setq *dest-dir* (nth 1 sb-ext:*posix-argv*))
 (setq *version* (nth 2 sb-ext:*posix-argv*))
@@ -26,17 +30,17 @@ Then build and install this package.")
 (ql:quickload '(:clx :cl-ppcre :alexandria))
 
 (let ((cmds
-       `(("touch nostrip")
-         ("autoreconf -vif")
-         ("./configure"
-          " --prefix=/usr"
-          " --with-lisp=sbcl"
-          " --with-module-dir=/usr/share/stumpwm/contrib")
+        `(("touch nostrip")
+          ("autoreconf -vif")
+          ("./configure"
+           " --prefix=/usr"
+           " --with-lisp=sbcl"
+           " --with-module-dir=/usr/share/stumpwm/contrib")
 
-         ("make -j1 destdir='" ,*dest-dir* "'")
-         ("make -j1 destdir='" ,*dest-dir* "' install")
+          ("make -j1 destdir='" ,*dest-dir* "'")
+          ("make -j1 destdir='" ,*dest-dir* "' install")
 
-         ("mkdir -p " ,*dest-dir* "/usr/share/doc/stumpwm")
-         ("cp sample-stumpwmrc.lisp " ,*dest-dir* "/usr/share/doc/stumpwm"))))
+          ("mkdir -p " ,*dest-dir* "/usr/share/doc/stumpwm")
+          ("cp sample-stumpwmrc.lisp " ,*dest-dir* "/usr/share/doc/stumpwm"))))
   (dolist (cmd (mapcar (lambda (lst) (format nil "~{~a~}" lst)) cmds))
     (print (uiop:run-program cmd :output *standard-output*))))
