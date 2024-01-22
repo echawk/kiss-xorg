@@ -1,0 +1,19 @@
+#!/bin/sh -ex
+
+kiss manifest liberation-fonts |
+      grep 'ttf$' |
+      xargs -I{} sh -c "otf2bdf {} -o \$(basename {} | sed 's/ttf/bdf/')"
+
+find . -name '*.bdf' -print0 |
+      xargs -0 -I{} sh -c "bdftopcf {} -o \$(basename {} | sed 's/bdf/pcf/')"
+
+rm -- ./*.bdf
+find . -name '*.pcf' -exec gzip {} \;
+
+mkfontdir
+echo "cursor.pcf.gz cursor" >> fonts.dir
+
+echo "fixed $(grep "Mono.*Regular" fonts.dir | cut -d' ' -f2-)" > fonts.alias
+
+mkdir -p "$1/usr/share/fonts/misc/"
+cp ./* "$1/usr/share/fonts/misc/"
