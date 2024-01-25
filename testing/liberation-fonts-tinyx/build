@@ -4,8 +4,9 @@ kiss manifest liberation-fonts |
       grep 'ttf$' |
       xargs -I{} sh -c "otf2bdf {} -o \$(basename {} | sed 's/ttf/bdf/')"
 
-find . -name '*.bdf' -print0 |
-      xargs -0 -I{} sh -c "bdftopcf {} -o \$(basename {} | sed 's/bdf/pcf/')"
+# shellcheck disable=2038
+find . -name '*.bdf' |
+      xargs -I{} sh -c "bdftopcf {} -o \$(basename {} | sed 's/bdf/pcf/')"
 
 rm -- ./*.bdf
 find . -name '*.pcf' -exec gzip {} \;
