@@ -19,14 +19,6 @@ mv -f _ data/meson.build
 sed "/subdir('goat/d" extensions/meson.build > _
 mv -f _ extensions/meson.build
 
-# Change icons to Color, since the Symbolic icons cause build failures.
-sed "/DEFAULT_ICON_THEME/s/Symbolic/Color/" app/config/gimpguiconfig.h > _
-mv -f _ app/config/gimpguiconfig.h
-
-# If this sed isn't ran, the vector icons will still be built.
-sed "/have_vector_icons/s/not//" icons/Symbolic/meson.build > _
-mv -f _ icons/Symbolic/meson.build
-
 # Correct the version of mypaint-brushes.
 sed "s/mypaint-brushes-1.0/mypaint-brushes-2.0/" meson.build > _
 mv -f _ meson.build
