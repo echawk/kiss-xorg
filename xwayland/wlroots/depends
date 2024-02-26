@@ -1,5 +1,6 @@
 flex make
 hwdata make
+libdisplay-info
 libdrm
 libinput
 libseat
