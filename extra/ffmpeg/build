@@ -3,6 +3,7 @@
 export DESTDIR="$1"
 
 patch -p1 < add-av_stream_get_first_dts-for-chromium.patch
+patch -p1 < fix-vulkan-headers.patch
 
 # Check for libtls, available when using libressl or libretls.
 if pkg-config --exists libtls; then
