@@ -16,6 +16,11 @@ pkg-config --exists libopenjp2 && jpeg=ON
 # Enable WEB_CRYPTO if libtasn1 is installed.
 pkg-config --exists libtasn1 && tasn=ON
 
+# See https://github.com/echawk/kiss-xorg/issues/161.
+if ! [ "ON" = "$tasn" ]; then
+    patch -p1 < crypto-fix.patch
+fi
+
 # Use clang if installed, decreases compilation time by 25%.
 if command -v clang; then
     export CC=clang

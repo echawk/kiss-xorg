@@ -1,0 +1,26 @@
+--- a/Source/WebCore/bindings/js/SerializedScriptValue.cpp
++++ b/Source/WebCore/bindings/js/SerializedScriptValue.cpp
+@@ -2377,11 +2377,6 @@
+         }
+     }
+
+-    void write(SerializableErrorType errorType)
+-    {
+-        write(enumToUnderlyingType(errorType));
+-    }
+-
+     void write(const CryptoKey* key)
+     {
+         write(currentKeyFormatVersion);
+@@ -2467,6 +2462,11 @@
+         }
+     }
+ #endif
+
++    void write(SerializableErrorType errorType)
++    {
++        write(enumToUnderlyingType(errorType));
++    }
++
+     void write(const uint8_t* data, unsigned length)
+     {
