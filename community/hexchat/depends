@@ -1,7 +1,0 @@
-gdk-pixbuf
-glib
-gtk+2
-libX11
-meson make
-openssl
-pango
