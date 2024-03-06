@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-export DESTDIR="$1"
-
-./waf configure \
-    --prefix=/usr
-./waf
-./waf install \
-    --destdir="$1"
