@@ -15,4 +15,4 @@ perl   make
 python make
 ruby   make
 sqlite
-unifdef make
+unifdef-git make
