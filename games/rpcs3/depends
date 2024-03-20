@@ -8,7 +8,6 @@ libSM
 libX11
 libXext
 libevdev
-libexecinfo
 libglvnd
 libpng
 ncurses
