@@ -41,6 +41,8 @@ done
 
 export PATH="$PWD/junk/bin:$PATH"
 
+export CFLAGS="$CFLAGS -D_LARGEFILE64_SOURCE"
+
 sed -e 's#%SRCDIR%#'"$(realpath .)"'#g' -e "s#%CFLAGS%#$CFLAGS#g" mozconfig.in > .mozconfig
 
 mv -f UXP/* platform/
