@@ -5,6 +5,8 @@ export DESTDIR="$1"
 export CFLAGS="$CFLAGS -D_LARGEFILE64_SOURCE"
 export CXXFLAGS="$CXXFLAGS -D_LARGEFILE64_SOURCE"
 
+git submodule update --init --recursive
+
 # Below will allow the build to continue without gettext.
 sed \
     -e "/subdir('po/d" \
