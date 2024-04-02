@@ -1,3 +1,4 @@
 cmake make
 expat
+inih
 zlib
