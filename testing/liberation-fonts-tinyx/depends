@@ -1,4 +1,4 @@
-bdftopcf
-liberation-fonts
-mkfontscale
-otf2bdf
+bdftopcf make
+liberation-fonts make
+mkfontscale make
+otf2bdf-git make
