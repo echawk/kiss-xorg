@@ -29,6 +29,9 @@ mv -f _ meson.build
 sed "/dependency('babl'/s/'babl'/'babl-0.1'/" meson.build > _
 mv -f _ meson.build
 
+# Remove all meson.build files which are associated with test directories.
+find . -type d | grep -E "tests?$" | xargs -I{} sh -c "test -e {}/meson.build && echo {}/meson.build" | xargs -I{} sh -c ": > {}"
+
 meson setup \
     -Dprefix=/usr \
     -Dcheck-update=no \
