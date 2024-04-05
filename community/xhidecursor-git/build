@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+make
+mkdir -p "$1/usr/bin/"
+cp xhidecursor "$1/usr/bin/"
