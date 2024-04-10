@@ -1,0 +1,35 @@
+alsa-lib
+atk
+bison              make
+bzip2
+ffmpeg
+flac
+fontconfig
+glib
+gperf              make
+gtk+3
+hwdata
+libXcomposite
+libXdamage
+libXi
+libXrandr
+libXtst
+libdrm
+libexif
+libffi
+libgcrypt
+libjpeg-turbo
+libva              make
+libwebp
+libxkbcommon
+libxml2
+libxslt
+mesa
+nodejs             make
+nss
+opus
+perl               make
+pkgconf            make
+python             make
+samurai            make
+xcb-proto
