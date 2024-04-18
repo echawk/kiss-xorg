@@ -1,1 +1,2 @@
 git+https://github.com/GNOME/gimp
+git+https://github.com/GNOME/gimp-data gimp-data
