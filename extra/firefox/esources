@@ -2,7 +2,6 @@ https://ftp.mozilla.org/pub/firefox/releases/VERSION/source/firefox-VERSION.sour
 patches/fix-target-detection.patch
 patches/fix-vaapi.patch
 patches/musl-sandbox.patch
-patches/musl-use-res_query.patch
 patches/no-atk.patch
 patches/no-dbus.patch
 patches/no-fribidi.patch
