@@ -1,0 +1,8 @@
+autoconf make
+automake make
+cairo
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+3
+pango

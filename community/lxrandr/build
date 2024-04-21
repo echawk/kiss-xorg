@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+sed "/IT_PROG_INTLTOOL/d" configure.ac > _
+mv -f _ configure.ac
+sed "s/po//;s/data//" Makefile.am > _
+mv -f _ Makefile.am
+autoreconf -vif
+
+./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-gtk3 \
+    --disable-nls
+
+make
+make install
