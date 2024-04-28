@@ -4,6 +4,6 @@ glib
 gtk+3
 libconfig
 libsecret
-libsoup
+libsoup3
 meson make
 openssl
