@@ -17,14 +17,14 @@ pkg-config --exists gobject-introspection-1.0 && {
 
 meson setup \
     -Dprefix=/usr \
-    -Dgtk_doc=false \
+    -Ddocumentation=false \
     -Dwayland-backend=false \
     -Dwin32-backend=false \
     -Dintrospection="${gir:-disabled}" \
     -Dmedia-gstreamer=disabled \
     -Dprint-cups=disabled \
     -Df16c=disabled \
-    -Ddemos=false \
+    -Dbuild-demos=false \
     -Dbuild-tests=false \
     -Dbuild-testsuite=false \
     -Dbuild-examples=false \
