@@ -1,6 +1,0 @@
-clang
-cmake make
-libxml2
-libxslt
-qt5
-qt5-xmlpatterns
