@@ -12,7 +12,6 @@ libelf
 libxcb
 libxshmfence
 linux-headers make
-llvm
 m4            make
 meson         make
 pkgconf       make
