@@ -11,6 +11,7 @@ pkg-config --exists gobject-introspection-1.0 && gi=true
 meson setup \
     -Dprefix=/usr \
     -Dintrospection="${gi:-false}" \
+    -Dvapi=false \
     output
 
 ninja -C output
