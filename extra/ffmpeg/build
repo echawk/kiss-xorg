@@ -2,6 +2,8 @@
 
 export DESTDIR="$1"
 
+patch -p1 < gcc-14.patch
+
 # Check for libtls, available when using libressl or libretls.
 if pkg-config --exists libtls; then
     _ssl="--enable-libtls"
