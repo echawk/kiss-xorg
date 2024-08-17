@@ -4,6 +4,9 @@ export DESTDIR="$1"
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
+export CFLAGS="$CFLAGS -DNDEBUG"
+export CXXFLAGS="$CXXFLAGS -DNDEBUG -Wno-deprecated-declarations -Wno-deprecated-copy"
+
 # Use libsoup3, if available. This changes the webkit version from 4.0 to 4.1.
 pkg-config --exists libsoup-3.0 && libsoup=OFF
 
@@ -12,14 +15,6 @@ pkg-config --exists gstreamer-play-1.0 && streaming=ON
 
 # Enable the use of openjpeg if the package is installed.
 pkg-config --exists libopenjp2 && jpeg=ON
-
-# Enable WEB_CRYPTO if libtasn1 is installed.
-pkg-config --exists libtasn1 && tasn=ON
-
-# See https://github.com/echawk/kiss-xorg/issues/161.
-if ! [ "ON" = "$tasn" ]; then
-    patch -p1 < crypto-fix.patch
-fi
 
 # Use clang if installed, decreases compilation time by 25%.
 if command -v clang; then
@@ -87,35 +82,38 @@ cmake -B build \
     -DPORT=GTK \
     -DCMAKE_SKIP_RPATH=ON \
     -DENABLE_API_TESTS=OFF \
-    -DENBALE_PDFJS=OFF \
     -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
-    -DENABLE_SAMPLING_PROFILER=OFF \
+    -DENABLE_C_LOOP=OFF \
+    -DENABLE_DOCUMENTATION=OFF \
+    -DENABLE_GAMEPAD=OFF \
     -DENABLE_GEOLOCATION=OFF \
     -DENABLE_GLES2=ON \
     -DENABLE_INTROSPECTION=OFF \
-    -DENABLE_DOCUMENTATION=OFF \
+    -DENABLE_JIT=OFF \
+    -DENABLE_JOURNALD_LOG=OFF \
     -DENABLE_MINIBROWSER=OFF \
+    -DENABLE_PDFJS=OFF \
+    -DENABLE_SAMPLING_PROFILER=OFF \
     -DENABLE_SPELLCHECK=OFF \
+    -DENABLE_VIDEO="${streaming:-OFF}" \
+    -DENABLE_WAYLAND_TARGET=OFF \
+    -DENABLE_WEB_AUDIO="${streaming:-OFF}" \
+    -DENABLE_WEB_CRYPTO="${tasn:-OFF}" \
+    -DUSE_AVIF=OFF \
     -DUSE_GSTREAMER_GL=OFF \
-    -DUSE_SOUP2="${libsoup:-ON}" \
+    -DUSE_GSTREAMER_TRANSCODER=OFF \
+    -DUSE_GTK4=OFF \
+    -DUSE_JPEGXL=OFF \
+    -DUSE_LCMS=OFF \
+    -DUSE_LIBBACKTRACE=OFF \
     -DUSE_LIBHYPHEN=OFF \
     -DUSE_LIBNOTIFY=OFF \
     -DUSE_LIBSECRET=OFF \
     -DUSE_OPENJPEG="${jpeg:-OFF}" \
-    -DUSE_JPEGXL=OFF \
+    -DUSE_SOUP2=OFF \
     -DUSE_SYSTEMD=OFF \
     -DUSE_WOFF2=OFF \
     -DUSE_WPE_RENDERER=OFF \
-    -DUSE_AVIF=OFF \
-    -DENABLE_WEB_CRYPTO="${tasn:-OFF}" \
-    -DENABLE_VIDEO="${streaming:-OFF}" \
-    -DENABLE_WEB_AUDIO="${streaming:-OFF}" \
-    -DENABLE_GAMEPAD=OFF \
-    -DENABLE_JOURNALD_LOG=OFF \
-    -DENABLE_WAYLAND_TARGET=OFF \
-    -DENABLE_JIT=ON \
-    -DENABLE_C_LOOP=OFF \
-    -DUSE_LCMS=OFF \
     -Wno-dev
 
 cmake --build build
