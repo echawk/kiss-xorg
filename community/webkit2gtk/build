@@ -7,9 +7,6 @@ export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 export CFLAGS="$CFLAGS -DNDEBUG"
 export CXXFLAGS="$CXXFLAGS -DNDEBUG -Wno-deprecated-declarations -Wno-deprecated-copy"
 
-# Use libsoup3, if available. This changes the webkit version from 4.0 to 4.1.
-pkg-config --exists libsoup-3.0 && libsoup=OFF
-
 # Enable streaming related options if gstreamer is installed.
 pkg-config --exists gstreamer-play-1.0 && streaming=ON
 
