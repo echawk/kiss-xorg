@@ -3,8 +3,7 @@
 export DESTDIR="$1"
 
 for p in *.patch; do
-    # busybox patch sucks
-    git apply "$p"
+    patch -p1 < "$p"
 done
 
 sed '/UNZIP/d' toolkit/moz.configure > _
