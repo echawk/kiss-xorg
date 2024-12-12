@@ -1,1 +1,5 @@
 https://webkitgtk.org/releases/webkitgtk-VERSION.tar.xz
+patches/cloopfix.patch
+patches/fix-build.patch
+patches/llvm19.patch
+patches/x11-include-order.patch
