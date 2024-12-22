@@ -2,12 +2,17 @@
 
 export DESTDIR="$1"
 
+pkg-config --exists wayland && wayland=ON
+pkg-config --exists x11 && xorg=ON
+
 cmake -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DFLTK_BUILD_TEST=OFF \
     -DFLTK_BUILD_EXAMPLES=OFF \
-    -DOPTION_BUILD_SHARED_LIBS=ON
+    -DFLTK_BACKEND_WAYLAND=${wayland:-OFF} \
+    -DFLTK_BACKEND_X11=${xorg:-OFF}
+
 
 cmake --build   build
 cmake --install build
