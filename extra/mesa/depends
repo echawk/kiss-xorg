@@ -1,6 +1,7 @@
 bison        make
 expat
 flex         make
+libclc       make
 libX11
 libXdamage
 libXext
@@ -16,6 +17,8 @@ m4            make
 meson         make
 pkgconf       make
 python-mako   make
+python-yaml   make
+spirv-llvm-translator make
 xkbcomp
 xorgproto
 zlib
