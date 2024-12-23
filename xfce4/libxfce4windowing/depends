@@ -1,0 +1,13 @@
+atk
+cairo
+freetype-harfbuzz
+gdk-pixbuf
+glib
+gtk+3
+intltool-fake make
+libX11
+libXrandr
+libdisplay-info
+libwnck
+pango
+xfce4-dev-tools make

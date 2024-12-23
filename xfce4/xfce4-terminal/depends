@@ -33,5 +33,5 @@ mesa
 pango
 pcre2
 pixman
-vte3
+vte3-git
 xfconf

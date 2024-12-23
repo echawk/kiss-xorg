@@ -30,6 +30,7 @@ libwnck
 libxcb
 libxfce4ui
 libxfce4util
+libxfce4windowing
 libxshmfence
 mesa
 pango
