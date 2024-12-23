@@ -10,8 +10,8 @@ cmake -B build \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DFLTK_BUILD_TEST=OFF \
     -DFLTK_BUILD_EXAMPLES=OFF \
-    -DFLTK_BACKEND_WAYLAND=${wayland:-OFF} \
-    -DFLTK_BACKEND_X11=${xorg:-OFF}
+    -DFLTK_BACKEND_WAYLAND="${wayland:-OFF}" \
+    -DFLTK_BACKEND_X11="${xorg:-OFF}"
 
 
 cmake --build   build
