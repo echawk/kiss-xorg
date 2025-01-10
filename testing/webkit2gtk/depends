@@ -7,7 +7,7 @@ gtk+3
 harfbuzz-icu
 libXt
 libgcrypt
-libsoup
+libsoup3
 libtasn1
 libwebp
 libxslt
