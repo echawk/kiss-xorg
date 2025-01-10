@@ -2,7 +2,6 @@
 
 export DESTDIR="$1"
 
-patch -p1 < no-execinfo.patch
 patch -p1 < gcc13.patch
 
 if ! command -v yasm; then (
