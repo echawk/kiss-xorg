@@ -4,17 +4,8 @@ export DESTDIR="$1"
 
 export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
-if find . -name '*.patch' | grep patch; then
-    for p in *.patch; do
-        patch -p1 < "$p"
-    done
-fi 
-
 # Use libsoup3, if available. This changes the webkit version from 4.0 to 4.1.
 pkg-config --exists libsoup-3.0 && libsoup=OFF
-
-# Enable the use of openjpeg if the package is installed.
-pkg-config --exists libopenjp2 && jpeg=ON
 
 # Use clang if installed, decreases compilation time by 25%.
 if command -v clang; then
@@ -57,7 +48,9 @@ mv -f _ Source/JavaScriptCore/jsc.cpp
 
 # Webkit's CMake configuration forces color output using clang-specific flags
 # when using Ninja as the CMAKE_GENERATOR. We should disable them.
-sed "s/-fcolor-diagnostics//" Source/cmake/WebKitCompilerFlags.cmake > _
+sed -e "s/-fcolor-diagnostics//" \
+    -e "s/-fdiagnostics-color=always/-fdiagnostics-color=never/" \
+    Source/cmake/WebKitCompilerFlags.cmake > _
 mv -f _ Source/cmake/WebKitCompilerFlags.cmake
 
 # Reduce memory usage.
@@ -83,11 +76,9 @@ cmake -B build \
     -DCMAKE_SKIP_RPATH=ON \
     -DENABLE_TOOLS=OFF \
     -DENABLE_API_TESTS=OFF \
-    -DENBALE_PDFJS=OFF \
     -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
     -DENABLE_SAMPLING_PROFILER=OFF \
     -DENABLE_GEOLOCATION=OFF \
-    -DENABLE_GLES2=ON \
     -DENABLE_INTROSPECTION=OFF \
     -DENABLE_DOCUMENTATION=OFF \
     -DENABLE_MINIBROWSER=OFF \
@@ -95,20 +86,15 @@ cmake -B build \
     -DUSE_GSTREAMER_GL=OFF \
     -DUSE_SOUP2="${libsoup:-ON}" \
     -DUSE_LIBHYPHEN=OFF \
-    -DUSE_LIBNOTIFY=OFF \
     -DUSE_LIBSECRET=OFF \
     -DUSE_SKIA=OFF \
-    -DUSE_OPENJPEG="${jpeg:-OFF}" \
     -DUSE_JPEGXL=OFF \
-    -DUSE_SYSTEMD=OFF \
     -DUSE_WOFF2=OFF \
-    -DUSE_WPE_RENDERER=OFF \
     -DUSE_AVIF=OFF \
     -DUSE_LIBBACKTRACE=OFF \
     -DUSE_GTK4=OFF \
     -DUSE_SYSTEM_MALLOC=ON \
     -DUSE_SYSTEM_SYSPROF_CAPTURE=OFF \
-    -DENABLE_WEB_CRYPTO=OFF \
     -DENABLE_VIDEO=OFF \
     -DENABLE_WEB_AUDIO=OFF \
     -DENABLE_GAMEPAD=OFF \
