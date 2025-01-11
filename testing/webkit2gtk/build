@@ -6,9 +6,6 @@ export CCACHE_SLOPPINESS=time_macros,include_file_mtime
 
 patch -p1 < icu-76.patch
 
-# Use libsoup3, if available. This changes the webkit version from 4.0 to 4.1.
-pkg-config --exists libsoup-3.0 && libsoup=OFF
-
 # Use clang if installed, decreases compilation time by 25%.
 if command -v clang; then
     export CC=clang
