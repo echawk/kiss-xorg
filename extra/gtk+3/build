@@ -25,6 +25,10 @@ sed '/<atk-bridge.h>/d;/atk_bridge_adaptor_init/d' \
     gtk/a11y/gtkaccessibility.c > _
 mv -f _ gtk/a11y/gtkaccessibility.c
 
+# Muon compatibility.
+sed -E "/boolean/s~'(true|false)'~\1~g" meson_options.txt > _
+mv -f _ meson_options.txt
+
 meson setup \
     -Dprefix=/usr \
     -Dx11_backend=true \
