@@ -4,8 +4,8 @@ export DESTDIR="$1"
 
 # Make xauth optional at runtime.
 cmd='command -v xauth >/dev/null \&\&'
-sed "s#\(enable_xauth\)=1#$cmd&||\1=0#" startx.cpp > _
-mv -f _ startx.cpp
+sed "s#\(enable_xauth\)=1#$cmd&||\1=0#" startx.in > _
+mv -f _ startx.in
 
 ./configure \
     --prefix=/usr \
