@@ -1,0 +1,3 @@
+https://github.com/X11Libre/xserver/archive/refs/tags/xlibre-xserver-25.0.0.14.tar.gz
+patches/rootless_modesetting.patch
+patches/noxdmcp.patch

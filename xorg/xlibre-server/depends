@@ -1,0 +1,27 @@
+freetype-harfbuzz
+libX11
+libXau
+libXdamage
+libXext
+libXfixes
+libXfont2
+libXxf86vm
+libdrm
+libepoxy
+libfontenc
+libpciaccess
+libudev-zero
+libxcb
+libxcvt
+libxkbfile
+libxshmfence
+linux-headers make
+mesa
+meson make
+pixman
+pkgconf make
+samurai make
+xcb-util
+xcb-util-wm
+xkeyboard-config
+xtrans make

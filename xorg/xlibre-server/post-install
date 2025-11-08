@@ -1,0 +1,33 @@
+#!/bin/sh -e
+
+# Give Xorg setgid to /dev/input.
+chown :input "$KISS_ROOT/usr/bin/Xorg"
+chmod g+s    "$KISS_ROOT/usr/bin/Xorg"
+
+cat <<EOF
+
+NOTE: You are likely going to want to install
+      the xlibre-xf86-input-libinput package for libinput 
+      to work.
+
+-> KISS_PROMPT=0 kiss build   xlibre-xf86-input-libinput
+-> KISS_PROMPT=0 kiss install xlibre-xf86-input-libinput
+
+NOTE: You must be a part of the [1mvideo[m group
+      for rootless xorg-server to work.
+
+NOTE: This groups based permissions model may not
+      be suitable if KISS will be used as a multi
+      user system. Further configuration can be
+      done at your own discretion.
+
+-> addgroup USER video
+
+NOTE: You may need to load some kernel modules.
+      If you are using AMDGPU you need to load
+      the amdgpu module:
+
+-> modprobe amdgpu
+
+
+EOF
