@@ -45,5 +45,6 @@ pango
 pixman
 pkgconf       make
 python        make
+python-mako   make
 rust          make
 zlib

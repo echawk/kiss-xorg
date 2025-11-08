@@ -1,5 +1,5 @@
-https://ftp.mozilla.org/pub/firefox/releases/139.0.1/source/firefox-139.0.1.source.tar.xz
-patches/fix-sqlite-vec-uint.patch
+https://ftp.mozilla.org/pub/firefox/releases/144.0/source/firefox-144.0.source.tar.xz
+patches/fix-header-musl.patch
 patches/fix-target-detection.patch
 patches/musl-sandbox.patch
 patches/no-atk.patch
