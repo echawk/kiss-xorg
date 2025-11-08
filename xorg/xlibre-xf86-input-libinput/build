@@ -1,0 +1,30 @@
+#!/bin/sh -e
+
+export DESTDIR="$1"
+
+TMPDIR="$1/tmp"
+
+meson setup \
+    -Dprefix='/usr' \
+    output
+
+ninja -C output
+ninja -C output install
+
+# Some X11 packages install to /usr/share.
+! [ -d "$1/usr/share/pkgconfig" ] || {
+    mkdir -p "$1/usr/lib"
+    mv -f "$1/usr/share/pkgconfig" "$1/usr/lib"
+}
+
+# We need to keep this around.
+! [ -d "$1/usr/share/aclocal" ] || {
+    mkdir -p "$TMPDIR"
+    mv -f "$1/usr/share/aclocal" "$TMPDIR"
+}
+
+# Restore kept directories.
+! [ -d "$TMPDIR" ] || {
+    mv -f "$TMPDIR/"* "$1/usr/share"
+    rm -rf "$TMPDIR"
+}
