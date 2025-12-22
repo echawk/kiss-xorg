@@ -12,6 +12,7 @@ meson setup \
     -Ddefault_library=both \
     -Denable-docs=false \
     -Denable-wayland=false \
+    -Denable-x11=true \
     -Denable-xkbregistry=false \
     -Dpkg_config_path=/usr/lib/pkgconfig \
     output
