@@ -2,6 +2,8 @@
 
 export DESTDIR="$1"
 
+patch -p1 < fix-av-profile.patch
+
 meson setup \
     -Dprefix=/usr \
     -Dmandir=/usr/share/man \
