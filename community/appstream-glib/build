@@ -20,7 +20,6 @@ meson setup \
     -Dmandir=/usr/share/man \
     -Ddep11=false \
     -Dman=false \
-    -Dstemmer=false \
     -Dintrospection=false \
     -Drpm=false \
     output
