@@ -6,10 +6,6 @@ export DESTDIR="$1"
 sed "/subdir('tests')/d" meson.build > _
 mv -f _ meson.build
 
-# Disable git check.
-sed "s/git_bin.found()/not git_bin.found()/g" meson.build > _
-mv -f _ meson.build
-
 # Remove broken code from meson.build.
 sed -e "/BABL_UNSTABLE/d" -e "/unstable/d" meson.build > _
 mv -f _ meson.build
