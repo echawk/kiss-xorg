@@ -29,7 +29,9 @@ jobs:
       - name: Set up KISS Linux Environment
         run: |
           curl -sL https://codeberg.org/kiss-community/kiss/raw/branch/master/contrib/kiss-outdated > /usr/local/bin/kiss-outdated
+          curl -sL https://codeberg.org/kiss-community/kiss/raw/branch/master/kiss > /usr/local/bin/kiss
           chmod +x /usr/local/bin/kiss-outdated
+          chmod +x /usr/local/bin/kiss
           echo "Setting up KISS environment..."
 
       - name: Run KISS Auto Updater
