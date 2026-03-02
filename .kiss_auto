@@ -1,1 +1,3 @@
 community/,alacritty feh gexiv2 glew glm gnuplot jwm libnotify libtasn1 nsxiv sasm snd spice-protocol svkbd swig sxcs sxhkd unixodbc xcalc xkill
+extra/,freetype-harfbuzz gdk-pixbuf libinput mesa
+xorg/,libfontenc libX11 libXcomposite libXext libXinerama libxkbfile libXmu libXpm libXrandr libXxf86vm xauth
