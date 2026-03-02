@@ -41,8 +41,7 @@ jobs:
           # Ensure the config file exists
           [ -e ".kiss_auto" ] || { echo "No .kiss_auto found. Exiting."; exit 1; }
 
-          # Make sure we are starting on the default branch (e.g., main)
-          git checkout main
+          git checkout master
 
           sort -u ".kiss_auto" | while read -r LINE; do
             # Parse repository directory and packages whitelist
