@@ -1,3 +1,3 @@
-community/,alacritty feh gexiv2 glew glm gnuplot jwm libnotify libtasn1 nsxiv sasm snd spice-protocol svkbd swig sxcs sxhkd unixodbc xcalc xkill
-extra/,freetype-harfbuzz gdk-pixbuf libinput mesa
-xorg/,libfontenc libX11 libXcomposite libXext libXinerama libxkbfile libXmu libXpm libXrandr libXxf86vm xauth
+community/,abiword alacritty babl cgal dillo double-conversion doxygen eigen exiv2 feh gnumeric gexiv2 gobject-introspection goffice gst-plugins-base gstreamer glew glm gnuplot harfbuzz-icu jwm kicad libadwaita libdvdread libgsf libnghttp2 librsvg libspnav libnotify libtasn1 lxappearance lxrandr neon nsxiv openal-soft opencsg python-pivy qbittorrent sasm slop snd spice-protocol svkbd swig sxcs sxhkd unixodbc xcalc xf86-video-fbdev xkill xwallpaper yaml-cpp
+extra/,cairo ffmpeg firefox freetype-harfbuzz gdk-pixbuf giflib gtk+3 libdrm libepoxy  liberation-fonts libevdev libglvnd libinput libpciaccess libva libva-utils libxkbcommon mesa mpv mtdev pango pixman
+xorg/,libfontenc libX11 libXcomposite libXdamage libXext libXinerama libxkbfile libXmu libXpm libXrandr libXxf86vm xauth xf86-video-amdgpu xf86-video-nouveau xkeyboard-config xlibre-server xlibre-xf86-input-libinput
