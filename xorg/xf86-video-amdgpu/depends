@@ -3,5 +3,7 @@ libdrm
 libpciaccess
 linux-headers make
 mesa
+meson         make
 pkgconf       make
+samurai       make
 xorgproto
