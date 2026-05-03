@@ -1,2 +1,2 @@
-https://github.com/doxygen/doxygen/archive/Release_1_16_1.tar.gz
+https://github.com/doxygen/doxygen/archive/Release_1_17_0.tar.gz
 patches/remove-usage-of-fstat64.patch
