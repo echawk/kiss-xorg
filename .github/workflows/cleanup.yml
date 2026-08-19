@@ -1,0 +1,90 @@
+name: Auto-delete old PRs from github-actions
+
+on:
+  schedule:
+    # Every week (Sunday at 03:15 UTC)
+    - cron: "15 3 * * 0"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      DAYS_OLD: 14
+      AUTHOR: "github-actions[bot]"
+
+    steps:
+      - name: Cleanup old PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const DAYS_OLD = Number(process.env.DAYS_OLD);
+            const TARGET_AUTHOR = process.env.AUTHOR;
+            const cutoff = Date.now() - DAYS_OLD * 24 * 60 * 60 * 1000;
+            const { owner, repo } = context.repo;
+
+            // Fetch open PRs directly via List PRs API to ensure complete head.ref payload
+            const openPRs = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              state: "open",
+              per_page: 100,
+            });
+
+            core.info(`Fetched ${openPRs.length} open PR(s). Filtering by author and age...`);
+
+            for (const pr of openPRs) {
+              const prNumber = pr.number;
+              const prAuthor = pr.user?.login;
+              const createdAt = new Date(pr.created_at).getTime();
+
+              // Filter out non-matching authors or newer PRs
+              if (prAuthor !== TARGET_AUTHOR && prAuthor !== "github-actions") {
+                continue;
+              }
+
+              if (createdAt > cutoff) {
+                core.info(`PR #${prNumber} is newer than ${DAYS_OLD} days; skipping.`);
+                continue;
+              }
+
+              core.info(`Processing PR #${prNumber} "${pr.title}" (Created: ${pr.created_at})`);
+
+              // 1. Close PR
+              try {
+                await github.rest.pulls.update({
+                  owner,
+                  repo,
+                  pull_number: prNumber,
+                  state: "closed",
+                });
+                core.info(`Closed PR #${prNumber}.`);
+              } catch (err) {
+                core.error(`Failed to close PR #${prNumber}: ${err.message}`);
+                continue; // Skip branch deletion if PR closing failed
+              }
+
+              // 2. Delete associated head branch safely
+              const headRef = pr.head?.ref;
+              const headOwner = pr.head?.repo?.owner?.login;
+              const headRepo = pr.head?.repo?.name;
+
+              if (headRef && headOwner && headRepo) {
+                try {
+                  await github.rest.git.deleteRef({
+                    owner: headOwner,
+                    repo: headRepo,
+                    ref: `heads/${headRef}`,
+                  });
+                  core.info(`Deleted branch '${headRef}'.`);
+                } catch (err) {
+                  core.warning(`Could not delete branch '${headRef}' for PR #${prNumber}: ${err.message}`);
+                }
+              } else {
+                core.warning(`PR #${prNumber}: Missing head ref details; branch deletion skipped.`);
+              }
+            }
